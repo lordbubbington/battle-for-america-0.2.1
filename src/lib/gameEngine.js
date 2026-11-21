@@ -663,7 +663,7 @@ export function createGame({
     // What the Lib and Green campaigns have won for themselves, state by state.
     build39: { version: 1, candidateOpening: true, scenario: initializeScenarioState({ scenarioId, ideologyByState: VOTER_COMPOSITION.byState,
       voteUnitsByState: Object.fromEntries(STATES.map(({ abbr }) => [abbr, voteUnits(abbr)])) }) },
-    thirdMods: Object.fromEntries(scenarioPartyIds(scenarioId).filter((id) => id !== 'ind' && isThirdParty(id)).map((id) => [id, {}])),
+    thirdMods: Object.fromEntries(scenarioPartyIds(scenarioId).filter((id) => id !== 'ind' && (isThirdParty(id) || isScenarioCandidate(id))).map((id) => [id, {}])),
     fourPartyNews: {},
     rivals: [],
     // Group-level opinion, kept in the same units as a state shift but applied
@@ -1271,7 +1271,7 @@ function applyMomentumPersuasion(game, shifts) {
   const capped = capMomentumPersuasion(game, shifts);
   const pov = game.party === 'rep' ? -1 : 1;
   Object.entries(capped).forEach(([abbr, amount]) => {
-    if (isThirdParty(game.party)) {
+    if (isThirdParty(game.party) || isScenarioCandidate(game.party)) {
       const mag = Math.abs(amount);
       if (mag > 0) applyMinorPartyPersuasion(game, game.party, abbr, amount * pov >= 0 ? mag : -mag);
     } else {
@@ -4072,7 +4072,7 @@ export function applyAction(game, actionId, abbr, payload = {}) {
     } else {
       note = `Rallied in ${state.name}`;
     }
-    if (isThirdParty(game.party)) applyMinorPartyPersuasion(next, game.party, abbr, persuasionPoints || Math.abs(stopEffects.persuasion) || 0.1);
+    if (isThirdParty(game.party) || isScenarioCandidate(game.party)) applyMinorPartyPersuasion(next, game.party, abbr, persuasionPoints || Math.abs(stopEffects.persuasion) || 0.1);
     else next.stateMods[abbr] = (next.stateMods[abbr] || 0) + scaleRegionalPersuasion(next, persuasionPoints) * pov;
     const crowd = createSeededRandom([game.build34CampaignId, game.week, left, abbr, 'rally-crowd'].join(':'));
     const expectedAttendance = 200 + state.ev * 40;
