@@ -1,0 +1,284 @@
+{
+  "schemaVersion": 2,
+  "batch": "traditional-generic-08-14",
+  "styleReference": {
+    "commit": "5f37bfe624624727f45f209a8d71079fd5e2bd85",
+    "path": "build35/public/art/staff/nontraditional/wrestling-promoter.png",
+    "sha256": "637d124c3f06b1f7d0a5855a85d5c8f5aa45756a14ebaba316e402e3d137d6cb"
+  },
+  "slushSourceIds": [],
+  "generationMode": "OpenAI built-in imagegen",
+  "exportTreatment": "Nearest-neighbor sampling at 96px. Binary alpha threshold 128. Transparent pixels store zero RGB.",
+  "contactSheet": "contact-sheet-staff-traditional-generic-08-14.png",
+  "contactSheetSha256": "fbbfd19704a50f262daacc6b02d4f7052c409197f19fe8bfa48b8930906cb8fa",
+  "contactSheetLayout": "Assignment order left to right. Native 96px on navy, staff card 80px on slate.",
+  "mapFile": "mapping-staff-traditional-generic-08-14.csv",
+  "portraits": [
+    {
+      "assignmentIndex": 8,
+      "id": "traditional-generic-08",
+      "name": "Anonymous traditional staff 08",
+      "file": "traditional-generic-08.png",
+      "width": 96,
+      "height": 96,
+      "format": "PNG RGBA",
+      "sha256": "ceca2e0b3ed594cd807520789012b1ea5f71ef8545c7428619666d2693d3d4bc",
+      "validation": {
+        "transparentPixels": 4492,
+        "opaquePixels": 4724,
+        "alphaLevels": [
+          0,
+          255
+        ],
+        "transparentRgbZero": true,
+        "silhouetteBounds": {
+          "minX": 1,
+          "minY": 5,
+          "maxX": 94,
+          "maxY": 94
+        },
+        "opaqueRgbColors": 3005,
+        "majorColorGroups": 19,
+        "majorColorGroupsMethod": "RGB bins of 32 levels containing at least one percent of opaque pixels"
+      },
+      "provenance": {
+        "method": "OpenAI built-in imagegen, original fictional portrait",
+        "sourceFile": "exec-29dcc293-8377-463d-839d-0dec787114b0.png",
+        "sourceSha256": "e7b5cefda3a53e0fdd35035e72f1a91a61c937bb544f20c014cddd0da797a718",
+        "sourceDimensions": [
+          1254,
+          1254
+        ],
+        "prompt": "Use case: stylized-concept. Asset type: a single character portrait for the Battle For America 2028 campaign strategy game. Image 1 is the approved visual style reference. Match the reference's centered head-and-shoulders bust, similar head scale and bottom crop, clean dark navy contours, warm upper-left lighting, readable stepped shading, deliberate hard pixel clusters, and muted teal, copper, slate and ivory accents. The final sprite will be sampled at 96x96 and 80x80, so use bold contiguous pixel shapes instead of sketch lines, heavy dithering, noisy microtexture, soft gradients, sparse detached specks, or blurry antialiasing. A head and shoulders fill 80–88 percent of the square canvas and are entirely inside it except for the bust at the bottom. True transparent background and transparent padding around the head and shoulders. One portrait only, no frame, text, logo, visible background, cutout shadow, or watermark. No resemblance to a named real person. Subject: a different anonymous fictional adult in neutral campaign-office attire, a middle-aged Black man with a close-cropped salt-and-pepper haircut, oval dark slate eyeglasses, and a dark blue-gray blazer over a pale ivory open-collar shirt. Frontal with a slight three-quarter turn, attentive, calm expression. Match the reference's framing and treatment only. No microphone, jewelry, distinctive insignia, title, political pin, or recognizable likeness. The portrait can represent any campaign staff role."
+      }
+    },
+    {
+      "assignmentIndex": 9,
+      "id": "traditional-generic-09",
+      "name": "Anonymous traditional staff 09",
+      "file": "traditional-generic-09.png",
+      "width": 96,
+      "height": 96,
+      "format": "PNG RGBA",
+      "sha256": "3e08e4c522e806ebd0422701bc5334eb92b0539760514ed95dbc23d788efc2ea",
+      "validation": {
+        "transparentPixels": 4540,
+        "opaquePixels": 4676,
+        "alphaLevels": [
+          0,
+          255
+        ],
+        "transparentRgbZero": true,
+        "silhouetteBounds": {
+          "minX": 5,
+          "minY": 5,
+          "maxX": 90,
+          "maxY": 92
+        },
+        "opaqueRgbColors": 2470,
+        "majorColorGroups": 19,
+        "majorColorGroupsMethod": "RGB bins of 32 levels containing at least one percent of opaque pixels"
+      },
+      "provenance": {
+        "method": "OpenAI built-in imagegen, original fictional portrait",
+        "sourceFile": "exec-45684a9e-d1bc-4cdb-a530-8fafe1a5d490.png",
+        "sourceSha256": "85f9dfb43a0e4b5f27d6a5efc0db407d5408fa8553e0cb42e46ba272e3ea0f48",
+        "sourceDimensions": [
+          1254,
+          1254
+        ],
+        "prompt": "Use case: stylized-concept. Asset type: a single character portrait for the Battle For America 2028 campaign strategy game. Image 1 is the approved visual style reference. Match the reference's centered head-and-shoulders bust, similar head scale and bottom crop, clean dark navy contours, warm upper-left lighting, readable stepped shading, deliberate hard pixel clusters, and muted teal, copper, slate and ivory accents. The final sprite will be sampled at 96x96 and 80x80, so use bold contiguous pixel shapes instead of sketch lines, heavy dithering, noisy microtexture, soft gradients, sparse detached specks, or blurry antialiasing. A head and shoulders fill 80–88 percent of the square canvas and are entirely inside it except for the bust at the bottom. True transparent background and transparent padding around the head and shoulders. One portrait only, no frame, text, logo, visible background, cutout shadow, or watermark. No resemblance to a named real person. Subject: An anonymous fictional white woman in her late 40s, with a chestnut bob and soft cheekbones. Calm gaze, charcoal blazer over a muted teal crew-neck blouse. An ordinary campaign-office adult, no props or accessories. Original fictional adult identity, distinct from the reference. Maintain the same proportional head size and clean transparent padding. Palette clusters remain visually compact and purposeful. Campaign-office attire with no identifying job prop, text, pins, or badges."
+      }
+    },
+    {
+      "assignmentIndex": 10,
+      "id": "traditional-generic-10",
+      "name": "Anonymous traditional staff 10",
+      "file": "traditional-generic-10.png",
+      "width": 96,
+      "height": 96,
+      "format": "PNG RGBA",
+      "sha256": "72b369875b5c0b20c012b67ac7dc8022089e6c3ecb2115777d55e4208639cff3",
+      "validation": {
+        "transparentPixels": 4903,
+        "opaquePixels": 4313,
+        "alphaLevels": [
+          0,
+          255
+        ],
+        "transparentRgbZero": true,
+        "silhouetteBounds": {
+          "minX": 2,
+          "minY": 6,
+          "maxX": 93,
+          "maxY": 93
+        },
+        "opaqueRgbColors": 2214,
+        "majorColorGroups": 16,
+        "majorColorGroupsMethod": "RGB bins of 32 levels containing at least one percent of opaque pixels"
+      },
+      "provenance": {
+        "method": "OpenAI built-in imagegen, original fictional portrait",
+        "sourceFile": "exec-4f9c412d-39e5-4b2a-a6b9-96bea630af77.png",
+        "sourceSha256": "8ada91b7c0d6520d8e6a15e065d6dae3788e01f59df85936b51177cf3afb1f95",
+        "sourceDimensions": [
+          1254,
+          1254
+        ],
+        "prompt": "Use case: stylized-concept. Asset type: a single character portrait for the Battle For America 2028 campaign strategy game. Image 1 is the approved visual style reference. Match the reference's centered head-and-shoulders bust, similar head scale and bottom crop, clean dark navy contours, warm upper-left lighting, readable stepped shading, deliberate hard pixel clusters, and muted teal, copper, slate and ivory accents. The final sprite will be sampled at 96x96 and 80x80, so use bold contiguous pixel shapes instead of sketch lines, heavy dithering, noisy microtexture, soft gradients, sparse detached specks, or blurry antialiasing. A head and shoulders fill 80–88 percent of the square canvas and are entirely inside it except for the bust at the bottom. True transparent background and transparent padding around the head and shoulders. One portrait only, no frame, text, logo, visible background, cutout shadow, or watermark. No resemblance to a named real person. Subject: An anonymous fictional East Asian man in his late 20s, with straight short black hair and an oval face. Gentle closed-mouth smile, slate-gray blazer and pale blue open-collar shirt. An ordinary campaign-office adult, no props or accessories. Original fictional adult identity, distinct from the reference. Maintain the same proportional head size and clean transparent padding. Palette clusters remain visually compact and purposeful. Campaign-office attire with no identifying job prop, text, pins, or badges."
+      }
+    },
+    {
+      "assignmentIndex": 11,
+      "id": "traditional-generic-11",
+      "name": "Anonymous traditional staff 11",
+      "file": "traditional-generic-11.png",
+      "width": 96,
+      "height": 96,
+      "format": "PNG RGBA",
+      "sha256": "ed06061707524e3fba9614a887eb49e3891c5cfe029f8c172e3e77d847533e07",
+      "validation": {
+        "transparentPixels": 5054,
+        "opaquePixels": 4162,
+        "alphaLevels": [
+          0,
+          255
+        ],
+        "transparentRgbZero": true,
+        "silhouetteBounds": {
+          "minX": 8,
+          "minY": 2,
+          "maxX": 87,
+          "maxY": 93
+        },
+        "opaqueRgbColors": 2269,
+        "majorColorGroups": 16,
+        "majorColorGroupsMethod": "RGB bins of 32 levels containing at least one percent of opaque pixels"
+      },
+      "provenance": {
+        "method": "OpenAI built-in imagegen, original fictional portrait",
+        "sourceFile": "exec-9d6679ff-8da9-435f-8814-434c649bd2d4.png",
+        "sourceSha256": "973cd66caf2037286f8ef1b550eeb6e25eef47e08446b3294b4f767e4ea103eb",
+        "sourceDimensions": [
+          1254,
+          1254
+        ],
+        "prompt": "Use case: stylized-concept. Asset type: a single character portrait for the Battle For America 2028 campaign strategy game. Image 1 is the approved visual style reference. Match the reference's centered head-and-shoulders bust, similar head scale and bottom crop, clean dark navy contours, warm upper-left lighting, readable stepped shading, deliberate hard pixel clusters, and muted teal, copper, slate and ivory accents. The final sprite will be sampled at 96x96 and 80x80, so use bold contiguous pixel shapes instead of sketch lines, heavy dithering, noisy microtexture, soft gradients, sparse detached specks, or blurry antialiasing. A head and shoulders fill 80–88 percent of the square canvas and are entirely inside it except for the bust at the bottom. True transparent background and transparent padding around the head and shoulders. One portrait only, no frame, text, logo, visible background, cutout shadow, or watermark. No resemblance to a named real person. Subject: An anonymous fictional Black woman in her 30s, with natural tightly coiled hair in a centered puff and a wide warm smile. Navy blazer and warm ivory crew-neck blouse. An ordinary campaign-office adult, no props or accessories. Original fictional adult identity, distinct from the reference. Maintain the same proportional head size and clean transparent padding. Palette clusters remain visually compact and purposeful. Campaign-office attire with no identifying job prop, text, pins, or badges."
+      }
+    },
+    {
+      "assignmentIndex": 12,
+      "id": "traditional-generic-12",
+      "name": "Anonymous traditional staff 12",
+      "file": "traditional-generic-12.png",
+      "width": 96,
+      "height": 96,
+      "format": "PNG RGBA",
+      "sha256": "702df5c2aab82d1a9ab83ccf76a1c17ad09b272a3bbf51a0332ec3225cf9f170",
+      "validation": {
+        "transparentPixels": 4356,
+        "opaquePixels": 4860,
+        "alphaLevels": [
+          0,
+          255
+        ],
+        "transparentRgbZero": true,
+        "silhouetteBounds": {
+          "minX": 1,
+          "minY": 4,
+          "maxX": 94,
+          "maxY": 93
+        },
+        "opaqueRgbColors": 3257,
+        "majorColorGroups": 24,
+        "majorColorGroupsMethod": "RGB bins of 32 levels containing at least one percent of opaque pixels"
+      },
+      "provenance": {
+        "method": "OpenAI built-in imagegen, original fictional portrait",
+        "sourceFile": "exec-9fa5c075-0b42-4d07-ba8b-e889d34d7b79.png",
+        "sourceSha256": "810e1df0e6863f4567e52807c1f9d2f9383612d9f19302fbc17c29a40077cd93",
+        "sourceDimensions": [
+          1254,
+          1254
+        ],
+        "prompt": "Use case: stylized-concept. Asset type: a single character portrait for the Battle For America 2028 campaign strategy game. Image 1 is the approved visual style reference. Match the reference's centered head-and-shoulders bust, similar head scale and bottom crop, clean dark navy contours, warm upper-left lighting, readable stepped shading, deliberate hard pixel clusters, and muted teal, copper, slate and ivory accents. The final sprite will be sampled at 96x96 and 80x80, so use bold contiguous pixel shapes instead of sketch lines, heavy dithering, noisy microtexture, soft gradients, sparse detached specks, or blurry antialiasing. A head and shoulders fill 80–88 percent of the square canvas and are entirely inside it except for the bust at the bottom. True transparent background and transparent padding around the head and shoulders. One portrait only, no frame, text, logo, visible background, cutout shadow, or watermark. No resemblance to a named real person. Subject: An anonymous fictional older white man with gray wavy hair, strong jaw and silver mustache. Thoughtful relaxed expression, muted moss sport coat and slate shirt. An ordinary campaign-office adult, no props or accessories. Original fictional adult identity, distinct from the reference. Maintain the same proportional head size and clean transparent padding. Palette clusters remain visually compact and purposeful. Campaign-office attire with no identifying job prop, text, pins, or badges."
+      }
+    },
+    {
+      "assignmentIndex": 13,
+      "id": "traditional-generic-13",
+      "name": "Anonymous traditional staff 13",
+      "file": "traditional-generic-13.png",
+      "width": 96,
+      "height": 96,
+      "format": "PNG RGBA",
+      "sha256": "96e59b98edc77ada53e41da950e22831c7e78e6c0d34097f110da89be47c9dc2",
+      "validation": {
+        "transparentPixels": 4376,
+        "opaquePixels": 4840,
+        "alphaLevels": [
+          0,
+          255
+        ],
+        "transparentRgbZero": true,
+        "silhouetteBounds": {
+          "minX": 3,
+          "minY": 5,
+          "maxX": 91,
+          "maxY": 93
+        },
+        "opaqueRgbColors": 2696,
+        "majorColorGroups": 18,
+        "majorColorGroupsMethod": "RGB bins of 32 levels containing at least one percent of opaque pixels"
+      },
+      "provenance": {
+        "method": "OpenAI built-in imagegen, original fictional portrait",
+        "sourceFile": "exec-a82db8fc-6cdb-4991-8d4f-946d596f9122.png",
+        "sourceSha256": "713eb8d7b540038eb2b8d0eff50637798daac7ca10bd5432c90d609f2393162a",
+        "sourceDimensions": [
+          1254,
+          1254
+        ],
+        "prompt": "Use case: stylized-concept. Asset type: a single character portrait for the Battle For America 2028 campaign strategy game. Image 1 is the approved visual style reference. Match the reference's centered head-and-shoulders bust, similar head scale and bottom crop, clean dark navy contours, warm upper-left lighting, readable stepped shading, deliberate hard pixel clusters, and muted teal, copper, slate and ivory accents. The final sprite will be sampled at 96x96 and 80x80, so use bold contiguous pixel shapes instead of sketch lines, heavy dithering, noisy microtexture, soft gradients, sparse detached specks, or blurry antialiasing. A head and shoulders fill 80–88 percent of the square canvas and are entirely inside it except for the bust at the bottom. True transparent background and transparent padding around the head and shoulders. One portrait only, no frame, text, logo, visible background, cutout shadow, or watermark. No resemblance to a named real person. Subject: An anonymous fictional South Asian woman in her early 30s, with long dark hair pulled back and strong expressive brows. Confident half-smile, muted burgundy blazer over a warm ivory blouse. An ordinary campaign-office adult, no props or accessories. Original fictional adult identity, distinct from the reference. Maintain the same proportional head size and clean transparent padding. Palette clusters remain visually compact and purposeful. Campaign-office attire with no identifying job prop, text, pins, or badges."
+      }
+    },
+    {
+      "assignmentIndex": 14,
+      "id": "traditional-generic-14",
+      "name": "Anonymous traditional staff 14",
+      "file": "traditional-generic-14.png",
+      "width": 96,
+      "height": 96,
+      "format": "PNG RGBA",
+      "sha256": "811fe6c082daf46c01859064ebec0a73ac29bc82ec64defb62520b7d1d5ad547",
+      "validation": {
+        "transparentPixels": 4026,
+        "opaquePixels": 5190,
+        "alphaLevels": [
+          0,
+          255
+        ],
+        "transparentRgbZero": true,
+        "silhouetteBounds": {
+          "minX": 1,
+          "minY": 1,
+          "maxX": 94,
+          "maxY": 94
+        },
+        "opaqueRgbColors": 2929,
+        "majorColorGroups": 19,
+        "majorColorGroupsMethod": "RGB bins of 32 levels containing at least one percent of opaque pixels"
+      },
+      "provenance": {
+        "method": "OpenAI built-in imagegen, original fictional portrait",
+        "sourceFile": "exec-3666ca0b-f6be-4616-9ef1-6ec830b2af83.png",
+        "sourceSha256": "b46d3ae5f3242dfa74c6273381c357b49a4ce992ae28fdc1a713d166081d4c3f",
+        "sourceDimensions": [
+          1254,
+          1254
+        ],
+        "prompt": "Use case: stylized-concept. Asset type: a single character portrait for the Battle For America 2028 campaign strategy game. Image 1 is the approved visual style reference. Match the reference's centered head-and-shoulders bust, similar head scale and bottom crop, clean dark navy contours, warm upper-left lighting, readable stepped shading, deliberate hard pixel clusters, and muted teal, copper, slate and ivory accents. The final sprite will be sampled at 96x96 and 80x80, so use bold contiguous pixel shapes instead of sketch lines, heavy dithering, noisy microtexture, soft gradients, sparse detached specks, or blurry antialiasing. A head and shoulders fill 80–88 percent of the square canvas and are entirely inside it except for the bust at the bottom. True transparent background and transparent padding around the head and shoulders. One portrait only, no frame, text, logo, visible background, cutout shadow, or watermark. No resemblance to a named real person. Subject: An anonymous fictional Latino man in his 40s, with dark curly hair, a trimmed beard and warm olive skin. Friendly thoughtful face, muted charcoal cardigan and pale blue collared shirt. An ordinary campaign-office adult, no props or accessories. Original fictional adult identity, distinct from the reference. Maintain the same proportional head size and clean transparent padding. Palette clusters remain visually compact and purposeful. Campaign-office attire with no identifying job prop, text, pins, or badges."
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "ticketParity": {
+    "player": {
+      "party": "dem",
+      "candidateId": "shapiro",
+      "vpId": "klobuchar",
+      "factionStandings": { "suburbs": 50, "officials": 50 },
+      "activeVoterGroupIds": ["moderate"],
+      "expectedPrimary": { "suburbs": 90 },
+      "expectedDeltas": [
+        { "party": "dem", "factionId": "officials", "approvalPoints": -10, "source": "president-secondary" },
+        { "party": "dem", "factionId": "suburbs", "approvalPoints": 10, "source": "vp-affinity" },
+        { "party": "dem", "factionId": "officials", "approvalPoints": -10, "source": "vp-opposition" }
+      ],
+      "expectedGroupEffect": { "party": "dem", "groupId": "moderate", "sharePoints": 2 }
+    },
+    "rival": {
+      "party": "rep",
+      "candidateId": "vance",
+      "vpId": "haley",
+      "factionStandings": { "base": 50, "officials": 50, "business": 50, "donors": 50 },
+      "activeVoterGroupIds": ["moderate", "populistright"],
+      "expectedPrimary": { "base": 93 },
+      "expectedDeltas": [
+        { "party": "rep", "factionId": "officials", "approvalPoints": -10, "source": "president-secondary" },
+        { "party": "rep", "factionId": "business", "approvalPoints": 10, "source": "vp-affinity" },
+        { "party": "rep", "factionId": "donors", "approvalPoints": -10, "source": "vp-opposition" }
+      ],
+      "expectedGroupEffect": { "party": "rep", "groupId": "moderate", "sharePoints": 2 }
+    }
+  },
+  "qualifyingAdReceipt": {
+    "id": "campaign-1:ad-buy:week-4:TX",
+    "sourceReceiptId": "campaign-1:ad-buy:week-4:TX",
+    "sourceType": "advertisement",
+    "state": "TX",
+    "week": 4,
+    "payload": {
+      "issueId": "affordability",
+      "states": ["TX"],
+      "result": { "abbr": "TX", "kind": "pro", "swing": 1.2, "points": 1.2, "backfire": false }
+    }
+  },
+  "neighborFixtures": [
+    { "name": "Texas-adapts-to-first-eligible-land-neighbor", "stateId": "TX", "availableStates": ["TX", "OK", "LA", "AR"], "expectedNeighbor": "AR" },
+    { "name": "Alaska-has-no-eligible-land-neighbor", "stateId": "AK", "availableStates": ["AK", "TX"], "expectedNeighbor": null },
+    { "name": "Hawaii-has-no-eligible-land-neighbor", "stateId": "HI", "availableStates": ["HI", "CA"], "expectedNeighbor": null }
+  ],
+  "sweepCommands": [
+    { "commandId": "quick-outcomes", "draws": 50000, "sweepRequested": true, "expectedEnabled": true },
+    { "commandId": "quick-outcomes", "draws": 49999, "sweepRequested": true, "expectedEnabled": false },
+    { "commandId": "campaign-run", "draws": 50000, "sweepRequested": true, "expectedEnabled": false },
+    { "commandId": "quick-outcomes", "draws": 50000, "sweepRequested": false, "expectedEnabled": false }
+  ]
+}

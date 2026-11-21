@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+const baseline=new URL('../build44/engine.test.mjs',import.meta.url);
+let source=fs.readFileSync(baseline,'utf8');
+source=source.replace("const root = new URL('../../../', import.meta.url);", "const root = new URL('../../../evidence/qa/build44-preservation/', import.meta.url);\nfs.mkdirSync(new URL('fixtures/',root),{recursive:true});fs.mkdirSync(new URL('evidence/',root),{recursive:true});");
+source=source.replace("import { BUILD40_EVENTS as events }", "import { CANDIDATE_EVENTS } from '../../src/data/candidateEvents/index.js';\nimport { TRADITIONAL_STAFF_SELECTION_COUNT } from '../../src/data/traditionalStaffRoster.js';\nimport { BUILD40_EVENTS as events }");
+source=source.replace('engine.confirmBuild35Staffing(fresh,staff)','engine.confirmBuild35Staffing(fresh,staff.slice(0,TRADITIONAL_STAFF_SELECTION_COUNT))');
+source=source.replaceAll('events.map(e=>e.id).filter','[...events,...CANDIDATE_EVENTS].map(e=>e.id).filter');
+source=source.replace("source?.payload.neglectedStateMove?.abbr==='FL' &&", "source?.payload.neglectedStateMove?.abbr &&");
+source=source.replace("assert.ok(rival,'native FL rival move');", "assert.ok(rival,'native rival move');\nconst rivalState=rival.source.payload.neglectedStateMove.abbr;");
+const rivalStart=source.indexOf('const nextWeek=engine.advanceWeek(rival.committed);');
+const rivalEnd=source.indexOf('// Exact deterministic lottery intervals');
+source=source.slice(0,rivalStart)+source.slice(rivalStart,rivalEnd).replaceAll("'FL'",'rivalState')+source.slice(rivalEnd);
+source+=`\nconst pinnedRival=JSON.parse(fs.readFileSync(new URL('../../../../build-0.1.4-integration-worktree/fixtures/072-valid-pending.json',import.meta.url)));\nconst pinnedLoaded=resume(pinnedRival);assert.equal(pinnedLoaded.currentEventData.context.stateId,'FL');const pinnedDone=engine.applyChoice(pinnedLoaded,'choice-1');assert.ok(pinnedDone.outcome);assert.equal(pinnedDone.build40.decisionReceipts.at(-1).stateId,'FL');write('evidence/pinned-fl-072.json',{baselineState:'FL',resumeState:pinnedLoaded.currentEventData.context.stateId,applied:pinnedDone.build40.decisionReceipts.at(-1),legacyStaffRetained:pinnedLoaded.staffing.traditionalActiveIds.length+pinnedLoaded.staffing.nonTraditionalActiveIds.length});\n`;
+const target=new URL('./qa-preserve-build44-generated.mjs',import.meta.url);fs.writeFileSync(target,source);
+await import(target.href);

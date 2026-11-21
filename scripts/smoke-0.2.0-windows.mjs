@@ -1,0 +1,221 @@
+import assert from 'node:assert/strict';
+import { spawn } from 'node:child_process';
+import { createServer } from 'node:net';
+import { mkdtemp } from 'node:fs/promises';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { setTimeout as delay } from 'node:timers/promises';
+import os from 'node:os';
+import path from 'node:path';
+import { unzipSync } from 'node:zlib';
+
+const executable = path.resolve(process.argv[2] || 'release-output/win-unpacked/Battle for America 2028.exe');
+const profile = await mkdtemp(path.join(os.tmpdir(), 'bfa020-qa-'));
+const portProbe = createServer();
+await new Promise((resolve, reject) => {
+  portProbe.once('error', reject);
+  portProbe.listen(0, '127.0.0.1', resolve);
+});
+const debugPort = portProbe.address().port;
+await new Promise((resolve) => portProbe.close(resolve));
+const game = spawn(executable, [
+  '--remote-debugging-port=' + debugPort,
+  '--remote-debugging-address=127.0.0.1',
+  '--disable-background-networking',
+  '--disable-background-timer-throttling',
+  '--disable-renderer-backgrounding',
+  '--disable-backgrounding-occluded-windows',
+  '--user-data-dir=' + profile,
+], { cwd: profile, windowsHide: true, stdio: 'ignore' });
+let socket;
+try {
+  let launchError;
+  game.once('error', (error) => { launchError = error; });
+  let page;
+  for (let i = 0; i < 180 && !page; i++) {
+    if (launchError) throw launchError;
+    if (game.exitCode != null) throw new Error('Packaged game exited early with code ' + game.exitCode);
+    try {
+      const targets = await fetch('http://127.0.0.1:' + debugPort + '/json/list').then((response) => response.json());
+      page = targets.find((target) => target.type === 'page' && target.url.includes('/dist/index.html'));
+    } catch {}
+    if (!page) await delay(100);
+  }
+  assert.ok(page, 'Packaged app loaded its local index.html');
+  assert.match(page.url, /^file:/);
+  socket = new WebSocket(page.webSocketDebuggerUrl);
+  await new Promise((resolve, reject) => {
+    socket.addEventListener('open', resolve, { once: true });
+    socket.addEventListener('error', reject, { once: true });
+  });
+  const requests = new Map();
+  const errors = [];
+  let sequence = 0;
+  socket.addEventListener('message', ({ data }) => {
+    const message = JSON.parse(data);
+    if (message.id && requests.has(message.id)) {
+      const { resolve, reject } = requests.get(message.id);
+      requests.delete(message.id);
+      if (message.error) reject(new Error(message.error.message)); else resolve(message.result);
+    }
+    if (message.method === 'Runtime.exceptionThrown') errors.push(message.params.exceptionDetails.text);
+  });
+  function cdp(method, params = {}) {
+    return new Promise((resolve, reject) => {
+      const id = ++sequence;
+      requests.set(id, { resolve, reject });
+      socket.send(JSON.stringify({ id, method, params }));
+    });
+  }
+  async function evaluate(expression) {
+    const result = await cdp('Runtime.evaluate', { expression, returnByValue: true });
+    if (result.exceptionDetails) throw new Error(result.exceptionDetails.exception?.description || result.exceptionDetails.text);
+    return result.result.value;
+  }
+  async function waitFor(expression, label, attempts = 120) {
+    for (let i = 0; i < attempts; i++) {
+      const value = await evaluate(expression);
+      if (value) return value;
+      await delay(100);
+    }
+    throw new Error(label + ' missing: ' + await evaluate('document.body.innerText.slice(-1800)'));
+  }
+  async function click(label) {
+    await waitFor("(() => { const button = [...document.querySelectorAll('button')].find((item) => !item.disabled && item.innerText.trim() === " + JSON.stringify(label) + "); if (!button) return false; button.click(); return true; })()", label);
+  }
+  const testId = (id) => '[data-testid="' + id + '"]';
+  async function clickSelector(selector, label = selector) {
+    await waitFor(`(() => { const node = document.querySelector(${JSON.stringify(selector)}); if (!node || node.disabled) return false; node.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true })); return true; })()`, label);
+  }
+  async function setViewport(width, height) {
+    await cdp('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false });
+    await delay(150);
+    const metrics = await evaluate(`({ width: innerWidth, height: innerHeight, documentWidth: document.documentElement.scrollWidth })`);
+    assert.equal(metrics.width, width, `${width} viewport applied`);
+    assert.equal(metrics.height, height, `${height} viewport applied`);
+    assert.ok(metrics.documentWidth <= width + 1, `${width} viewport has no horizontal page overflow`);
+  }
+  async function campaign() {
+    const packed = await waitFor("localStorage.getItem('election2028.save.v40')", 'v40 campaign save');
+    return JSON.parse(packed.startsWith('b35:z1:') ? unzipSync(Buffer.from(packed.slice(7), 'base64')).toString() : packed);
+  }
+  const storageKey = 'election2028.save.v40';
+  const label=(process.env.BFA_QA_PACKAGE_LABEL||'candidate').replace(/[^a-z0-9-]/gi,'-');
+  const evidence=new URL('../../evidence/qa/packaged-'+label+'/',import.meta.url);
+  mkdirSync(evidence,{recursive:true});
+  const report={executable,offline:true,version:'0.2.0',fresh:[],guarantees:[]};
+  const selectedCount=()=>evaluate(`document.querySelectorAll('[aria-label="Staff choices"] button[aria-pressed="true"]').length`);
+  async function screen(name){const shot=await cdp('Page.captureScreenshot',{format:'png'});writeFileSync(new URL(name+'.png',evidence),Buffer.from(shot.data,'base64'));}
+  async function reload(){await cdp('Page.reload');await waitFor('!!document.querySelector("[data-testid=action-bar]")','campaign action bar');}
+  async function inject(fixture){await evaluate(`localStorage.setItem(${JSON.stringify(storageKey)},${JSON.stringify(JSON.stringify(fixture))})`);await reload();return campaign();}
+  async function resumeExact(){const before=await campaign();await reload();const after=await campaign();assert.deepEqual(after.staffing,before.staffing);assert.deepEqual(after.earlyBallotLedger,before.earlyBallotLedger);assert.deepEqual(after.candidateEvents,before.candidateEvents);assert.deepEqual(after.build40.decisionReceipts,before.build40.decisionReceipts);return after;}
+  const innerCircle=g=>[...g.staffing.traditionalActiveIds,...g.staffing.nonTraditionalActiveIds];
+  await cdp('Runtime.enable');await cdp('Page.enable');await cdp('Network.enable');
+  await cdp('Network.emulateNetworkConditions',{offline:true,latency:0,downloadThroughput:0,uploadThroughput:0});
+  await setViewport(1440,900);
+  await waitFor('document.title.includes("0.2.0")','0.2.0 application title');
+  for(const [mode,party,candidate,rival,state] of [
+    ['two-parties','dem','shapiro','vance','PA'],['four-parties','lib','oliver','shapiro','PA'],
+    ['six-party','progressive','bernie-sanders','vance','PA'],['regional-parties','farmer-labor','farmer-labor','shapiro','MN']]){
+    await evaluate('localStorage.removeItem('+JSON.stringify(storageKey)+')');await cdp('Page.reload');
+    await clickSelector('summary','Advanced Options');
+    await clickSelector('input[name="build40-election-mode"][value="'+mode+'"]');
+    const historicalOrder=[];
+    for(const majorParty of ['dem','rep']){
+      await clickSelector(testId('party-'+majorParty));
+      const lists=await evaluate(`['cand','opp'].map(prefix=>[...document.querySelectorAll('button[data-testid^="'+prefix+'-"]')].map(button=>button.dataset.testid.slice(prefix.length+1)))`);
+      for(const list of lists){const historical=list.find(id=>['fdr','reagan'].includes(id));if(historical)assert.equal(list.at(-1),historical,'historical nominee last');}
+      const vpLabels=await evaluate(`(() => {const section=[...document.querySelectorAll('h2')].find(node=>node.textContent==='Pick your running mate')?.closest('section');return section?[...section.querySelectorAll('button')].map(button=>button.innerText):[];})()`);
+      assert.ok(!vpLabels.some(text=>/Roosevelt|Reagan/.test(text)),'historical nominees excluded as VP');historicalOrder.push({party:majorParty,lists,vicePresidents:vpLabels});
+    }
+    await clickSelector(testId('party-'+party));
+    await clickSelector(testId('cand-'+candidate));
+    const availableRival = await evaluate(`(() => {const preferred=document.querySelector(${JSON.stringify(testId('opp-'+rival))});return (preferred || document.querySelector('button[data-testid^="opp-"]'))?.dataset.testid || null;})()`);
+    assert.ok(availableRival, 'an eligible opposing candidate is available');
+    await clickSelector(testId(availableRival));
+    await clickSelector(testId('launch'),'Launch '+mode);
+    await waitFor('!!document.querySelector("[aria-label=\\"Staff choices\\"]")','staff picker');
+    await waitFor(`[...document.querySelectorAll('[aria-label="Staff choices"] img')].length>=16 && [...document.querySelectorAll('[aria-label="Staff choices"] img')].every(img=>img.complete&&img.naturalWidth>0)`,'loaded staff portraits');
+    for(const [w,h] of [[1440,900],[960,640]]){await setViewport(w,h);await screen(mode+'-staff-'+w);}
+    await clickSelector('[aria-label="Staff choices"] button:nth-child(1)');await clickSelector('[aria-label="Staff choices"] button:nth-child(2)');
+    assert.equal(await selectedCount(),2);
+    assert.equal(await evaluate(`[...document.querySelectorAll('button')].find(b=>b.innerText.trim()==='Confirm inner circle').disabled`),true,'two cannot confirm');
+    await clickSelector('[aria-label="Staff choices"] button:nth-child(3)');assert.equal(await selectedCount(),3);
+    assert.equal(await evaluate(`document.querySelector('[aria-label="Staff choices"] button:nth-child(4)').disabled`),true,'fourth cannot select');
+    await click('Randomize Staff');assert.equal(await selectedCount(),3,'randomizer returns exactly3');
+    await click('Confirm inner circle');await waitFor('!!document.querySelector("[data-testid=action-bar]")','fresh campaign');
+    let g=await campaign();assert.equal(innerCircle(g).length,4);assert.equal(g.candidateId,candidate);assert.equal(g.build45.housePviRevision,'cook-2026-owner-shifts-v1');
+    await resumeExact();
+    // Exercise the normal decision/End Week flow through the packaged renderer.
+    for(let step=0;step<24&&(await campaign()).week===0;step++){
+      g=await campaign();
+      if(g.currentEventId&&!g.outcome){
+        const count=g.build40.decisionReceipts.length;await clickSelector(testId('choice')+':enabled');
+        let committed=false;for(let retry=0;retry<40;retry++){if((await campaign()).build40.decisionReceipts.length>count){committed=true;break;}await delay(50);}
+        assert.ok(committed,'native choice committed');continue;
+      }
+      await clickSelector(testId('advance'));await delay(150);
+    }
+    g=await campaign();assert.ok(g.week>=1,'native week progression');assert.equal(innerCircle(g).length,4);await resumeExact();
+    assert.ok(await evaluate(`[...document.querySelectorAll('img')].filter(img=>img.complete&&img.naturalWidth>0).length>0`),'campaign art loaded');
+    await click('Staff');
+    await waitFor(`document.querySelectorAll('section[aria-labelledby="staff-panel-heading"] article[aria-labelledby^="staff-"]').length===4`,'four visible staff cards');
+    for(const [w,h] of [[1440,900],[960,640]]){await setViewport(w,h);await screen(mode+'-active-staff-'+w);}
+    await click('House');
+    await waitFor(`document.querySelector('[data-testid="downballot-house"]')?.innerText.includes('PVI')`,'PVI House labels');
+    assert.ok(await evaluate(`!!document.querySelector('[data-testid="downballot-house"] [title*="Cook PVI"]')`),'owner-adjusted Cook PVI provenance tooltip');
+    for(const [w,h] of [[1440,900],[960,640]]){await setViewport(w,h);await screen(mode+'-pvi-house-'+w);}
+    report.fresh.push({mode,party,candidate,week:g.week,staff:innerCircle(g),resume:true,portraitsLoaded:true,twoRejected:true,fourthDisabled:true,randomizerThree:true,pviLabels:true,visibleStaffCards:4,historicalOrder});
+  }
+  const nativeFixture=JSON.parse(readFileSync(new URL('../../evidence/qa/build44-preservation/fixtures/038-native-before-action.json',import.meta.url)));
+  await inject(nativeFixture);await clickSelector(testId('state-PA'));await clickSelector(testId('action-volunteers'));
+  await waitFor('!!document.querySelector("[data-testid=event-choice-presentation]")','native volunteer receipt decision');
+  const nativePending=await campaign();assert.match(nativePending.currentEventId,/^interrupt-038-/);assert.equal(nativePending.currentEventData.context.stateId,'PA');
+  const nativeSource=nativePending.incidentLedger.find(r=>r.id===nativePending.currentEventData.sourceReceiptId);assert.equal(nativeSource.sourceId,'volunteers');assert.ok(nativeSource.payload.canvassReport.affectedAddresses>0);
+  assert.equal(nativePending.actionsLeft,nativeFixture.actionsLeft-1);await resumeExact();await clickSelector(testId('choice')+':enabled');
+  await waitFor('!!document.querySelector("[data-testid=event-outcome-presentation]")','native volunteer decision recap');
+  const nativeDone=await campaign();assert.equal(nativeDone.build40.decisionReceipts.filter(r=>r.eventId===nativePending.currentEventId).length,1);await resumeExact();
+  report.nativeProducer={action:'volunteers',state:'PA',sourceReceipt:nativeSource.id,affectedAddresses:nativeSource.payload.canvassReport.affectedAddresses,pendingAndSettledResume:true,onceOnly:true};
+  for(const mode of ['two-parties','four-parties','six-party','regional-parties']){
+    const pending=JSON.parse(readFileSync(new URL('../../evidence/qa/ui-fixtures/'+mode+'-candidate-pending.json',import.meta.url)));
+    const participants=JSON.parse(readFileSync(new URL('../../evidence/qa/ui-fixtures/'+mode+'-participants.json',import.meta.url)));
+    await inject(pending);const seen=[];
+    for(let index=0;index<participants.length;index++){
+      const before=await campaign();assert.equal(before.week,11);assert.ok(before.currentEventData.context.candidateEventKey);
+      await waitFor('!!document.querySelector("[data-testid=event-choice-presentation]")','candidate preview');
+      const text=await evaluate('document.querySelector("[data-testid=event-stage]").innerText');
+      assert.ok(text.includes(before.currentEventData.title));
+      const context=before.currentEventData.context;
+      for(const [w,h] of [[1440,900],[960,640]]){await setViewport(w,h);if(index<2)await screen(mode+'-candidate-'+index+'-'+w);}
+      await resumeExact();
+      const choice=before.currentEventData.choices.find(c=>!c.unavailable);
+      await clickSelector(testId('choice')+':enabled');
+      const recap=await waitFor(`(() => {const detail=[...document.querySelectorAll('[data-testid="candidate-decision-recap"]')].find(node=>node.querySelector('summary')?.innerText.includes(${JSON.stringify(before.currentEventData.title)}));if(!detail)return false;detail.open=true;return {title:detail.querySelector('summary').innerText,choice:detail.querySelector('[data-testid="candidate-recap-choice"]').innerText,effects:[...detail.querySelectorAll('[data-testid="candidate-recap-effects"] span')].map(node=>node.innerText)};})()`,'persisted candidate recap after next-card dispatch');
+      assert.ok(recap.choice.includes(choice.label),'recap retains chosen label');
+      let settled;for(let retry=0;retry<40;retry++){settled=await campaign();if(settled.build40.decisionReceipts.some(r=>r.id===context.instanceId))break;await delay(50);}
+      const receipt=settled.build40.decisionReceipts.find(r=>r.id===context.instanceId);
+      assert.ok(receipt,'candidate receipt committed');
+      assert.equal(receipt.actingParty,context.actingParty);assert.equal(receipt.candidateId,context.candidateId);
+      const visibleEffects=receipt.effects.filter(effect=>!effect.hidden);assert.equal(recap.effects.length,visibleEffects.length||1,'recap displays actual visible effects');
+      for(const effect of visibleEffects)assert.ok(recap.effects.some(text=>text.includes(String(Math.abs(Math.round(effect.amount*10000)/10000)))),'recap actual magnitude '+effect.amount);
+      assert.equal(settled.candidateEvents.resolvedCounts[context.candidateId],1);await resumeExact();
+      await waitFor(`[...document.querySelectorAll('[data-testid="candidate-decision-recap"] summary')].some(node=>node.innerText.includes(${JSON.stringify(before.currentEventData.title)}))`,'resolved recap restored');
+      seen.push({candidateId:context.candidateId,party:context.actingParty,title:before.currentEventData.title,receipt:receipt.id,recap});
+      if(index+1<participants.length)await waitFor('!!document.querySelector("[data-testid=event-choice-presentation]")','next queued candidate');
+    }
+    const done=await campaign();assert.equal(done.week,11);assert.equal(done.candidateEvents.queue.length,0);
+    assert.equal(done.eventSchedule.length,2,'regular slots retained');
+    assert.ok(done.eventSchedule.every(slot=>['pending','dispatched'].includes(slot.status)),'regular slots retained without loss');
+    for(const {candidateId} of participants)assert.equal(done.candidateEvents.resolvedCounts[candidateId],1);
+    report.guarantees.push({mode,seen,allResolvedWeek12:true,regularSlotsPreserved:2,resumeEachPendingAndSettled:true});
+  }
+  const legacy=JSON.parse(readFileSync(new URL('../../evidence/qa/staff/build44-confirmed-after-action.json',import.meta.url)));
+  await inject(legacy);let migrated=await resumeExact();assert.equal(innerCircle(migrated).length,10);assert.deepEqual(innerCircle(migrated),innerCircle(legacy));
+  assert.deepEqual(migrated.staffing.traditionalPortraitByRole,legacy.staffing.traditionalPortraitByRole);
+  await click('Staff');await waitFor(`document.querySelectorAll('section[aria-labelledby="staff-panel-heading"] article[aria-labelledby^="staff-"]').length===10`,'ten legacy staff cards');
+  for(const [w,h] of [[1440,900],[960,640]]){await setViewport(w,h);await screen('legacy-ten-staff-'+w);}
+  await click('House');await waitFor('!!document.querySelector("[data-testid=downballot-house]")','legacy House');assert.equal(await evaluate(`!!document.querySelector('[data-testid="downballot-house"] [title*="Cook PVI"]')`),false,'legacy House baseline retained');
+  report.legacy={staff:innerCircle(migrated),visibleStaffCards:10,portraitsPreserved:true,resume:true,legacyHouseBaselinePreserved:true};
+  assert.deepEqual(errors,[]);report.rendererErrors=errors;
+  writeFileSync(new URL('smoke-results.json',evidence),JSON.stringify(report,null,2));
+  console.log(JSON.stringify({version:'0.2.0',executable,offline:true,freshModes:report.fresh.length,guaranteeModes:report.guarantees.length,legacyTenStaff:true,rendererErrors:errors},null,2));
+} finally {socket?.close();game.kill();}

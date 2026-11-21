@@ -1,0 +1,75 @@
+import React from 'react';
+import { EV_TOTAL, EV_TO_WIN } from '@/data/states';
+import { POLL_PARTIES, partyColorOf } from '@/lib/polling';
+import { TOSSUP_COLOR } from '@/lib/marginColors';
+
+// Every party keeps its own colour on the electoral bar: a state the Greens
+// carried is a green slice in every mode, and the same for the Libertarians.
+// No shared third-party hatching, and nothing lumped into "everyone else".
+const ORDER = ['dem', 'rep', 'lib', 'grn', 'ind'];
+const EXTRA = {
+  ind: { label: 'Independent', short: 'I' },
+};
+
+function metaOf(party) {
+  const found = POLL_PARTIES.find((p) => p.id === party);
+  return {
+    name: found?.label || EXTRA[party]?.label || party,
+    short: found?.short || EXTRA[party]?.short || party.toUpperCase(),
+  };
+}
+
+export function evSegments(evBy, you, them, accent, oppAccent) {
+  const at = (party) => evBy?.[party] || 0;
+  const colorOf = (party) => (party === you ? accent : party === them ? oppAccent : partyColorOf(party));
+  const middle = ORDER.filter((party) => party !== you && party !== them);
+  return [you, ...middle, them].map((party) => ({
+    party,
+    ev: at(party),
+    color: colorOf(party),
+    ...metaOf(party),
+  }));
+}
+
+// Everyone on the ballot who is not you and not your opponent.
+export function otherPartySlices(segments, you, them) {
+  return segments.filter((s) => s.party !== you && s.party !== them);
+}
+
+export default function EvBar({ evBy, you, them, accent, oppAccent, tossup = 0, className = '' }) {
+  const segments = evSegments(evBy, you, them, accent, oppAccent);
+  // States polling inside the tossup band belong to nobody yet, so their electors
+  // sit in the middle of the bar in the same purple the map calls them — neither
+  // side can count them, and the gap between the two blocks is exactly how many
+  // are still on the table.
+  const ordered = [
+    segments.find((s) => s.party === you),
+    { party: '__tossup', ev: tossup, color: TOSSUP_COLOR, name: 'Tossup', short: 'Tossup' },
+    ...otherPartySlices(segments, you, them),
+    segments.find((s) => s.party === them),
+  ].filter(Boolean);
+
+  return (
+    <div className={`relative flex w-full overflow-hidden rounded-full border border-white/15 bg-white/5 ${className}`}>
+      {ordered.map((s) =>
+        s.ev > 0 ? (
+          <div
+            key={s.party}
+            className="transition-all duration-700"
+            style={{
+              width: `${(s.ev / EV_TOTAL) * 100}%`,
+              backgroundColor: s.color,
+              opacity: s.party === '__tossup' ? 0.85 : 1,
+            }}
+            title={`${s.ev} electoral votes · ${s.name}`}
+          />
+        ) : null
+      )}
+      <div className="flex-1" />
+      <div
+        className="absolute inset-y-0 w-[2px] bg-white/70"
+        style={{ left: `${(EV_TO_WIN / EV_TOTAL) * 100}%` }}
+      />
+    </div>
+  );
+}

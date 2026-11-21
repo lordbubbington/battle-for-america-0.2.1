@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const app=path.resolve(fileURLToPath(new URL('../../',import.meta.url)));
+const output=path.resolve(app,'../evidence/qa/staff');fs.mkdirSync(output,{recursive:true});
+for(const file of ['build44-confirmed-after-action.json','build44-unconfirmed.json'])fs.copyFileSync(path.resolve(app,'../evidence/staff',file),path.join(output,file));
+let source=fs.readFileSync(new URL('./staff-flow.mjs',import.meta.url),'utf8');
+source=source.replace("const output = path.resolve('evidence/staff');",'const output = '+JSON.stringify(output)+';');
+process.env.BFA_STAFF_APP_ROOT=app;
+const target=new URL('./qa-staff-generated.mjs',import.meta.url);fs.writeFileSync(target,source);await import(target.href);

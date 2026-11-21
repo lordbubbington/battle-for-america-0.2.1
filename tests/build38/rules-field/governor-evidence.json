@@ -1,0 +1,174 @@
+{
+  "baseline": "b2175dc5ed0702c2fd01bb1d4bf6bf6aa5daa895",
+  "fixture": "12 matched deterministic seeds; 11 races per seed; medium Democratic player; native opening vote-share margin; four-party RCV final margin",
+  "groups": [
+    {
+      "mode": "off",
+      "environmentDMinusR": 0,
+      "seeds": 12,
+      "races": 132,
+      "before": {
+        "medianAbsoluteMargin": 9.76,
+        "competitiveWithin5": 31
+      },
+      "after": {
+        "medianAbsoluteMargin": 7.808,
+        "competitiveWithin5": 38
+      },
+      "examples": {
+        "NC": {
+          "before": 3.323,
+          "after": 2.659
+        },
+        "UT": {
+          "before": -14.891,
+          "after": -11.913
+        },
+        "VT": {
+          "before": 4.46,
+          "after": 3.568
+        }
+      }
+    },
+    {
+      "mode": "off",
+      "environmentDMinusR": 7.3,
+      "seeds": 12,
+      "races": 132,
+      "before": {
+        "medianAbsoluteMargin": 8.171,
+        "competitiveWithin5": 48
+      },
+      "after": {
+        "medianAbsoluteMargin": 6.537,
+        "competitiveWithin5": 59
+      },
+      "examples": {
+        "NC": {
+          "before": 9.455,
+          "after": 7.564
+        },
+        "UT": {
+          "before": -8.759,
+          "after": -7.007
+        },
+        "VT": {
+          "before": 10.592,
+          "after": 8.474
+        }
+      }
+    },
+    {
+      "mode": "off",
+      "environmentDMinusR": -7.3,
+      "seeds": 12,
+      "races": 132,
+      "before": {
+        "medianAbsoluteMargin": 13.667,
+        "competitiveWithin5": 18
+      },
+      "after": {
+        "medianAbsoluteMargin": 10.933,
+        "competitiveWithin5": 22
+      },
+      "examples": {
+        "NC": {
+          "before": -2.809,
+          "after": -2.247
+        },
+        "UT": {
+          "before": -21.023,
+          "after": -16.818
+        },
+        "VT": {
+          "before": -1.672,
+          "after": -1.338
+        }
+      }
+    },
+    {
+      "mode": "surge",
+      "environmentDMinusR": 0,
+      "seeds": 12,
+      "races": 132,
+      "before": {
+        "medianAbsoluteMargin": 6.823,
+        "competitiveWithin5": 48
+      },
+      "after": {
+        "medianAbsoluteMargin": 6.006,
+        "competitiveWithin5": 48
+      },
+      "examples": {
+        "NC": {
+          "before": 4.702,
+          "after": 4.471
+        },
+        "UT": {
+          "before": -10.032,
+          "after": -8.573
+        },
+        "VT": {
+          "before": 11.851,
+          "after": 8.933
+        }
+      }
+    },
+    {
+      "mode": "surge",
+      "environmentDMinusR": 7.3,
+      "seeds": 12,
+      "races": 132,
+      "before": {
+        "medianAbsoluteMargin": 6.823,
+        "competitiveWithin5": 48
+      },
+      "after": {
+        "medianAbsoluteMargin": 6.006,
+        "competitiveWithin5": 48
+      },
+      "examples": {
+        "NC": {
+          "before": 4.702,
+          "after": 4.471
+        },
+        "UT": {
+          "before": -10.032,
+          "after": -8.573
+        },
+        "VT": {
+          "before": 11.851,
+          "after": 8.933
+        }
+      }
+    },
+    {
+      "mode": "surge",
+      "environmentDMinusR": -7.3,
+      "seeds": 12,
+      "races": 132,
+      "before": {
+        "medianAbsoluteMargin": 6.823,
+        "competitiveWithin5": 48
+      },
+      "after": {
+        "medianAbsoluteMargin": 6.006,
+        "competitiveWithin5": 48
+      },
+      "examples": {
+        "NC": {
+          "before": 4.702,
+          "after": 4.471
+        },
+        "UT": {
+          "before": -10.032,
+          "after": -8.573
+        },
+        "VT": {
+          "before": 11.851,
+          "after": 8.933
+        }
+      }
+    }
+  ]
+}

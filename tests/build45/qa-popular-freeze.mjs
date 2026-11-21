@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+const dir=new URL('../../../evidence/qa/',import.meta.url);
+const core=JSON.parse(fs.readFileSync(new URL('balance-matrix-frozen.json',dir),'utf8')).matrix;
+const parties=[...new Set(core.map(row=>row.party))],difficulties=[...new Set(core.map(row=>row.difficultyId))];
+const matrix=parties.map((party,index)=>{const source=core.find(row=>row.party===party&&row.difficultyId===difficulties[index%7]);return {...source,id:'qa-pv-'+String(index+1).padStart(2,'0'),sourceCoreId:source.id,popularVote:true,seed:source.seed+':popular-vote'};});
+const factors=['party','difficultyId','startId','votingRuleId','strategy','candidateStyle','houseRule','electoralRule'];
+const coverage=Object.fromEntries(factors.map(factor=>[factor,{core:[...new Set(core.map(row=>row[factor]))],popular:[...new Set(matrix.map(row=>row[factor]))],missing:[...new Set(core.map(row=>row[factor]))].filter(value=>!matrix.some(row=>row[factor]===value))}]));
+if(Object.values(coverage).some(row=>row.missing.length))throw new Error('Popular-vote supplemental factor coverage incomplete');
+fs.writeFileSync(new URL('balance-matrix-supplemental-popular-vote.json',dir),JSON.stringify({frozenAt:new Date().toISOString(),reason:'Final supported-rule audit found the popular-vote toggle was not represented in the untouched core63. Add nine paired setups covering every player party and every other factor value for this rule, without changing any original setup or seed.',coreSetups:63,supplementalSetups:9,totalSetups:72,matrix,coverage},null,2));
+console.log('Frozen nine popular-vote paired setups; all supplemental factor values covered.');

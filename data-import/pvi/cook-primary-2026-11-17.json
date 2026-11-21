@@ -1,0 +1,3487 @@
+{
+  "retrievedOn": "2026-11-17",
+  "source": "https://www.cookpolitical.com/races",
+  "pages": 22,
+  "rows": [
+    {
+      "cookId": "AK-AL",
+      "pvi": "R+6",
+      "value": -6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AL-01",
+      "pvi": "R+17",
+      "value": -17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AL-02",
+      "pvi": "R+7",
+      "value": -7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AL-03",
+      "pvi": "R+23",
+      "value": -23,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AL-04",
+      "pvi": "R+33",
+      "value": -33,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AL-05",
+      "pvi": "R+15",
+      "value": -15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AL-06",
+      "pvi": "R+17",
+      "value": -17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AL-07",
+      "pvi": "D+10",
+      "value": 10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AR-01",
+      "pvi": "R+23",
+      "value": -23,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AR-02",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AR-03",
+      "pvi": "R+13",
+      "value": -13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AR-04",
+      "pvi": "R+20",
+      "value": -20,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AZ-01",
+      "pvi": "R+1",
+      "value": -1,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AZ-02",
+      "pvi": "R+7",
+      "value": -7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AZ-03",
+      "pvi": "D+22",
+      "value": 22,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AZ-04",
+      "pvi": "D+4",
+      "value": 4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AZ-05",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AZ-06",
+      "pvi": "EVEN",
+      "value": 0,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AZ-07",
+      "pvi": "D+13",
+      "value": 13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AZ-08",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "AZ-09",
+      "pvi": "R+15",
+      "value": -15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=0",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-01",
+      "pvi": "D+7",
+      "value": 7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-02",
+      "pvi": "D+13",
+      "value": 13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-03",
+      "pvi": "D+6",
+      "value": 6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-04",
+      "pvi": "D+8",
+      "value": 8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-05",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-06",
+      "pvi": "D+5",
+      "value": 5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-07",
+      "pvi": "D+7",
+      "value": 7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-08",
+      "pvi": "D+19",
+      "value": 19,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-09",
+      "pvi": "D+8",
+      "value": 8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-10",
+      "pvi": "D+18",
+      "value": 18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-11",
+      "pvi": "D+36",
+      "value": 36,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-12",
+      "pvi": "D+39",
+      "value": 39,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-13",
+      "pvi": "D+2",
+      "value": 2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-14",
+      "pvi": "D+19",
+      "value": 19,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-15",
+      "pvi": "D+26",
+      "value": 26,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-16",
+      "pvi": "D+25",
+      "value": 25,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-17",
+      "pvi": "D+21",
+      "value": 21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-18",
+      "pvi": "D+16",
+      "value": 16,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-19",
+      "pvi": "D+18",
+      "value": 18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=1",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-20",
+      "pvi": "R+16",
+      "value": -16,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-21",
+      "pvi": "D+5",
+      "value": 5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-22",
+      "pvi": "D+1",
+      "value": 1,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-23",
+      "pvi": "R+9",
+      "value": -9,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-24",
+      "pvi": "D+13",
+      "value": 13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-25",
+      "pvi": "D+4",
+      "value": 4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-26",
+      "pvi": "D+9",
+      "value": 9,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-27",
+      "pvi": "D+6",
+      "value": 6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-28",
+      "pvi": "D+14",
+      "value": 14,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-29",
+      "pvi": "D+19",
+      "value": 19,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-30",
+      "pvi": "D+21",
+      "value": 21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-31",
+      "pvi": "D+8",
+      "value": 8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-32",
+      "pvi": "D+14",
+      "value": 14,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-33",
+      "pvi": "D+7",
+      "value": 7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-34",
+      "pvi": "D+28",
+      "value": 28,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-35",
+      "pvi": "D+6",
+      "value": 6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-36",
+      "pvi": "D+21",
+      "value": 21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-37",
+      "pvi": "D+33",
+      "value": 33,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-38",
+      "pvi": "D+8",
+      "value": 8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-39",
+      "pvi": "D+7",
+      "value": 7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=2",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-40",
+      "pvi": "R+6",
+      "value": -6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-41",
+      "pvi": "D+9",
+      "value": 9,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-42",
+      "pvi": "D+8",
+      "value": 8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-43",
+      "pvi": "D+27",
+      "value": 27,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-44",
+      "pvi": "D+20",
+      "value": 20,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-45",
+      "pvi": "D+3",
+      "value": 3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-46",
+      "pvi": "D+10",
+      "value": 10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-47",
+      "pvi": "D+6",
+      "value": 6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-48",
+      "pvi": "D+2",
+      "value": 2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-49",
+      "pvi": "D+7",
+      "value": 7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-50",
+      "pvi": "D+10",
+      "value": 10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-51",
+      "pvi": "D+10",
+      "value": 10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CA-52",
+      "pvi": "D+11",
+      "value": 11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CO-01",
+      "pvi": "D+29",
+      "value": 29,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CO-02",
+      "pvi": "D+20",
+      "value": 20,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CO-03",
+      "pvi": "R+5",
+      "value": -5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CO-04",
+      "pvi": "R+9",
+      "value": -9,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CO-05",
+      "pvi": "R+5",
+      "value": -5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CO-06",
+      "pvi": "D+11",
+      "value": 11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CO-07",
+      "pvi": "D+8",
+      "value": 8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=3",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CO-08",
+      "pvi": "EVEN",
+      "value": 0,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CT-01",
+      "pvi": "D+12",
+      "value": 12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CT-02",
+      "pvi": "D+4",
+      "value": 4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CT-03",
+      "pvi": "D+8",
+      "value": 8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CT-04",
+      "pvi": "D+13",
+      "value": 13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "CT-05",
+      "pvi": "D+3",
+      "value": 3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "DE-AL",
+      "pvi": "D+8",
+      "value": 8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-01",
+      "pvi": "R+18",
+      "value": -18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-02",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-03",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-04",
+      "pvi": "R+5",
+      "value": -5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-05",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-06",
+      "pvi": "R+14",
+      "value": -14,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-07",
+      "pvi": "R+5",
+      "value": -5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-08",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-09",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-10",
+      "pvi": "D+13",
+      "value": 13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-11",
+      "pvi": "R+7",
+      "value": -7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-12",
+      "pvi": "R+7",
+      "value": -7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-13",
+      "pvi": "R+6",
+      "value": -6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=4",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-14",
+      "pvi": "R+4",
+      "value": -4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-15",
+      "pvi": "R+9",
+      "value": -9,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-16",
+      "pvi": "R+6",
+      "value": -6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-17",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-18",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-19",
+      "pvi": "R+14",
+      "value": -14,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-20",
+      "pvi": "D+20",
+      "value": 20,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-21",
+      "pvi": "R+7",
+      "value": -7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-22",
+      "pvi": "R+4",
+      "value": -4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-23",
+      "pvi": "D+9",
+      "value": 9,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-24",
+      "pvi": "D+22",
+      "value": 22,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-25",
+      "pvi": "R+3",
+      "value": -3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-26",
+      "pvi": "R+7",
+      "value": -7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-27",
+      "pvi": "R+6",
+      "value": -6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "FL-28",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "GA-01",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "GA-02",
+      "pvi": "D+4",
+      "value": 4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "GA-03",
+      "pvi": "R+15",
+      "value": -15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "GA-04",
+      "pvi": "D+27",
+      "value": 27,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "GA-05",
+      "pvi": "D+36",
+      "value": 36,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=5",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "GA-06",
+      "pvi": "D+25",
+      "value": 25,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "GA-07",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "GA-08",
+      "pvi": "R+15",
+      "value": -15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "GA-09",
+      "pvi": "R+17",
+      "value": -17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "GA-10",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "GA-11",
+      "pvi": "R+12",
+      "value": -12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "GA-12",
+      "pvi": "R+7",
+      "value": -7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "GA-13",
+      "pvi": "D+21",
+      "value": 21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "GA-14",
+      "pvi": "R+19",
+      "value": -19,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "HI-01",
+      "pvi": "D+13",
+      "value": 13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "HI-02",
+      "pvi": "D+12",
+      "value": 12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IA-01",
+      "pvi": "R+4",
+      "value": -4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IA-02",
+      "pvi": "R+4",
+      "value": -4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IA-03",
+      "pvi": "R+2",
+      "value": -2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IA-04",
+      "pvi": "R+15",
+      "value": -15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "ID-01",
+      "pvi": "R+22",
+      "value": -22,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "ID-02",
+      "pvi": "R+13",
+      "value": -13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-01",
+      "pvi": "D+18",
+      "value": 18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-02",
+      "pvi": "D+18",
+      "value": 18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-03",
+      "pvi": "D+17",
+      "value": 17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-04",
+      "pvi": "D+17",
+      "value": 17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-05",
+      "pvi": "D+19",
+      "value": 19,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-06",
+      "pvi": "D+3",
+      "value": 3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-07",
+      "pvi": "D+34",
+      "value": 34,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=6",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-08",
+      "pvi": "D+5",
+      "value": 5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-09",
+      "pvi": "D+19",
+      "value": 19,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-10",
+      "pvi": "D+12",
+      "value": 12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-11",
+      "pvi": "D+6",
+      "value": 6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-12",
+      "pvi": "R+22",
+      "value": -22,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-13",
+      "pvi": "D+5",
+      "value": 5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-14",
+      "pvi": "D+3",
+      "value": 3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-15",
+      "pvi": "R+20",
+      "value": -20,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-16",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IL-17",
+      "pvi": "D+3",
+      "value": 3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IN-01",
+      "pvi": "D+1",
+      "value": 1,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IN-02",
+      "pvi": "R+13",
+      "value": -13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IN-03",
+      "pvi": "R+16",
+      "value": -16,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IN-04",
+      "pvi": "R+15",
+      "value": -15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IN-05",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IN-06",
+      "pvi": "R+16",
+      "value": -16,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IN-07",
+      "pvi": "D+21",
+      "value": 21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IN-08",
+      "pvi": "R+18",
+      "value": -18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "IN-09",
+      "pvi": "R+15",
+      "value": -15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=7",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "KS-01",
+      "pvi": "R+16",
+      "value": -16,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "KS-02",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "KS-03",
+      "pvi": "D+2",
+      "value": 2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "KS-04",
+      "pvi": "R+12",
+      "value": -12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "KY-01",
+      "pvi": "R+23",
+      "value": -23,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "KY-02",
+      "pvi": "R+20",
+      "value": -20,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "KY-03",
+      "pvi": "D+10",
+      "value": 10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "KY-04",
+      "pvi": "R+18",
+      "value": -18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "KY-05",
+      "pvi": "R+32",
+      "value": -32,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "KY-06",
+      "pvi": "R+7",
+      "value": -7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "LA-01",
+      "pvi": "R+20",
+      "value": -20,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "LA-02",
+      "pvi": "D+25",
+      "value": 25,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "LA-03",
+      "pvi": "R+18",
+      "value": -18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "LA-04",
+      "pvi": "R+17",
+      "value": -17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "LA-05",
+      "pvi": "R+17",
+      "value": -17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "LA-06",
+      "pvi": "R+16",
+      "value": -16,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MA-01",
+      "pvi": "D+8",
+      "value": 8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MA-02",
+      "pvi": "D+13",
+      "value": 13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MA-03",
+      "pvi": "D+11",
+      "value": 11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MA-04",
+      "pvi": "D+11",
+      "value": 11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MA-05",
+      "pvi": "D+24",
+      "value": 24,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MA-06",
+      "pvi": "D+11",
+      "value": 11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MA-07",
+      "pvi": "D+34",
+      "value": 34,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MA-08",
+      "pvi": "D+15",
+      "value": 15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MA-09",
+      "pvi": "D+6",
+      "value": 6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MD-01",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MD-02",
+      "pvi": "D+10",
+      "value": 10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MD-03",
+      "pvi": "D+12",
+      "value": 12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MD-04",
+      "pvi": "D+39",
+      "value": 39,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MD-05",
+      "pvi": "D+17",
+      "value": 17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MD-06",
+      "pvi": "D+3",
+      "value": 3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MD-07",
+      "pvi": "D+31",
+      "value": 31,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MD-08",
+      "pvi": "D+30",
+      "value": 30,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "ME-01",
+      "pvi": "D+11",
+      "value": 11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=8",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "ME-02",
+      "pvi": "R+4",
+      "value": -4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MI-01",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MI-02",
+      "pvi": "R+15",
+      "value": -15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=9",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MI-03",
+      "pvi": "D+4",
+      "value": 4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MI-04",
+      "pvi": "R+3",
+      "value": -3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MI-05",
+      "pvi": "R+13",
+      "value": -13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MI-06",
+      "pvi": "D+12",
+      "value": 12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MI-07",
+      "pvi": "EVEN",
+      "value": 0,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MI-08",
+      "pvi": "R+1",
+      "value": -1,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MI-09",
+      "pvi": "R+16",
+      "value": -16,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MI-10",
+      "pvi": "R+3",
+      "value": -3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MI-11",
+      "pvi": "D+9",
+      "value": 9,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MI-12",
+      "pvi": "D+21",
+      "value": 21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MI-13",
+      "pvi": "D+22",
+      "value": 22,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MN-01",
+      "pvi": "R+6",
+      "value": -6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MN-02",
+      "pvi": "D+3",
+      "value": 3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MN-03",
+      "pvi": "D+11",
+      "value": 11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MN-04",
+      "pvi": "D+18",
+      "value": 18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MN-05",
+      "pvi": "D+32",
+      "value": 32,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MN-06",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MN-07",
+      "pvi": "R+18",
+      "value": -18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MN-08",
+      "pvi": "R+7",
+      "value": -7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MO-01",
+      "pvi": "D+29",
+      "value": 29,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MO-02",
+      "pvi": "R+4",
+      "value": -4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MO-03",
+      "pvi": "R+13",
+      "value": -13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MO-04",
+      "pvi": "R+21",
+      "value": -21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MO-05",
+      "pvi": "D+12",
+      "value": 12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MO-06",
+      "pvi": "R+19",
+      "value": -19,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MO-07",
+      "pvi": "R+21",
+      "value": -21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MO-08",
+      "pvi": "R+27",
+      "value": -27,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MS-01",
+      "pvi": "R+18",
+      "value": -18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=10",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MS-02",
+      "pvi": "D+11",
+      "value": 11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MS-03",
+      "pvi": "R+14",
+      "value": -14,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MS-04",
+      "pvi": "R+21",
+      "value": -21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MT-01",
+      "pvi": "R+5",
+      "value": -5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "MT-02",
+      "pvi": "R+15",
+      "value": -15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NC-01",
+      "pvi": "R+5",
+      "value": -5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NC-02",
+      "pvi": "D+17",
+      "value": 17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NC-03",
+      "pvi": "R+6",
+      "value": -6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NC-04",
+      "pvi": "D+23",
+      "value": 23,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NC-05",
+      "pvi": "R+9",
+      "value": -9,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NC-06",
+      "pvi": "R+9",
+      "value": -9,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NC-07",
+      "pvi": "R+7",
+      "value": -7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NC-08",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NC-09",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NC-10",
+      "pvi": "R+9",
+      "value": -9,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NC-11",
+      "pvi": "R+5",
+      "value": -5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NC-12",
+      "pvi": "D+24",
+      "value": 24,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NC-13",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NC-14",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "ND-AL",
+      "pvi": "R+18",
+      "value": -18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NE-01",
+      "pvi": "R+6",
+      "value": -6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NE-02",
+      "pvi": "D+3",
+      "value": 3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NE-03",
+      "pvi": "R+27",
+      "value": -27,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NH-01",
+      "pvi": "D+2",
+      "value": 2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NH-02",
+      "pvi": "D+2",
+      "value": 2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NJ-01",
+      "pvi": "D+10",
+      "value": 10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NJ-02",
+      "pvi": "R+5",
+      "value": -5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NJ-03",
+      "pvi": "D+5",
+      "value": 5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NJ-04",
+      "pvi": "R+14",
+      "value": -14,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NJ-05",
+      "pvi": "D+2",
+      "value": 2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NJ-06",
+      "pvi": "D+5",
+      "value": 5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NJ-07",
+      "pvi": "EVEN",
+      "value": 0,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NJ-08",
+      "pvi": "D+15",
+      "value": 15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NJ-09",
+      "pvi": "D+2",
+      "value": 2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NJ-10",
+      "pvi": "D+27",
+      "value": 27,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NJ-11",
+      "pvi": "D+5",
+      "value": 5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NJ-12",
+      "pvi": "D+13",
+      "value": 13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NM-01",
+      "pvi": "D+7",
+      "value": 7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NM-02",
+      "pvi": "EVEN",
+      "value": 0,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NM-03",
+      "pvi": "D+3",
+      "value": 3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NV-01",
+      "pvi": "D+2",
+      "value": 2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NV-02",
+      "pvi": "R+7",
+      "value": -7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NV-03",
+      "pvi": "D+1",
+      "value": 1,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NV-04",
+      "pvi": "D+2",
+      "value": 2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=11",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-01",
+      "pvi": "R+4",
+      "value": -4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-02",
+      "pvi": "R+6",
+      "value": -6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-03",
+      "pvi": "EVEN",
+      "value": 0,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=12",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-04",
+      "pvi": "D+2",
+      "value": 2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-05",
+      "pvi": "D+24",
+      "value": 24,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-06",
+      "pvi": "D+6",
+      "value": 6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-07",
+      "pvi": "D+25",
+      "value": 25,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-08",
+      "pvi": "D+24",
+      "value": 24,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-09",
+      "pvi": "D+22",
+      "value": 22,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-10",
+      "pvi": "D+32",
+      "value": 32,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-11",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-12",
+      "pvi": "D+33",
+      "value": 33,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-13",
+      "pvi": "D+32",
+      "value": 32,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-14",
+      "pvi": "D+19",
+      "value": 19,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-15",
+      "pvi": "D+27",
+      "value": 27,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-16",
+      "pvi": "D+18",
+      "value": 18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-17",
+      "pvi": "D+1",
+      "value": 1,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-18",
+      "pvi": "D+2",
+      "value": 2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-19",
+      "pvi": "D+1",
+      "value": 1,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-20",
+      "pvi": "D+8",
+      "value": 8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-21",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-22",
+      "pvi": "D+4",
+      "value": 4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-23",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=13",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-24",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-25",
+      "pvi": "D+10",
+      "value": 10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "NY-26",
+      "pvi": "D+11",
+      "value": 11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-01",
+      "pvi": "R+1",
+      "value": -1,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-02",
+      "pvi": "R+21",
+      "value": -21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=14",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-03",
+      "pvi": "D+21",
+      "value": 21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-04",
+      "pvi": "R+21",
+      "value": -21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-05",
+      "pvi": "R+12",
+      "value": -12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-06",
+      "pvi": "R+17",
+      "value": -17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-07",
+      "pvi": "R+5",
+      "value": -5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-08",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-09",
+      "pvi": "R+5",
+      "value": -5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-10",
+      "pvi": "R+4",
+      "value": -4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-11",
+      "pvi": "D+28",
+      "value": 28,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-12",
+      "pvi": "R+15",
+      "value": -15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-13",
+      "pvi": "D+2",
+      "value": 2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-14",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OH-15",
+      "pvi": "R+5",
+      "value": -5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OK-01",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OK-02",
+      "pvi": "R+28",
+      "value": -28,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OK-03",
+      "pvi": "R+23",
+      "value": -23,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OK-04",
+      "pvi": "R+17",
+      "value": -17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OK-05",
+      "pvi": "R+9",
+      "value": -9,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OR-01",
+      "pvi": "D+20",
+      "value": 20,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OR-02",
+      "pvi": "R+14",
+      "value": -14,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=15",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OR-03",
+      "pvi": "D+24",
+      "value": 24,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OR-04",
+      "pvi": "D+6",
+      "value": 6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OR-05",
+      "pvi": "D+4",
+      "value": 4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "OR-06",
+      "pvi": "D+6",
+      "value": 6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-01",
+      "pvi": "D+1",
+      "value": 1,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-02",
+      "pvi": "D+19",
+      "value": 19,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-03",
+      "pvi": "D+40",
+      "value": 40,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-04",
+      "pvi": "D+8",
+      "value": 8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-05",
+      "pvi": "D+15",
+      "value": 15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-06",
+      "pvi": "D+6",
+      "value": 6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-07",
+      "pvi": "R+1",
+      "value": -1,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-08",
+      "pvi": "R+4",
+      "value": -4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-09",
+      "pvi": "R+19",
+      "value": -19,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-10",
+      "pvi": "R+3",
+      "value": -3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-11",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-12",
+      "pvi": "D+10",
+      "value": 10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-13",
+      "pvi": "R+23",
+      "value": -23,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-14",
+      "pvi": "R+17",
+      "value": -17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-15",
+      "pvi": "R+19",
+      "value": -19,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-16",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=16",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "PA-17",
+      "pvi": "D+3",
+      "value": 3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "RI-01",
+      "pvi": "D+12",
+      "value": 12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "RI-02",
+      "pvi": "D+4",
+      "value": 4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "SC-01",
+      "pvi": "R+6",
+      "value": -6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "SC-02",
+      "pvi": "R+7",
+      "value": -7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "SC-03",
+      "pvi": "R+21",
+      "value": -21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "SC-04",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "SC-05",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "SC-06",
+      "pvi": "D+13",
+      "value": 13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "SC-07",
+      "pvi": "R+12",
+      "value": -12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "SD-AL",
+      "pvi": "R+15",
+      "value": -15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TN-01",
+      "pvi": "R+29",
+      "value": -29,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TN-02",
+      "pvi": "R+17",
+      "value": -17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TN-03",
+      "pvi": "R+18",
+      "value": -18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TN-04",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TN-05",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TN-06",
+      "pvi": "R+13",
+      "value": -13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TN-07",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TN-08",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TN-09",
+      "pvi": "R+9",
+      "value": -9,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=17",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-01",
+      "pvi": "R+24",
+      "value": -24,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-02",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-03",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-04",
+      "pvi": "R+12",
+      "value": -12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-05",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-06",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-07",
+      "pvi": "D+13",
+      "value": 13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-08",
+      "pvi": "R+13",
+      "value": -13,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-09",
+      "pvi": "R+9",
+      "value": -9,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-10",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-11",
+      "pvi": "R+17",
+      "value": -17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-12",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-13",
+      "pvi": "R+23",
+      "value": -23,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-14",
+      "pvi": "R+12",
+      "value": -12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-15",
+      "pvi": "R+7",
+      "value": -7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-16",
+      "pvi": "D+11",
+      "value": 11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-17",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-18",
+      "pvi": "D+29",
+      "value": 29,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-19",
+      "pvi": "R+25",
+      "value": -25,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-20",
+      "pvi": "D+16",
+      "value": 16,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=18",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-21",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-22",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-23",
+      "pvi": "R+7",
+      "value": -7,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-24",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-25",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-26",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-27",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-28",
+      "pvi": "R+3",
+      "value": -3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-29",
+      "pvi": "D+17",
+      "value": 17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-30",
+      "pvi": "D+25",
+      "value": 25,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-31",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-32",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-33",
+      "pvi": "D+18",
+      "value": 18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-34",
+      "pvi": "R+3",
+      "value": -3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-35",
+      "pvi": "R+4",
+      "value": -4,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-36",
+      "pvi": "R+12",
+      "value": -12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-37",
+      "pvi": "D+30",
+      "value": 30,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "TX-38",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "UT-01",
+      "pvi": "D+12",
+      "value": 12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "UT-02",
+      "pvi": "R+15",
+      "value": -15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=19",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "UT-03",
+      "pvi": "R+21",
+      "value": -21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "UT-04",
+      "pvi": "R+17",
+      "value": -17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "VA-01",
+      "pvi": "R+3",
+      "value": -3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "VA-02",
+      "pvi": "EVEN",
+      "value": 0,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "VA-03",
+      "pvi": "D+18",
+      "value": 18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "VA-04",
+      "pvi": "D+17",
+      "value": 17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "VA-05",
+      "pvi": "R+6",
+      "value": -6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "VA-06",
+      "pvi": "R+12",
+      "value": -12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "VA-07",
+      "pvi": "D+2",
+      "value": 2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "VA-08",
+      "pvi": "D+26",
+      "value": 26,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "VA-09",
+      "pvi": "R+22",
+      "value": -22,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "VA-10",
+      "pvi": "D+6",
+      "value": 6,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "VA-11",
+      "pvi": "D+18",
+      "value": 18,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "VT-AL",
+      "pvi": "D+17",
+      "value": 17,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WA-01",
+      "pvi": "D+15",
+      "value": 15,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WA-02",
+      "pvi": "D+12",
+      "value": 12,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WA-03",
+      "pvi": "R+2",
+      "value": -2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WA-04",
+      "pvi": "R+10",
+      "value": -10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WA-05",
+      "pvi": "R+5",
+      "value": -5,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WA-06",
+      "pvi": "D+10",
+      "value": 10,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=20",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WA-07",
+      "pvi": "D+39",
+      "value": 39,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WA-08",
+      "pvi": "D+3",
+      "value": 3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WA-09",
+      "pvi": "D+22",
+      "value": 22,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WA-10",
+      "pvi": "D+9",
+      "value": 9,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WI-01",
+      "pvi": "R+2",
+      "value": -2,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WI-02",
+      "pvi": "D+21",
+      "value": 21,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WI-03",
+      "pvi": "R+3",
+      "value": -3,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WI-04",
+      "pvi": "D+26",
+      "value": 26,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WI-05",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WI-06",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WI-07",
+      "pvi": "R+11",
+      "value": -11,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WI-08",
+      "pvi": "R+8",
+      "value": -8,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WV-01",
+      "pvi": "R+22",
+      "value": -22,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WV-02",
+      "pvi": "R+20",
+      "value": -20,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    },
+    {
+      "cookId": "WY-AL",
+      "pvi": "R+23",
+      "value": -23,
+      "sourceUrl": "https://www.cookpolitical.com/races?page=21",
+      "retrievedOn": "2026-11-17",
+      "electionYear": 2026
+    }
+  ]
+}
