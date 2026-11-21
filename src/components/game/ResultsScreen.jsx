@@ -164,6 +164,8 @@ export default function ResultsScreen({ game, snap, you, them, accent, oppAccent
             ? decision.winner
               ? 'Nobody reached 270 · the House of Representatives chose the president by state delegation'
               : 'Nobody reached 270 · state delegations are tied, with no seat-count tiebreak'
+            : decision.mode === 'regional-pool' && decision.regionalPool
+              ? `Regional parties pooled ${decision.regionalPool.combinedEV} EV behind the leading regional ticket`
             : decision.mode === 'coalition'
               ? `${nomineeOf(game, decision.partner)?.short || decision.partner} accepts the vice presidency · combined ticket ${decision.allianceEV} EV`
             : decision.mode === 'popular'
@@ -173,6 +175,8 @@ export default function ResultsScreen({ game, snap, you, them, accent, oppAccent
         <p className="mx-auto mt-2 max-w-xl text-[13px] font-medium text-slate-400">
           {decision.mode === 'contingent' && !decision.winner
             ? 'No candidate won a plurality of state delegations. The House delegation count is tied.'
+            : decision.mode === 'regional-pool' && decision.regionalPool
+              ? decision.regionalPool.explanation
             : decision.mode === 'coalition'
               ? `${you.name} offers the vice presidency to ${nomineeOf(game, decision.partner)?.name || decision.partner}. The combined ticket clears 270.`
               : won

@@ -246,20 +246,20 @@ assert.ok(Math.abs(genericAverage(gOpen) - 2.0) <= 0.01, 'Week 1 presidential ge
 // Week 2 coattails: constant D+10 gap -> target +2.0 -> first update +0.5; R+10 gap -> -0.5
 const gCoatD = { party: 'dem', week: 1, baseStateGeneric: initialGenericEnvironment(0), stateGeneric: initialGenericEnvironment(0), coattailByState: {}, coattailResolvedWeeks: [] };
 const gapD10 = Object.fromEntries(STATE_LIST.map(({ abbr }) => [abbr, 10]));
-applyWeeklyPresidentialCoattails(gCoatD, { weekNumber: 1, gapByState: gapD10 });
+applyWeeklyPresidentialCoattails(gCoatD, { weekNumber: 1, gapByState: gapD10, coefficient: 0.20, cap: 3.0, step: 0.25 });
 assert.equal(gCoatD.coattailByState.PA, 0.5);
 // Re-calling same week must be a no-op (idempotent receipt):
-applyWeeklyPresidentialCoattails(gCoatD, { weekNumber: 1, gapByState: gapD10 });
+applyWeeklyPresidentialCoattails(gCoatD, { weekNumber: 1, gapByState: gapD10, coefficient: 0.20, cap: 3.0, step: 0.25 });
 assert.equal(gCoatD.coattailByState.PA, 0.5);
 // Mirror symmetry R+10 -> -0.5:
 const gCoatR = { party: 'rep', week: 1, baseStateGeneric: initialGenericEnvironment(0), stateGeneric: initialGenericEnvironment(0), coattailByState: {}, coattailResolvedWeeks: [] };
 const gapR10 = Object.fromEntries(STATE_LIST.map(({ abbr }) => [abbr, -10]));
-applyWeeklyPresidentialCoattails(gCoatR, { weekNumber: 1, gapByState: gapR10 });
+applyWeeklyPresidentialCoattails(gCoatR, { weekNumber: 1, gapByState: gapR10, coefficient: 0.20, cap: 3.0, step: 0.25 });
 assert.equal(gCoatR.coattailByState.PA, -0.5);
 // Cap at ±3.0 even for huge gap (+40):
 const gCoatCap = { party: 'dem', week: 1, baseStateGeneric: initialGenericEnvironment(0), stateGeneric: initialGenericEnvironment(0), coattailByState: {}, coattailResolvedWeeks: [] };
 const gap40 = Object.fromEntries(STATE_LIST.map(({ abbr }) => [abbr, 40]));
-for (let w = 1; w <= 30; w += 1) applyWeeklyPresidentialCoattails(gCoatCap, { weekNumber: w, gapByState: gap40 });
+for (let w = 1; w <= 30; w += 1) applyWeeklyPresidentialCoattails(gCoatCap, { weekNumber: w, gapByState: gap40, coefficient: 0.20, cap: 3.0, step: 0.25 });
 assert.ok(gCoatCap.coattailByState.PA <= 3.0 && gCoatCap.coattailByState.PA > 2.99);
 results.R17_R18_R19 = `PASS: Opening centered within 0.01; Week 1 presidential writes blocked; Week 2 coattails D+10->+0.5 / R+10->-0.5, idempotent receipt, capped at +3.0 (${gCoatCap.coattailByState.PA})`;
 

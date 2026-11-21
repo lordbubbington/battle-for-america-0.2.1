@@ -458,7 +458,7 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave 
                   className="truncate rounded-lg border px-2 py-1 text-[11px] font-extrabold"
                   style={
                     theirParty === p
-                      ? { borderColor: ACCENT[p], backgroundColor: `${ACCENT[p]}22`, color: '#fff' }
+                      ? { borderColor: accentFor(p), backgroundColor: `${accentFor(p)}22`, color: '#fff' }
                       : { borderColor: 'rgba(255,255,255,0.16)', color: '#B9C4D6' }
                   }
                 >
@@ -480,7 +480,7 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave 
             candidates={orderCandidatesForSelection(theirField, theirParty)}
             selected={opponentId}
             onSelect={setOpponentId}
-            accent={ACCENT[theirParty]}
+            accent={accentFor(theirParty)}
             prefix="opp"
           />
         </Step>

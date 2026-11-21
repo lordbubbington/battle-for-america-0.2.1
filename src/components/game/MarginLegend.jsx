@@ -1,5 +1,6 @@
 import React from 'react';
 import { marginColor } from '@/lib/marginColors';
+import { REGIONAL_PARTY_IDS, SCENARIO_PARTIES } from '@/data/build39Scenarios';
 
 // The ladder every map in the game uses: teal inside two points, then pale,
 // full and dark shades at two, five and ten.
@@ -17,6 +18,11 @@ const THIRD = [
   { key: 'mcmullin', label: 'McMullin' },
 ];
 
+const REGIONAL = REGIONAL_PARTY_IDS.map((id) => ({
+  key: id,
+  label: SCENARIO_PARTIES[id]?.label || id,
+}));
+
 function Ramp({ family, tag }) {
   return (
     <div className="flex items-center gap-1">
@@ -33,7 +39,12 @@ function Ramp({ family, tag }) {
   );
 }
 
-export default function MarginLegend({ showThirdParties = true, className = '' }) {
+export default function MarginLegend({ showThirdParties = true, scenarioId = null, className = '' }) {
+  const showRegional = scenarioId === 'regional-parties';
+  const extraParties = showRegional
+    ? [...THIRD.filter((t) => t.key !== 'mcmullin'), ...REGIONAL]
+    : THIRD;
+
   return (
     <div className={className}>
       <div className="space-y-1">
@@ -50,7 +61,7 @@ export default function MarginLegend({ showThirdParties = true, className = '' }
       </div>
       {showThirdParties && (
         <div className="mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 border-t border-white/10 pt-1.5">
-          {THIRD.map((t) => (
+          {extraParties.map((t) => (
             <span key={t.key} className="flex items-center gap-1">
               <span className="flex">
                 {[3, 7, 14].map((lead) => (

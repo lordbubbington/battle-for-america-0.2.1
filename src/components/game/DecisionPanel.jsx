@@ -1,31 +1,37 @@
 import React from 'react';
 import { PARTY_COLOR } from '@/lib/downballot';
 import { EV_TO_WIN } from '@/data/states';
+import { REGIONAL_PARTY_IDS, SCENARIO_PARTIES } from '@/data/build39Scenarios';
 
-const ORDER = ['dem', 'rep', 'lib', 'grn', 'ind'];
-const SHORT = { dem: 'Dem', rep: 'GOP', lib: 'Lib', grn: 'Grn', ind: 'Ind' };
+const ORDER = ['dem', 'rep', 'lib', 'grn', 'ind', ...REGIONAL_PARTY_IDS];
+const SHORT = {
+  dem: 'Dem',
+  rep: 'GOP',
+  lib: 'Lib',
+  grn: 'Grn',
+  ind: 'Ind',
+  ...Object.fromEntries(REGIONAL_PARTY_IDS.map((id) => [id, SCENARIO_PARTIES[id]?.short || id.toUpperCase()])),
+};
 
 const MODE_LABEL = {
   electoral: 'Electoral College',
+  'regional-pool': 'Regional Elector Pool',
   popular: 'National popular vote',
   coalition: 'Electoral coalition',
   contingent: `No ${EV_TO_WIN} — House delegations`,
 };
 
-// Two tallies that explain the result: the national popular vote, and — when the
-// College failed to produce a winner — the state delegations that chose the
-// president instead.
 export default function DecisionPanel({ decision, game, you, them }) {
-  const { popular, delegations } = decision;
+  const { popular, delegations, regionalPool } = decision;
   const nameOf = (party) =>
-    !party ? 'No candidate' : party === game.party ? you.short : party === them.party ? them.short : SHORT[party] || party;
+    !party ? 'No candidate' : party === game.party ? you.short : party === them.party ? them.short : SCENARIO_PARTIES[party]?.label || SHORT[party] || party;
   const barParties = ORDER.filter((p) => (popular[p] || 0) >= 0.3);
 
   return (
     <div className="panel mt-3 p-3">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="font-heading text-[15px] text-white">How this was decided</h2>
-        <span className="chip chip-gold">{MODE_LABEL[decision.mode]}</span>
+        <span className="chip chip-gold">{MODE_LABEL[decision.mode] || 'Electoral College'}</span>
       </div>
 
       <div className="mt-2 space-y-1">
@@ -35,7 +41,7 @@ export default function DecisionPanel({ decision, game, you, them }) {
               className="w-[34px] shrink-0 text-[10px] font-extrabold uppercase tracking-wide"
               style={{ color: PARTY_COLOR[p] }}
             >
-              {SHORT[p]}
+              {SHORT[p] || p}
             </span>
             <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/10">
               <div
@@ -53,12 +59,33 @@ export default function DecisionPanel({ decision, game, you, them }) {
       <p className="mt-1.5 text-[10.5px] font-semibold leading-snug text-slate-500">
         {decision.mode === 'popular'
           ? `${nameOf(decision.winner)} won the national popular vote by ${popular.margin.toFixed(1)} points, and with it the presidency.`
-          : decision.mode === 'coalition'
-            ? `${you.short} joined electors with ${nameOf(decision.partner)} for ${decision.allianceEV} total electoral votes, passing ${EV_TO_WIN}.`
-            : decision.mode === 'contingent' && !decision.winner
-              ? 'The leading state-delegation counts are tied. House seat totals do not decide this result.'
-            : `${nameOf(popular.leader)} led the national popular vote by ${popular.margin.toFixed(1)} — which is not what elects a president.`}
+          : decision.mode === 'regional-pool' && regionalPool
+            ? regionalPool.explanation
+            : decision.mode === 'coalition'
+              ? `${you.short} joined electors with ${nameOf(decision.partner)} for ${decision.allianceEV} total electoral votes, passing ${EV_TO_WIN}.`
+              : decision.mode === 'contingent' && !decision.winner
+                ? 'The leading state-delegation counts are tied. House seat totals do not decide this result.'
+                : `${nameOf(popular.leader)} led the national popular vote by ${popular.margin.toFixed(1)} — which is not what elects a president.`}
       </p>
+
+      {regionalPool && (
+        <div className="panel-lite mt-2 p-2.5">
+          <p className="label-xs">
+            Regional elector consolidation · {regionalPool.combinedEV} combined EVs (original state tallies preserved on map)
+          </p>
+          <div className="mt-1.5 flex flex-wrap gap-2 text-[10.5px] font-bold text-slate-300">
+            {regionalPool.participants.map(({ party, ev }) => (
+              <span key={party} className="inline-flex items-center gap-1 rounded border border-white/10 bg-black/20 px-2 py-0.5">
+                <span className="h-2 w-2 rounded-sm" style={{ backgroundColor: PARTY_COLOR[party] }} />
+                <span>{SCENARIO_PARTIES[party]?.label || party}: {ev} EV</span>
+              </span>
+            ))}
+          </div>
+          <p className="mt-1 text-[10.5px] font-extrabold text-amber-300">
+            Final pooled tally: {nameOf(regionalPool.winner)} — {regionalPool.combinedEV} EV
+          </p>
+        </div>
+      )}
 
       {delegations && (
         <div className="panel-lite mt-2 p-2.5">
@@ -79,28 +106,21 @@ export default function DecisionPanel({ decision, game, you, them }) {
             )}
             {delegations.counts.split > 0 && (
               <div
-                className="bg-white/25"
-                style={{ width: `${(delegations.counts.split / delegations.total) * 100}%` }}
+                style={{
+                  width: `${(delegations.counts.split / delegations.total) * 100}%`,
+                  backgroundColor: '#64748B',
+                }}
               />
             )}
           </div>
-          <p className="num mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10.5px] font-extrabold">
-            {['dem', 'rep', 'lib', 'grn'].map((p) =>
-              delegations.counts[p] > 0 ? (
-                <span key={p} style={{ color: PARTY_COLOR[p] }}>
-                  {SHORT[p]} {delegations.counts[p]}
-                </span>
-              ) : null
-            )}
-            {delegations.counts.split > 0 && (
-              <span className="text-slate-400">{delegations.counts.split} split</span>
-            )}
-          </p>
-          <p className="mt-1.5 text-[10.5px] font-semibold leading-snug text-slate-400">
-            {decision.winner
-              ? <>{nameOf(decision.winner)} controlled <span className="num font-extrabold text-white">{delegations.counts[decision.winner]} of {delegations.total}</span> state delegations{delegations.majority ? '' : ' — the largest bloc in a chamber nobody commanded'}, so the House handed {nameOf(decision.winner)} the presidency.</>
-              : `The leading parties tied at ${delegations.leaderCount} delegations. House seat totals do not break the tie.`}
-          </p>
+          <div className="mt-1 flex flex-wrap justify-between gap-2 text-[10.5px] font-extrabold text-slate-400">
+            {ORDER.filter((p) => delegations.counts[p] > 0).map((p) => (
+              <span key={p} style={{ color: PARTY_COLOR[p] }}>
+                {SHORT[p]} {delegations.counts[p]}
+              </span>
+            ))}
+            {delegations.counts.split > 0 && <span>Split {delegations.counts.split}</span>}
+          </div>
         </div>
       )}
     </div>

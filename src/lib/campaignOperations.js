@@ -143,7 +143,8 @@ export function requestEndorsement(game, leaderId) {
       if (!STATE_BY_ABBR[abbr]) return;
       const turnoutDelta = leader.volunteers ? 0.8 + leader.volunteers * 0.15 : 0;
       if (turnoutDelta) addTurnoutState(next, game.party, abbr, turnoutDelta);
-      next.stateMods[abbr] = (next.stateMods[abbr] || 0) + pov * 0.18;
+      const regMul = (next.build40?.modeId === 'regional-parties' || next.build39?.scenario?.id === 'regional-parties') ? 10 : 1;
+      next.stateMods[abbr] = (next.stateMods[abbr] || 0) + pov * 0.18 * regMul;
     });
     const issueId = Object.keys(leader.preferences).sort((a, b) => (ISSUE_BY_ID[b]?.weight || 0) - (ISSUE_BY_ID[a]?.weight || 0))[0];
     if (issueId) next.issueEdge[issueId] = clamp((next.issueEdge[issueId] || 0) + pov * 0.22, -1, 1);

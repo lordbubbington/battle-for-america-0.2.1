@@ -226,9 +226,15 @@ export default function Home() {
     actionLayout.current = captureActionLayout();
     setGame((g) => {
       const ctx = typeof context === 'function' ? context(g) : context || { type: 'none' };
-      if (ctx.type !== 'choice' && decisionPending(g)) return g;
+      if (ctx.type !== 'choice' && decisionPending(g)) {
+        actionLayout.current = null;
+        return g;
+      }
       const resolved = run(g);
-      if (resolved === g) return g;
+      if (resolved === g) {
+        actionLayout.current = null;
+        return g;
+      }
       const next = recordCampaignStrategy(g, recordIncident(g, resolved, ctx), ctx);
       const reacted = withReactionSummary(g, next, ctx);
       if (ctx.type === 'stance') constrainPolicyPolling(g, reacted, resolved.build39.lastPolicyResponse.pollPoints);

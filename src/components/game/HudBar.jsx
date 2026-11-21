@@ -29,7 +29,8 @@ function Meter({ label, value, color }) {
   );
 }
 
-export default function HudBar({ game, snap, senate, house, gov, forecast, forecastStatus, vp, oppVp, you, them, accent, oppAccent, onOpenDownballot }) {
+export default function HudBar({ game, snap, senate, house, gov, forecast, forecastStatus,
+  forecastWeek = null, vp, oppVp, you, them, accent, oppAccent, onOpenDownballot }) {
   // The tracker above the map is not the count. A state polling inside the tossup
   // band is held by neither party, so its electors sit unclaimed — and the bar
   // leaves them blank — until somebody breaks the race open.
@@ -130,7 +131,7 @@ export default function HudBar({ game, snap, senate, house, gov, forecast, forec
           tossup={tossupEV}
           className="mt-1.5 h-3.5"
         />
-        <PredictionMeter forecast={forecast} status={forecastStatus} you={you} them={them} accent={accent} oppAccent={oppAccent} />
+        <PredictionMeter forecast={forecast} status={forecastStatus} forecastWeek={forecastWeek} you={you} them={them} accent={accent} oppAccent={oppAccent} />
 
         <div className="mt-1 flex flex-wrap items-center justify-between gap-x-3 gap-y-0.5 text-[10px] font-bold text-muted-foreground">
           <span className="num" style={{ color: accent }}>

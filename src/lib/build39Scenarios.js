@@ -181,7 +181,10 @@ export function resolveScenarioRivals({ game, rows = [] }) {
     const adjustments = { ...adjustmentsByParty[party] };
     for (const { abbr } of targets.slice(0, count)) {
       const prior = finite(adjustments[abbr]);
-      const points = Math.min(2.5 - prior, 0.18 + random() * 0.22);
+      const isReg = id === 'regional-parties';
+      const maxAdj = isReg ? 25 : 2.5;
+      const basePts = 0.18 + random() * 0.22;
+      const points = Math.min(maxAdj - prior, isReg ? basePts * 10 : basePts);
       if (!(points > 0)) continue;
       adjustments[abbr] = prior + points;
       moves.push({ party, abbr, type: 'stop', points, text: candidate.short + ' campaigned in ' + STATE_BY_ABBR[abbr].name + '.' });

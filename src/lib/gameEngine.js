@@ -116,6 +116,7 @@ import {
   CLOSE_RACE,
   addGeneric,
   applyWeeklyPresidentialCoattails,
+  baseGenericAverage,
   decayGeneric,
   genericAverage,
   genericIn,
@@ -902,7 +903,7 @@ export function noiseRamp(week = 0) {
 export function pollMargin(abbr, game) {
   const envForPres = isRegionalEnvironmentIgnored(game)
     ? 0
-    : (game.coattailModelVersion >= 1 ? (game.genericBaseline ?? game.natGeneric ?? 0) : (game.natGeneric || 0));
+    : (game.coattailModelVersion >= 1 ? baseGenericAverage(game) : (game.natGeneric || 0));
   const base = (game.leans[abbr] ?? BASE_LEANS[abbr] ?? 0) + (game.build38?.openingModel ? ideologyEnvironmentDelta(abbr, envForPres) : 0) + (game.build38?.regionalMarginByState?.[abbr] || 0);
   if (isThirdParty(game.party)) {
     // A third-party run does not move the two-party margin, it eats into it:
@@ -2972,7 +2973,7 @@ function applyRivalWeek(game, schedule, diff, style) {
     next.oppMomentum = clampMomentum(next.oppMomentum + 0.18 * skill);
   }
   Object.entries(week.deltas).forEach(([abbr, amt]) => {
-    next.stateMods[abbr] = (next.stateMods[abbr] || 0) + amt;
+    next.stateMods[abbr] = (next.stateMods[abbr] || 0) + (amt * (next.opponentParty === 'rep' ? -1 : 1) > 0 ? scaleRegionalPersuasion(next, Math.abs(amt)) * (next.opponentParty === 'rep' ? -1 : 1) : amt);
   });
   next.dbMods = { ...(game.dbMods || {}) };
   Object.entries(week.dbDeltas || {}).forEach(([abbr, amt]) => {
@@ -3005,7 +3006,7 @@ function applyRivalWeek(game, schedule, diff, style) {
     const issue = ISSUE_BY_ID[brokenPromise.issueId];
     const oldPosition = issue ? stanceLabel(issue, brokenPromise.stance) : null;
     const currentPosition = issue ? stanceLabel(issue, game.stances?.[brokenPromise.issueId] ?? 1) : null;
-    if (attackAbbr) next.stateMods[attackAbbr] = (next.stateMods[attackAbbr] || 0) + rivalPov * hit;
+    if (attackAbbr) next.stateMods[attackAbbr] = (next.stateMods[attackAbbr] || 0) + rivalPov * scaleRegionalPersuasion(next, hit);
     next.momentum = clampMomentum(next.momentum - 0.55 * skill);
     next.oppMomentum = clampMomentum(next.oppMomentum + 0.35 * skill);
     const targetName = STATE_BY_ABBR[attackAbbr]?.name || 'a competitive state';
@@ -3133,7 +3134,7 @@ export function opponentTurn(game) {
   next.thirdMods = Object.fromEntries(Object.entries(next.thirdMods || {}).map(([party, states]) => [party, { ...states }]));
   rivals.forEach((r) => {
     Object.entries(r.stateDeltas || {}).forEach(([abbr, amt]) => {
-      next.stateMods[abbr] = (next.stateMods[abbr] || 0) + amt;
+      next.stateMods[abbr] = (next.stateMods[abbr] || 0) + (amt * (next.opponentParty === 'rep' ? -1 : 1) > 0 ? scaleRegionalPersuasion(next, Math.abs(amt)) * (next.opponentParty === 'rep' ? -1 : 1) : amt);
     });
     const map = next.thirdMods[r.party];
     if (map) {
@@ -3415,7 +3416,7 @@ export function advanceWeek(game) {
       const delta = round1(Math.max(0, Number(margin) - prior));
       if (!delta) return;
       if (playerMarginSign) {
-        next.stateMods[abbr] = round1((next.stateMods[abbr] || 0) + playerMarginSign * delta);
+        next.stateMods[abbr] = round1((next.stateMods[abbr] || 0) + playerMarginSign * scaleRegionalPersuasion(next, delta));
       } else if (['lib', 'grn'].includes(game.party)) {
         next.thirdMods = { ...(next.thirdMods || {}), [game.party]: { ...(next.thirdMods?.[game.party] || {}) } };
         applyMinorPartyPersuasion(next, game.party, abbr, delta);
@@ -3622,6 +3623,8 @@ export function advanceWeek(game) {
   next.noise = freshNoise(diff);
   next.week = game.week + 1;
   next.outcome = null;
+  // R11: Keep final weekly snapshot on Election Night; clear for new playable week so it refreshes once.
+  if (next.week < totalWeeksOf(next)) next.nickBronzeSnapshot = null;
 
   if (next.week >= totalWeeksOf(next)) {
     next.finished = true;
@@ -4056,7 +4059,7 @@ export function applyAction(game, actionId, abbr, payload = {}) {
       note = `Rallied in ${state.name}`;
     }
     if (isThirdParty(game.party)) applyMinorPartyPersuasion(next, game.party, abbr, persuasionPoints);
-    else next.stateMods[abbr] = (next.stateMods[abbr] || 0) + persuasionPoints * pov;
+    else next.stateMods[abbr] = (next.stateMods[abbr] || 0) + scaleRegionalPersuasion(next, persuasionPoints) * pov;
     const crowd = createSeededRandom([game.build34CampaignId, game.week, left, abbr, 'rally-crowd'].join(':'));
     const expectedAttendance = 200 + state.ev * 40;
     const venueCapacity = Math.round(expectedAttendance * 1.14);

@@ -1,4 +1,5 @@
 import { BUILD40_SIX_TICKET_CANDIDATES } from './build40Elections.js';
+import { REGIONAL_EXISTING_NOMINEES, SCENARIO_PARTIES } from './build39Scenarios.js';
 import { BUILD39_CANDIDATES } from './build39Candidates.js';
 import { BUILD45_HISTORICAL_CANDIDATES } from './build45HistoricalCandidates.js';
 import { SCENARIO_CANDIDATES } from './build39Scenarios.js';
@@ -487,6 +488,25 @@ export const FIELD_BY_PARTY = {
 
 export function byParty(party, scenarioId = 'standard') {
   const field = FIELD_BY_PARTY[party] || scenarioCandidateOptions(scenarioId).filter((candidate) => candidate.party === party);
+  if (scenarioId === 'regional-parties') {
+    const claimed = new Set(Object.values(REGIONAL_EXISTING_NOMINEES));
+    if (party === 'dem' || party === 'rep') {
+      return field.filter(({ id }) => !claimed.has(id));
+    }
+    const baseId = REGIONAL_EXISTING_NOMINEES[party];
+    if (baseId && CANDIDATE_BY_ID[baseId]) {
+      const base = CANDIDATE_BY_ID[baseId];
+      const meta = SCENARIO_PARTIES[party];
+      return [{
+        ...base,
+        id: party,
+        baseCandidateId: baseId,
+        party,
+        color: meta?.color || base.color,
+      }];
+    }
+    return field;
+  }
   if (scenarioId !== 'six-party') return field;
   const assigned = BUILD40_SIX_TICKET_CANDIDATES[party] || [];
   const exclusive = new Set(Object.values(BUILD40_SIX_TICKET_CANDIDATES).flat());

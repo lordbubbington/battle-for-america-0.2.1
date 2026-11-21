@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { TONE_STYLES } from '@/data/events';
 import { GROUP_BY_ID } from '@/data/demographics';
 import { scandalWord } from '@/lib/gameEngine';
@@ -128,6 +128,15 @@ function EffectChips({ effects }) {
 }
 
 export default function EventCard({ game, event, onChoose, outcome = null, disabled = false, hero = false, why = null, progress = null }) {
+  const headingRef = useRef(null);
+  useEffect(() => {
+    const active = typeof document !== 'undefined' ? document.activeElement : null;
+    const fromAction = !active || active === document.body || active.tagName === 'BUTTON' || active.hasAttribute?.('disabled');
+    if (fromAction && headingRef.current) {
+      headingRef.current.focus({ preventScroll: false });
+    }
+  }, [event?.id]);
+
   const tone = TONE_STYLES[event.tone] || TONE_STYLES.wild;
   const legacyOutcome = !event.context && !outcome?.presentation;
 
@@ -153,7 +162,7 @@ export default function EventCard({ game, event, onChoose, outcome = null, disab
             {event.kicker}
           </p>
           {progress && <span className="chip ml-1 align-middle">Event {progress.current} of {progress.total}</span>}
-          <h2
+          <h2 ref={headingRef} tabIndex={-1}
             className={`mt-1 font-heading font-normal leading-[1.08] ${
               hero ? 'text-2xl sm:text-[34px]' : 'text-xl sm:text-[22px]'
             }`}

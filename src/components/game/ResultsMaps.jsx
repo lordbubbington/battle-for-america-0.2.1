@@ -170,7 +170,7 @@ export default function ResultsMaps({ game, result, accent }) {
         </span>
       </div>
 
-      <div className="mt-1.5">{mode === 'winner' ? <WinnerLegend /> : <MarginLegend />}</div>
+      <div className="mt-1.5">{mode === 'winner' ? <WinnerLegend /> : <MarginLegend scenarioId={game?.build39?.scenario?.id || game?.build40?.modeId} />}</div>
     </div>
   );
 }

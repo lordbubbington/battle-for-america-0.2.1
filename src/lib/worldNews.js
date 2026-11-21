@@ -162,7 +162,7 @@ export function rollWorldNews(game, { random = Math.random } = {}) {
   STATES.forEach((state) => {
     const tags = stateTags(state.abbr);
     // Two to four stories, most weeks three.
-    const count = 2 + (Math.random() < 0.55 ? 1 : 0) + (Math.random() < 0.3 ? 1 : 0);
+    const count = 2 + (random() < 0.55 ? 1 : 0) + (random() < 0.3 ? 1 : 0);
     const taken = new Set();
     const mine = [];
 

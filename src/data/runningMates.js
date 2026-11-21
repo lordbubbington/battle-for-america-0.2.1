@@ -142,8 +142,20 @@ export const MATE_BY_ID = ALL_RUNNING_MATES.reduce((acc, m) => {
 
 // The shortlist: your party's whole field, minus whoever is at the top of the
 // ticket, each carrying the map they would bring.
+const REGIONAL_VP_SOURCE = {
+  'farmer-labor': ['dem'],
+  'west-coast': ['dem'],
+  appalachian: ['dem'],
+  'lone-star': ['rep'],
+  'southern-heritage': ['rep'],
+  deseret: ['dem', 'rep'],
+};
+
 export function mateOptions(party, excludeId = null, scenarioId = 'standard') {
-  return byParty(party, scenarioId)
+  const pool = scenarioId === 'regional-parties' && REGIONAL_VP_SOURCE[party]
+    ? REGIONAL_VP_SOURCE[party].flatMap((src) => byParty(src, scenarioId))
+    : byParty(party, scenarioId);
+  return pool
     .filter((c) => c.id !== excludeId && isBuild39VpEligible(c.id))
     .map((c) => {
       const abbr = homeAbbr(c);

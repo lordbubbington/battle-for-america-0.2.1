@@ -1,9 +1,15 @@
-const scrollableElements = (root) => [...root.querySelectorAll('*')].filter((element) => {
-  const style = getComputedStyle(element);
-  const vertical = /(auto|scroll)/.test(style.overflowY) && element.scrollHeight > element.clientHeight;
-  const horizontal = /(auto|scroll)/.test(style.overflowX) && element.scrollWidth > element.clientWidth;
-  return vertical || horizontal;
-});
+const scrollableElements = (root) => {
+  // Prefer explicitly tagged scroll containers when present to avoid scanning
+  // the entire DOM on every click; fall back to full scan for compatibility.
+  const explicit = root.querySelectorAll('[data-scroll-container]');
+  const candidates = explicit.length ? [...explicit] : [...root.querySelectorAll('*')];
+  return candidates.filter((element) => {
+    const style = getComputedStyle(element);
+    const vertical = /(auto|scroll)/.test(style.overflowY) && element.scrollHeight > element.clientHeight;
+    const horizontal = /(auto|scroll)/.test(style.overflowX) && element.scrollWidth > element.clientWidth;
+    return vertical || horizontal;
+  });
+};
 
 /** Capture viewport, scroll containers, focus, and visible element dimensions before an action commit. */
 export function captureActionLayout(root = document) {
@@ -24,7 +30,7 @@ export function captureActionLayout(root = document) {
   };
 }
 
-/** Restore after the action's React commit without focusing or scrolling to a different panel. */
+/** Restore after the action's React commit without focusing a disabled/detached control. */
 export function restoreActionLayout(snapshot) {
   if (!snapshot || typeof window === 'undefined') return false;
   window.scrollTo({ left: snapshot.x, top: snapshot.y, behavior: 'instant' });
@@ -34,7 +40,11 @@ export function restoreActionLayout(snapshot) {
       element.scrollLeft = left;
     }
   });
-  if (snapshot.activeElement?.isConnected) snapshot.activeElement.focus({ preventScroll: true });
+  const el = snapshot.activeElement;
+  const isDisabled = Boolean(el?.disabled || el?.getAttribute?.('aria-disabled') === 'true');
+  if (el?.isConnected && !isDisabled) {
+    el.focus({ preventScroll: true });
+  }
   return true;
 }
 
@@ -46,4 +56,3 @@ export function measureActionLayout(root = document) {
     top: element.getBoundingClientRect().top,
   }));
 }
-

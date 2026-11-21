@@ -119,7 +119,7 @@ export default function GameScreen({
   const senate = useMemo(() => senateSnapshot(game), [game]);
   const house = useMemo(() => houseSnapshot(game), [game]);
   const gov = useMemo(() => govSnapshot(game), [game]);
-  const { forecast, status: forecastStatus } = useElectionForecast(game);
+  const { forecast, status: forecastStatus, forecastWeek } = useElectionForecast(game);
   const debateDef = game.debate ? debateDefinition(game) : null;
   const debateLive = !!(debateDef && game.debate && !game.debate.done);
   const vp = game.runningMateId ? CANDIDATE_BY_ID[game.runningMateId] || VP_BY_ID[game.runningMateId] : null;
@@ -271,6 +271,7 @@ export default function GameScreen({
         gov={gov}
         forecast={forecast}
         forecastStatus={forecastStatus}
+        forecastWeek={forecastWeek}
         vp={vp}
         oppVp={oppVp}
         you={you}

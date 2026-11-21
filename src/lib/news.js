@@ -304,7 +304,8 @@ export function advanceNews(game) {
 
     // It moves the state while it is loud, and less as it fades.
     const strength = story.weight * (salience / 100);
-    game.stateMods[story.abbr] = (game.stateMods[story.abbr] || 0) + strength * sign * pov;
+    const regMul = (sign > 0 && (game.build40?.modeId === 'regional-parties' || game.build39?.scenario?.id === 'regional-parties')) ? 10 : 1;
+    game.stateMods[story.abbr] = (game.stateMods[story.abbr] || 0) + strength * sign * pov * regMul;
     // The local news moves the whole ballot in that state, not just the top of
     // it — and it moves the generic ballot harder than any rally does.
     addGeneric(game, story.abbr, strength * sign * pov * LOCAL_NEWS_GENERIC);

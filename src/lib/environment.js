@@ -24,9 +24,11 @@ export const LOCAL_NEWS_GENERIC = 1.4;
 export const GENERIC_DECAY = 0.94;
 
 // R19 initial design coefficients (uncalibrated starting parameters):
-export const COATTAIL_COEFFICIENT = 0.20;
-export const COATTAIL_STATE_CAP = 3.0;
-export const COATTAIL_WEEKLY_STEP = 0.25;
+// R14/R19 calibrated coattail parameters (tuned from initial 0.20 / 3.0 / 0.25
+// so strong 14-week campaign play + existing rallies can approach the ~5-point goal).
+export const COATTAIL_COEFFICIENT = 0.35;
+export const COATTAIL_STATE_CAP = 5.0;
+export const COATTAIL_WEEKLY_STEP = 0.30;
 
 export function isRegionalEnvironmentIgnored(game) {
   return game?.build40?.modeId === 'regional-parties'
@@ -185,6 +187,18 @@ export function applyNationalGenericSwing(game, amount, issueId = null, { source
 }
 
 // The national generic ballot: the environment weighted by represented ballots.
+export function baseGenericAverage(game) {
+  if (isRegionalEnvironmentIgnored(game)) return 0;
+  let sum = 0;
+  let weight = 0;
+  STATES.forEach((s) => {
+    const ballots = ballotsInState(s.abbr) || s.ev;
+    sum += baseGenericIn(s.abbr, game) * ballots;
+    weight += ballots;
+  });
+  return weight ? round2(sum / weight) : 0;
+}
+
 export function genericAverage(game) {
   if (isRegionalEnvironmentIgnored(game)) return 0;
   let sum = 0;
@@ -245,7 +259,7 @@ export function decayGeneric(game) {
 // Computes coattailTarget[s] = clamp(0.20 * (actual[s] - counterfactual[s]), -3, +3)
 // and moves coattailByState[s] 25% toward target once per weekly boundary,
 // using the non-coattail snapshot so coattails never feed back into themselves.
-export function applyWeeklyPresidentialCoattails(game, { weekNumber, gapByState }) {
+export function applyWeeklyPresidentialCoattails(game, { weekNumber, gapByState, coefficient = COATTAIL_COEFFICIENT, cap = COATTAIL_STATE_CAP, step = COATTAIL_WEEKLY_STEP }) {
   if (isRegionalEnvironmentIgnored(game)) return game;
   // Week 0 is the first playable week; coattails start when week two opens (weekNumber >= 1).
   if (Number(weekNumber) < 1) return game;
@@ -260,9 +274,9 @@ export function applyWeeklyPresidentialCoattails(game, { weekNumber, gapByState 
   const diagnostics = {};
   STATES.forEach((s) => {
     const gap = Number(gapByState?.[s.abbr]) || 0;
-    const target = clamp(COATTAIL_COEFFICIENT * gap, -COATTAIL_STATE_CAP, COATTAIL_STATE_CAP);
+    const target = clamp(coefficient * gap, -cap, cap);
     const before = Number(prev[s.abbr]) || 0;
-    const updated = round3(before + COATTAIL_WEEKLY_STEP * (target - before));
+    const updated = round3(before + step * (target - before));
     if (Math.abs(updated) >= 0.0005) next[s.abbr] = updated;
     diagnostics[s.abbr] = { gap: round3(gap), target: round3(target), before: round3(before), after: updated };
   });

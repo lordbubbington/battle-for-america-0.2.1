@@ -123,7 +123,10 @@ export function applyMomentumVotes(game) {
     grn: { ...(game.thirdMods?.grn || {}) },
   };
   STATES.forEach((s) => {
-    if (shift.margin) game.stateMods[s.abbr] = (game.stateMods[s.abbr] || 0) + shift.margin;
+    if (shift.margin) {
+        const regMul = (game.build40?.modeId === 'regional-parties' || game.build39?.scenario?.id === 'regional-parties') ? 10 : 1;
+        game.stateMods[s.abbr] = (game.stateMods[s.abbr] || 0) + shift.margin * regMul;
+      }
     if (shift.lib) game.thirdMods.lib[s.abbr] = (game.thirdMods.lib[s.abbr] || 0) + shift.lib;
     if (shift.grn) game.thirdMods.grn[s.abbr] = (game.thirdMods.grn[s.abbr] || 0) + shift.grn;
   });

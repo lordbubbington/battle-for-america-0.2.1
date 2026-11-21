@@ -56,6 +56,9 @@ export function useElectionForecast(game, options = undefined) {
     const targetGame = latestGameRef.current;
     const finish = (forecast, status) => {
       if (cancelled) return;
+      if (status === 'ready' && forecast && targetGame && !targetGame.nickBronzeSnapshot) {
+        targetGame.nickBronzeSnapshot = { week, forecast };
+      }
       setEntry({
         campaignKey,
         week,
@@ -88,7 +91,6 @@ export function useElectionForecast(game, options = undefined) {
     };
     // Intentionally keyed ONLY on campaignKey + week (NOT mutable `game` identity)
     // so midweek actions do not re-trigger or collapse the Nick Bronze panel.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [campaignKey, week, savedMatchesWeek]);
 
   if (savedMatchesWeek) {

@@ -69,7 +69,9 @@ export default function ElectionNight({ game, you, them, accent, oppAccent, onDo
       governors: forecastReports.gov.races,
     },
   }), [forecastReports]);
-  const { forecast: liveForecast } = useElectionForecast(game, forecastOptions);
+  // R11: Retain the final weekly Nick Bronze forecast on Election Night while actual votes & calls update live.
+  const { forecast: weeklyFallback } = useElectionForecast(game);
+  const liveForecast = game?.nickBronzeSnapshot?.forecast || weeklyFallback;
   const calledKey = night.calls.map((c) => c.id).join('|');
 
   // Every newly called race drops into the feed with the hour it was called.
@@ -176,7 +178,9 @@ export default function ElectionNight({ game, you, them, accent, oppAccent, onDo
                   ? decision.winner
                     ? `No one reached ${EV_TO_WIN}, so the House chose by state delegation — ${decision.delegations.counts[decision.winner]} of ${decision.delegations.total} states.`
                     : `No one reached ${EV_TO_WIN}; the leading House delegation counts are tied.`
-                  : decision?.mode === 'popular'
+                  : decision?.mode === 'regional-pool' && decision.regionalPool
+                    ? decision.regionalPool.explanation
+                    : decision?.mode === 'popular'
                     ? `By ${decision.popular.margin.toFixed(1)} points in the national popular vote.`
                     : `${night.pres.demEV} to ${night.pres.repEV} in the Electoral College.`}
               </p>

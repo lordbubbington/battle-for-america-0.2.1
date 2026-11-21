@@ -30,13 +30,15 @@ export function scaleRegionalPersuasion(game, amount, alreadyScaled = false) {
 }
 
 // R15: Classify a single available player-facing event choice by all actual outcomes.
+// Handles BOTH structured effect schemas (effects/outcomes/branches) AND live
+// build40DecisionView / candidateDecisionView choices (costM + presentation.effects).
 // Strictly good: >= 1 positive gameplay effect AND every branch has 0 harmful
 // effects, 0 costs, and 0 harmful risks (scandal, opponent gain, etc.).
 export function classifyEventChoice(choice, playerParty = 'dem') {
   if (!choice || choice.unavailable || choice.disabled) {
     return { status: 'unavailable', strictlyGood: false, reason: 'unavailable' };
   }
-  const cost = Number(choice.cost || choice.fundsCost || 0);
+  const cost = Number(choice.cost ?? choice.costM ?? choice.fundsCost ?? 0);
   if (cost > 0) {
     return { status: 'tradeoff', strictlyGood: false, reason: `cash cost ${cost}` };
   }
@@ -49,7 +51,26 @@ export function classifyEventChoice(choice, playerParty = 'dem') {
     return { status: 'risky', strictlyGood: false, reason: `scandal/risk ${scandalRisk}` };
   }
 
-  // Collect all effect lists across deterministic and probabilistic branches.
+  // 1. Live UI decision view choices (build40DecisionView / candidateDecisionView):
+  //    presentation.effects contains every resolved positive/negative/neutral effect line
+  //    (including scandal chance, rival damage, cash/momentum/turnout/persuasion).
+  if (Array.isArray(choice.presentation?.effects) && choice.presentation.effects.length > 0) {
+    let hasPositive = false;
+    for (const item of choice.presentation.effects) {
+      const tone = String(item?.tone || '').toLowerCase();
+      const text = String(item?.text || '').toLowerCase();
+      if (tone === 'negative' || tone === 'mixed' || text.includes('scandal') || text.includes('backfire') || text.includes('penalty') || text.includes('risk')) {
+        return { status: 'tradeoff', strictlyGood: false, reason: `negative/risky presented effect: ${item?.text}` };
+      }
+      if (tone === 'positive') hasPositive = true;
+    }
+    if (!hasPositive) {
+      return { status: 'neutral', strictlyGood: false, reason: 'only neutral presented effects' };
+    }
+    return { status: 'strictly-good', strictlyGood: true, reason: 'all presented effects positive with zero cost or risk' };
+  }
+
+  // 2. Structured branch/effect schemas (unit fixtures & raw definitions):
   const branches = [];
   if (Array.isArray(choice.effects)) branches.push(choice.effects);
   if (Array.isArray(choice.outcomes)) {
@@ -74,7 +95,6 @@ export function classifyEventChoice(choice, playerParty = 'dem') {
     if (Array.isArray(choice.failureEffects)) branches.push(choice.failureEffects);
   }
 
-  // Also check simple scalar effect fields on legacy/build40 choice objects.
   const flatEffects = [];
   for (const key of ['persuasion', 'turnout', 'momentum', 'funds', 'moderate', 'factionDelta']) {
     if (Number.isFinite(choice[key]) && choice[key] !== 0) {
@@ -102,7 +122,6 @@ export function classifyEventChoice(choice, playerParty = 'dem') {
       if (amt === 0) continue;
       const targetsOpponent = eff.target === 'opponent' || eff.target === 'rival'
         || (eff.party && eff.party !== playerParty && eff.party !== 'self');
-      // For opponent target, negative amount is positive for player; positive is harmful.
       const playerSigned = targetsOpponent ? -amt : amt;
       if (playerSigned < 0) {
         return { status: 'tradeoff', strictlyGood: false, reason: `negative player effect ${kind}:${playerSigned}` };
@@ -137,7 +156,6 @@ export function drawWeightedPlayerEvent(pool, { random = Math.random, playerPart
 }
 
 // R16: Two-party-only 60/40 directional news rebalancing.
-// Preserves neutral/mixed story weights and within-side relative weights.
 export function classifyNationalCardDirection(card, playerParty) {
   if (!card || !['dem', 'rep'].includes(playerParty)) return 'neutral';
   const pov = playerParty === 'dem' ? 1 : -1;
@@ -158,7 +176,6 @@ export function rebalanceTwoPartyDirectionalWeights(items, baseWeights, directio
     if (directions[i] === 'favorable') favSum += w;
     else if (directions[i] === 'unfavorable') unfavSum += w;
   }
-  // If either directional side is absent, keep baseline weights untouched (never invent/flip).
   if (!(favSum > 0) || !(unfavSum > 0)) return baseWeights;
 
   const dirTotal = favSum + unfavSum;

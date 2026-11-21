@@ -4,7 +4,7 @@ function signedMargin(value, you, them) {
   return value > 0 ? `${you.short} +${value.toFixed(1)} pts` : `${them.short} +${Math.abs(value).toFixed(1)} pts`;
 }
 
-export default function PredictionMeter({ forecast, status, forecastWeek, you, them, accent, oppAccent }) {
+export default function PredictionMeter({ forecast, status, forecastWeek = null, you, them, accent, oppAccent }) {
   // R20: Reserve the same structural footprint as the populated forecast panel
   // during initial load or unavailable states so the header never collapses/jumps.
   if (!forecast) return (

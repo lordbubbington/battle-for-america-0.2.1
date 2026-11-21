@@ -18,6 +18,7 @@ import { candidateOpeningBonus } from '@/lib/build39Candidates';
 import { VOTER_COMPOSITION, ticketGroupShare } from '@/lib/build38Runtime';
 import { allocateMmpListPreferences } from '@/lib/build38MmpPreferences';
 import { STATE_LIST, STATE_BY_ABBR } from '@/data/states';
+import { BASE_LEANS } from '@/data/states';
 import { genericIn } from '@/lib/environment';
 import { factionEffects } from '@/lib/factions';
 import { SENATE_RACES, SENATE_START } from '@/data/senate';
