@@ -4,14 +4,6 @@ import SpotArt from '@/components/ui/spot-art';
 import CandidatePortrait from '@/components/CandidatePortrait';
 import { publicAssetUrl } from '@/lib/publicAssetUrl';
 
-const selectionThumbnailPath = (portrait) => {
-  if (typeof portrait !== 'string') return portrait;
-  if (portrait.startsWith('./art/candidates/')) {
-    return portrait.replace('./art/candidates/', './art/candidates/selection-thumbnails/');
-  }
-  return portrait.replace('/art/candidates/', '/art/candidates/selection-thumbnails/');
-};
-
 export default function CandidatePicker({ candidates, selected, onSelect, accent, prefix = 'cand' }) {
   const totalWeight = candidates.reduce((sum, c) => sum + (c.weight || 0), 0) || 1;
   return (
@@ -39,8 +31,8 @@ export default function CandidatePicker({ candidates, selected, onSelect, accent
               >
                 {(c.portrait?.startsWith('/art/candidates/') || c.portrait?.startsWith('./art/candidates/')) ? (
                   <CandidatePortrait
-                    person={{ ...c, selectionThumbnailPath: selectionThumbnailPath(c.portrait) }}
-                    variant="selection"
+                    person={c}
+                    variant="campaign"
                     assetUrlResolver={publicAssetUrl}
                     className="h-full w-full"
                   />

@@ -58,7 +58,7 @@ export default function CandidatePortrait({
         height: '100%',
         objectFit: variant === 'selection' ? 'cover' : 'contain',
         objectPosition: 'center',
-        imageRendering: 'pixelated',
+        imageRendering: 'auto',
         ...style,
       }}
     />
