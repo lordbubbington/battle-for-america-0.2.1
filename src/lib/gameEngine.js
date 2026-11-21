@@ -4267,7 +4267,8 @@ export function freeAdsForIssue(game, issueId) {
 }
 
 export function runAdBlitz(game, { abbr, abbrs, issueId, kind, typeId, language = 'en' }) {
-  if (decisionPending(game)) return game;
+  if (!isTraditionalStaffingReady(game.staffing) || decisionPending(game) || game.finished) return game;
+  if (typeId && !AD_TYPES[typeId]) return game;
   let targets = (Array.isArray(abbrs) && abbrs.length ? abbrs : abbr ? [abbr] : []).filter(Boolean);
   const corruptionAd = !!game.campaignPerks?.corruptionAd;
   if (!targets.length || !issueId || !kind) return game;
@@ -4487,7 +4488,7 @@ export function promiseOutlook(game, abbr, issueId) {
 }
 
 export function makePromise(game, abbr, issueId) {
-  if (decisionPending(game)) return game;
+  if (!isTraditionalStaffingReady(game.staffing) || decisionPending(game) || game.finished) return game;
   const left = actionsLeftIn(game);
   const outlook = promiseOutlook(game, abbr, issueId);
   if (!outlook || !abbr || left <= 0) return game;
@@ -4524,7 +4525,7 @@ export function makePromise(game, abbr, issueId) {
   // A promise is a coalition decision: the groups who wanted that answer move
   // toward you, and the groups who did not move away.
   const promisedStance = game.stances?.[issueId] ?? 1;
-  applyPlayerShifts(next, stanceGroupShifts(coalitionRows(next), promisedStance, issueId, game.oppStances?.[issueId] ?? 1), 0.7);
+  applyPlayerShifts(next, stanceGroupShifts(coalitionRows(next), promisedStance, issueId, game.oppStances?.[issueId] ?? 1), 0.04);
   applyRallyGeneric(game, next, abbr);
   pushStory(next, storyFrom(next, abbr, 'promise', outlook.tier !== 'miss', 'the promise'));
 
@@ -4559,7 +4560,7 @@ export function flipCost(game) {
 }
 
 export function changeStance(game, issueId, optionIndex) {
-  if (decisionPending(game)) return game;
+  if (!isTraditionalStaffingReady(game.staffing) || decisionPending(game) || game.finished) return game;
   const issue = ISSUE_BY_ID[issueId];
   const left = actionsLeftIn(game);
   if (!issue || left <= 0 || !Number.isInteger(optionIndex) || !issue.options?.[optionIndex]) return game;
@@ -4586,7 +4587,7 @@ export function changeStance(game, issueId, optionIndex) {
 
   next.flips = (game.flips || 0) + 1;
   next.momentum = clampMomentum(next.momentum - cost.momentum);
-  applyPlayerShifts(next, stanceGroupShifts(coalitionRows(next), optionIndex, issueId, oldStance));
+  applyPlayerShifts(next, stanceGroupShifts(coalitionRows(next), optionIndex, issueId, oldStance), 0.08);
   const response = resolvePolicyEffect({ campaignId: game.build34CampaignId, sequence: next.flips, issueId, from: oldStance, to: optionIndex });
   constrainPolicyPolling(game, next, response.pollPoints);
   next.build39 = { ...next.build39, lastPolicyResponse: { issueId, sequence: next.flips, ...response } };
