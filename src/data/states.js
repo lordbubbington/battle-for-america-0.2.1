@@ -56,7 +56,7 @@ export const STATE_LIST = [
   { abbr: 'OR', name: 'Oregon', ev: 8, lean: 10.53, region: 'west', col: 0, row: 3 },
   { abbr: 'PA', name: 'Pennsylvania', ev: 19, lean: -1.33, region: 'northeast', col: 8, row: 3 },
   { abbr: 'RI', name: 'Rhode Island', ev: 4, lean: 18.8, region: 'northeast', col: 11, row: 2 },
-  { abbr: 'SC', name: 'South Carolina', ev: 9, lean: -14.15, region: 'south', col: 7, row: 5 },
+  { abbr: 'SC', name: 'South Carolina', ev: 9, lean: -17.15, region: 'south', col: 7, row: 5 },
   { abbr: 'SD', name: 'South Dakota', ev: 3, lean: -33.75, region: 'midwest', col: 3, row: 3 },
   { abbr: 'TN', name: 'Tennessee', ev: 11, lean: -26.05, region: 'south', col: 5, row: 5 },
   { abbr: 'TX', name: 'Texas', ev: 40, lean: -8, region: 'west', col: 3, row: 7 },

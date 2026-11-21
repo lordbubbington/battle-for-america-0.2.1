@@ -156,6 +156,7 @@ export function electionForecast(game, options = {}) {
   forecastGame.houseCalledStateSeats = Object.fromEntries([...houseReports]
     .filter(([, report]) => report.called && ['pr', 'mmp'].includes(report.rule))
     .map(([id, report]) => [id, report]));
+  forecastGame.__nickBronzeHalfTurnout = true;
   const base = resultSnapshot(forecastGame);
   const earlyByState = earlyBallotsByState(game.earlyBallotLedger);
   const ballotCounters = new Map(base.rows.map((row) =>

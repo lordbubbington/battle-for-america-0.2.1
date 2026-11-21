@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { BUILD40_DEMOGRAPHIC_GROUPS, BUILD40_RACE_KINDS } from '@/data/build40Elections';
+import { BUILD40_DEMOGRAPHIC_GROUPS, BUILD40_RACE_KINDS, BUILD40_REGIONAL_PARTY_IDS } from '@/data/build40Elections';
 import { scenarioPartyMeta } from '@/lib/build39Scenarios';
 import { scenarioBallotAccess } from '@/lib/build40Elections';
 import { PARTY_COLOR } from '@/lib/downballot';
 import { nomineeOf } from '@/lib/gameEngine';
 
 const KIND_LABEL = { pres: 'Presidential', senate: 'Senate', gov: 'Governor' };
-const REGION_PARTIES = ['farmer-labor', 'conservation', 'localist'];
+const REGION_PARTIES = BUILD40_REGIONAL_PARTY_IDS;
 const pct = (value, total) => total > 0 ? `${(100 * value / total).toFixed(1)}%` : '—';
 const number = (value) => Number.isFinite(Number(value)) ? Math.round(Number(value)).toLocaleString() : '—';
 

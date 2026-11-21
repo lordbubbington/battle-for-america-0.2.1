@@ -1,15 +1,18 @@
 // How the presidency is actually awarded.
 //
-// Three ways to win, and the game can be played with any of them:
-//
-// 1. The Electoral College, which is the default: 270 electors, or a plurality
-//    when a third party takes enough of them to keep anybody from 270.
-// 2. The national popular vote, when the scenario switches it on.
-// 3. A contingent election. With nobody at 270 the House of Representatives
-//    chooses the president, and it votes by state delegation — one vote per
-//    state, and whoever controls the most delegations wins the White House.
+// Four ways to win:
+// 1. Electoral College (270 electors).
+// 2. Regional elector pooling (R07): in Regional Parties mode, if combined
+//    regional-party EVs >= 270 (and no single candidate already won >= 270 and
+//    popularVote is not active), regional electors pool behind the regional
+//    candidate with the most individual EVs (tie-break: national popular vote,
+//    then stable regional party ID order).
+// 3. National popular vote, when enabled.
+// 4. Contingent House election by state delegation.
 
 import { EV_TO_WIN } from '@/data/states';
+import { REGIONAL_PARTY_IDS, SCENARIO_PARTIES } from '@/data/build39Scenarios';
+import { voteUnits } from '@/lib/turnout';
 
 export const PARTY_LABEL = {
   dem: 'Democrats',
@@ -17,22 +20,29 @@ export const PARTY_LABEL = {
   lib: 'Libertarians',
   grn: 'Greens',
   ind: 'Independents',
+  ...Object.fromEntries(REGIONAL_PARTY_IDS.map((id) => [id, SCENARIO_PARTIES[id]?.label || id])),
 };
 
-// The national popular vote is the sum of the counted state ballots. Electoral
-// Votes decide state calls; they are not a proxy for population.
+// R09: Accurate national popular vote — sum actual modeled votes per party
+// across states (including DC and split electoral states once), dividing by
+// total valid votes. Never weight by electoral votes.
 export function nationalVote(result) {
   const rows = result.rows || [];
+  const seenStates = new Set();
   const totals = { dem: 0, rep: 0, lib: 0, grn: 0, ind: 0 };
   rows.forEach((row) => {
+    const key = row.abbr || row.state;
+    if (key && seenStates.has(key)) return;
+    if (key) seenStates.add(key);
     const shares = (result.firstChoicePopularVote ? row.shares : row.rcvShares || row.shares) || {};
     const usesRankedChoice = !!row.rcvShares && !result.firstChoicePopularVote;
+    const castFallback = Number.isFinite(row.cast) && row.cast > 0 ? row.cast : voteUnits(key);
     const parties = new Set([...Object.keys(totals), ...Object.keys(shares), ...Object.keys(row.votes || {})]);
     parties.forEach((party) => {
-      const votes = !usesRankedChoice && row.votes
-        ? row.votes[party] || 0
-        : ((shares[party] || 0) / 100) * (row.cast || 0);
-      totals[party] = (totals[party] || 0) + votes;
+      const votes = !usesRankedChoice && row.votes && Number.isFinite(row.votes[party])
+        ? row.votes[party]
+        : ((shares[party] || 0) / 100) * castFallback;
+      totals[party] = (totals[party] || 0) + Math.max(0, votes);
     });
   });
   const total = Object.values(totals).reduce((sum, value) => sum + value, 0) || 1;
@@ -40,6 +50,8 @@ export function nationalVote(result) {
   const ranked = Object.entries(out).sort((a, b) => b[1] - a[1]);
   return {
     ...out,
+    totals,
+    totalVotes: total,
     ranked,
     leader: ranked[0][0],
     leaderPct: ranked[0][1],
@@ -48,8 +60,6 @@ export function nationalVote(result) {
   };
 }
 
-// Each state's delegation is its own little parliament: whoever holds most of
-// its seats controls its one vote. An evenly split delegation controls nothing.
 export function houseDelegations(house) {
   const states = (house?.states || []).map((s) => {
     const seats = { dem: s.demSeats || 0, rep: s.repSeats || 0, lib: s.libSeats || 0, grn: s.grnSeats || 0, ...s.seatsByParty };
@@ -89,6 +99,42 @@ export function houseDelegations(house) {
   };
 }
 
+// R07: Regional parties pool electors at >= 270.
+export function resolveRegionalElectorPool(game, ev, popular) {
+  const isRegional = game?.build40?.modeId === 'regional-parties'
+    || game?.build39?.scenario?.id === 'regional-parties';
+  if (!isRegional) return null;
+
+  const regionalEntries = REGIONAL_PARTY_IDS
+    .map((party) => ({ party, ev: ev?.[party] || 0, pop: popular?.totals?.[party] || popular?.[party] || 0 }))
+    .filter((entry) => entry.ev > 0);
+  const combinedEV = regionalEntries.reduce((sum, entry) => sum + entry.ev, 0);
+  if (combinedEV < EV_TO_WIN || !regionalEntries.length) return null;
+
+  const sorted = [...regionalEntries].sort((a, b) =>
+    b.ev - a.ev
+    || b.pop - a.pop
+    || REGIONAL_PARTY_IDS.indexOf(a.party) - REGIONAL_PARTY_IDS.indexOf(b.party)
+  );
+  const winner = sorted[0].party;
+  const originalEvBy = { ...ev };
+  const finalEvBy = { ...ev };
+  for (const entry of regionalEntries) {
+    if (entry.party !== winner) finalEvBy[entry.party] = 0;
+  }
+  finalEvBy[winner] = combinedEV;
+
+  const label = SCENARIO_PARTIES[winner]?.label || winner;
+  return {
+    combinedEV,
+    winner,
+    originalEvBy,
+    finalEvBy,
+    participants: regionalEntries.map((e) => ({ party: e.party, ev: e.ev })),
+    explanation: `Regional party electors combined for ${combinedEV} electoral votes (at least ${EV_TO_WIN}) and pooled behind ${label}, the regional leader with ${sorted[0].ev} state electoral votes.`,
+  };
+}
+
 export function decidePresidency(game, result, house) {
   const popular = nationalVote(result);
   const ev = result.evBy || {};
@@ -99,12 +145,28 @@ export function decidePresidency(game, result, house) {
   const secondEV = ranked[1] ? ranked[1][1] : 0;
   const evLeader = ranked[0] ? ranked[0][0] : null;
   const evWinner = topEV >= EV_TO_WIN && topEV > secondEV ? evLeader : null;
+  const regionalPool = resolveRegionalElectorPool(game, ev, popular);
 
   if (game.popularVote) {
-    return { mode: 'popular', winner: popular.leader, popular, evLeader, topEV, evWinner };
+    // Popular vote decides the presidency without overriding the winner, while
+    // retaining regional allocation details for display.
+    return { mode: 'popular', winner: popular.leader, popular, evLeader, topEV, evWinner, regionalPool };
   }
   if (evWinner) {
-    return { mode: 'electoral', winner: evWinner, popular, evLeader, topEV, evWinner };
+    return { mode: 'electoral', winner: evWinner, popular, evLeader, topEV, evWinner, regionalPool: null };
+  }
+
+  // R07: Combined regional EVs >= 270 pool behind the leading regional candidate.
+  if (regionalPool) {
+    return {
+      mode: 'regional-pool',
+      winner: regionalPool.winner,
+      popular,
+      evLeader: regionalPool.winner,
+      topEV: regionalPool.combinedEV,
+      evWinner: regionalPool.winner,
+      regionalPool,
+    };
   }
 
   const allianceParty = game.electoralAlliance;
@@ -116,8 +178,6 @@ export function decidePresidency(game, result, house) {
     return { mode: 'coalition', winner: game.party, partner: allianceParty, allianceEV, popular, evLeader, topEV };
   }
 
-  // Nobody reached 270: the House votes by state delegation. A unique plurality
-  // wins; House seat totals do not break a delegation tie.
   const delegations = houseDelegations(house);
   return { mode: 'contingent', winner: delegations.leader, popular, delegations, evLeader, topEV, evWinner: null };
 }

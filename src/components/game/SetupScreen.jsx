@@ -143,7 +143,8 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave 
   };
 
   const field = (id) => byParty(id, scenarioId);
-  const activeParties = scenarioPartyIds(modeId).filter((id) => id !== 'ind');
+  const isRegionalMode = normalizeBuild40Mode(modeId).modeId === 'regional-parties';
+  const activeParties = scenarioPartyIds(modeId, 'president', { playableOnly: true }).filter((id) => id !== 'ind');
   const accentFor = (id) => scenarioPartyMeta(scenarioId, id)?.color || ACCENT[id];
   const yourField = field(party);
   // A third-party nominee is on the ballot against all three of the others: pick
@@ -347,7 +348,7 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave 
 
       <section className="mb-3 grid gap-3 xl:grid-cols-[minmax(280px,0.8fr)_minmax(0,1.5fr)]" aria-label="Difficulty and starting map">
         <Step n="B" title="How difficult should this be?" tilt={-0.15}>
-          <DifficultyPicker value={difficultyId} onChange={changeDifficulty} />
+          <DifficultyPicker value={isRegionalMode ? 'medium' : difficultyId} onChange={changeDifficulty} disabled={isRegionalMode} disabledNote="Regional Parties locks difficulty to Normal." />
         </Step>
         <Step n="A" title="Set the starting map" note={`The ${DIFFICULTIES[difficultyId].label} profile starts at ${leadLabel(defaultStartEnvironment.nationalGeneric)}. Changing party or difficulty resets the starting environment.`}>
           {nationalCustomized && <button type="button" onClick={() => { setNationalCustomized(false); setNational(defaultStartEnvironment.nationalGeneric); }} className="mb-2 rounded-full border border-primary/40 px-3 py-1 text-[10px] font-extrabold text-primary hover:bg-primary/10">Reset to {DIFFICULTIES[difficultyId].label} profile ({leadLabel(defaultStartEnvironment.nationalGeneric)})</button>}
@@ -359,7 +360,9 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave 
             stateEditNote="State-by-state adjustments are limited to Cupcake and Easy."
             capNote={capDem == null ? null : `The ${DIFFICULTIES[difficultyId].label} cap limits player-favorable starting conditions to ${leadLabel(capDem)}.`}
             randomness={randomness} onRandomness={setRandomness} onReroll={() => setChaosSeed(Math.floor(Math.random() * 99991) + 1)}
-            qualityDelta={qualityDelta} previewRows={previewRows} showExact={DIFFICULTIES[difficultyId].showExact}
+            qualityDelta={isRegionalMode ? 0 : qualityDelta} previewRows={previewRows} showExact={DIFFICULTIES[difficultyId].showExact}
+            nationalDisabled={isRegionalMode}
+            nationalDisabledNote="Regional Parties ignores national-environment modifiers."
           />
         </Step>
       </section>
@@ -503,7 +506,18 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave 
           <Build40ModePicker modeId={modeId} onChange={(id) => {
             setModeId(id);
             const next = normalizeBuild40Mode(id);
-            const nextParties = scenarioPartyIds(id);
+            const nextIsRegional = next.modeId === 'regional-parties';
+            const nextDiff = nextIsRegional ? 'medium' : difficultyId;
+            if (nextIsRegional) {
+              setDifficultyId('medium');
+              setNationalCustomized(false);
+              setNational(0);
+              setAdjust({});
+            } else if (isRegionalMode) {
+              setNationalCustomized(false);
+              setNational(startingNationalEnvironment({ difficultyId: nextDiff, playerParty: party, modeMaximumEnvironment: DIFFICULTIES[nextDiff]?.startEnvironment }).nationalGeneric);
+            }
+            const nextParties = scenarioPartyIds(id, 'president', { playableOnly: true });
             const nextParty = nextParties.includes(party) ? party : 'dem';
             const candidates = byParty(nextParty, next.scenarioId);
             const nominee = candidates.find((candidate) => candidate.id === candidateId) || candidates[0];
@@ -539,8 +553,9 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave 
             />
           </div>
           <p className="mt-2 rounded-lg border border-dashed border-fuchsia-400/40 bg-fuchsia-400/5 px-2.5 py-1.5 text-[11px] font-semibold text-fuchsia-200">
-            Utah is already set: no Democrat on the Senate ballot, and Evan McMullin running as an independent with
-            Democratic help.
+            {isRegionalMode
+              ? 'In Regional Parties mode, Evan McMullin runs for president as the Deseret Party nominee, so his independent Utah Senate candidacy is disabled.'
+              : 'Utah is already set: no Democrat on the Senate ballot, and Evan McMullin running as an independent with Democratic help.'}
           </p>
         </Step>
 

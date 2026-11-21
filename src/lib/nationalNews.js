@@ -16,7 +16,8 @@ import { build40ModeOf } from '@/lib/build40DecisionRuntime';
 import { createSeededRandom } from '@/lib/seededRandom';
 import { FOUR_PARTY_NEWS_EVENTS } from '@/data/fourPartyNews';
 import { STATES } from '@/data/states';
-import { addGeneric, applyNationalGenericSwing } from '@/lib/environment';
+import { addGeneric, applyNationalGenericSwing, isRegionalEnvironmentIgnored } from '@/lib/environment';
+import { classifyNationalCardDirection, isTwoPartyMajorMode, rebalanceTwoPartyDirectionalWeights } from '@/lib/v022Balance';
 import { queueIncidentResponse } from '@/lib/incidentResponses';
 
 const round2 = (v) => Math.round(v * 100) / 100;
@@ -44,7 +45,7 @@ export function arcOf(game) {
 // Which story files this week. A follow-up set last week always lands; a story
 // that ends a running one only files while that one is running; and a new
 // running story waits its turn.
-export function drawNationalNews(game) {
+export function drawNationalNews(game, { random = Math.random } = {}) {
   const prev = nationalNewsCard(game);
   const followCard = prev?.follow && CARD_BY_ID[prev.follow] ? mainGameNationalCards([CARD_BY_ID[prev.follow]])[0] : null;
   if (followCard) {
@@ -96,11 +97,16 @@ export function drawNationalNews(game) {
     return true;
   });
   const list = pool.length ? pool : activeCards;
-  const total = list.reduce((sum, c) => sum + c.weight, 0);
-  let r = Math.random() * total;
-  for (const c of list) {
-    r -= c.weight;
-    if (r <= 0) return c;
+  let weights = list.map((c) => Number(c.weight) || 1);
+  if (isTwoPartyMajorMode(game)) {
+    const directions = list.map((c) => classifyNationalCardDirection(c, game.party));
+    weights = rebalanceTwoPartyDirectionalWeights(list, weights, directions, 0.6);
+  }
+  const total = weights.reduce((sum, w) => sum + w, 0);
+  let r = random() * total;
+  for (let i = 0; i < list.length; i += 1) {
+    r -= weights[i];
+    if (r <= 0) return list[i];
   }
   return list[list.length - 1];
 }

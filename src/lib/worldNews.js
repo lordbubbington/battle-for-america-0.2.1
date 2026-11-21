@@ -18,6 +18,7 @@ import { stateIssueAlignment } from '@/data/platform';
 import { mediaEnvironment } from '@/data/media';
 import { WORLD_BY_ID, WORLD_STORIES } from '@/data/worldNews';
 import { mainGameWorldStories } from '@/lib/endorsementRemoval.mjs';
+import { isTwoPartyMajorMode, rebalanceTwoPartyDirectionalWeights } from '@/lib/v022Balance';
 
 const round2 = (v) => Math.round(v * 100) / 100;
 const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
@@ -73,17 +74,23 @@ function fit(story, tags) {
   return weight;
 }
 
-function pickStory(tags, exclude) {
+function pickStory(tags, exclude, game = null, abbr = null, random = Math.random) {
   const pool = mainGameWorldStories(WORLD_STORIES);
-  let total = 0;
-  const weights = pool.map((s) => {
-    if (exclude.has(s.id)) return 0;
-    const w = fit(s, tags);
-    total += w;
-    return w;
-  });
+  let weights = pool.map((s) => (exclude.has(s.id) ? 0 : fit(s, tags)));
+  if (game && abbr && isTwoPartyMajorMode(game)) {
+    const pov = game.party === 'rep' ? -1 : 1;
+    const directions = pool.map((s, idx) => {
+      if (!weights[idx]) return 'neutral';
+      const eff = storyEffect(game, abbr, s);
+      const signed = (eff?.shift || 0) * pov;
+      if (Math.abs(signed) < 0.005) return 'neutral';
+      return signed > 0 ? 'favorable' : 'unfavorable';
+    });
+    weights = rebalanceTwoPartyDirectionalWeights(pool, weights, directions, 0.6);
+  }
+  const total = weights.reduce((a, b) => a + b, 0);
   if (total <= 0) return null;
-  let r = Math.random() * total;
+  let r = random() * total;
   for (let i = 0; i < pool.length; i++) {
     r -= weights[i];
     if (r <= 0) return pool[i];
@@ -123,7 +130,7 @@ export function issueSalience(game, abbr, issueId) {
 
 // Deal the week: which stories ran where, what they moved, and how worked up
 // every state now is about which issue.
-export function rollWorldNews(game) {
+export function rollWorldNews(game, { random = Math.random } = {}) {
   const shifts = {};
   const salience = {};
   const downballotNews = { senate: {}, house: {}, gov: {} };

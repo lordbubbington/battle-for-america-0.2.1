@@ -1,28 +1,30 @@
 import React from 'react';
 import { EV_TOTAL, EV_TO_WIN } from '@/data/states';
+import { REGIONAL_PARTY_IDS, SCENARIO_PARTIES } from '@/data/build39Scenarios';
 import { POLL_PARTIES, partyColorOf } from '@/lib/polling';
 import { TOSSUP_COLOR } from '@/lib/marginColors';
 
-// Every party keeps its own colour on the electoral bar: a state the Greens
-// carried is a green slice in every mode, and the same for the Libertarians.
-// No shared third-party hatching, and nothing lumped into "everyone else".
-const ORDER = ['dem', 'rep', 'lib', 'grn', 'ind'];
+// Every party keeps its own colour on the electoral bar, including all 10
+// regional parties and any split EVs (R05).
+const BASE_ORDER = ['dem', 'rep', 'lib', 'grn', 'ind', ...REGIONAL_PARTY_IDS, 'progressive', 'maga', 'conservation'];
 const EXTRA = {
   ind: { label: 'Independent', short: 'I' },
 };
 
 function metaOf(party) {
   const found = POLL_PARTIES.find((p) => p.id === party);
+  const scenario = SCENARIO_PARTIES[party];
   return {
-    name: found?.label || EXTRA[party]?.label || party,
-    short: found?.short || EXTRA[party]?.short || party.toUpperCase(),
+    name: found?.label || scenario?.label || EXTRA[party]?.label || party,
+    short: found?.short || scenario?.short || EXTRA[party]?.short || party.toUpperCase(),
   };
 }
 
 export function evSegments(evBy, you, them, accent, oppAccent) {
   const at = (party) => evBy?.[party] || 0;
   const colorOf = (party) => (party === you ? accent : party === them ? oppAccent : partyColorOf(party));
-  const middle = ORDER.filter((party) => party !== you && party !== them);
+  const allParties = [...new Set([...BASE_ORDER, ...Object.keys(evBy || {})])];
+  const middle = allParties.filter((party) => party !== you && party !== them && (at(party) > 0 || ['lib', 'grn', 'ind'].includes(party)));
   return [you, ...middle, them].map((party) => ({
     party,
     ev: at(party),
@@ -38,10 +40,6 @@ export function otherPartySlices(segments, you, them) {
 
 export default function EvBar({ evBy, you, them, accent, oppAccent, tossup = 0, className = '' }) {
   const segments = evSegments(evBy, you, them, accent, oppAccent);
-  // States polling inside the tossup band belong to nobody yet, so their electors
-  // sit in the middle of the bar in the same purple the map calls them — neither
-  // side can count them, and the gap between the two blocks is exactly how many
-  // are still on the table.
   const ordered = [
     segments.find((s) => s.party === you),
     { party: '__tossup', ev: tossup, color: TOSSUP_COLOR, name: 'Tossup', short: 'Tossup' },

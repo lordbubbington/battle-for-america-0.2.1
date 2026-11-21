@@ -123,7 +123,11 @@ export function votesFor(abbr, support, game) {
     const share = Math.max(0, support?.[party] || 0);
     if (!share) return;
     const baseline = party === 'ind' ? 60 : (BASE_TURNOUT[abbr] ?? 60);
-    const turnout = party === 'ind' ? baseline : turnoutOf(game, abbr, party);
+    const rawTurnout = party === 'ind' ? baseline : turnoutOf(game, abbr, party);
+    // R12: Nick Bronze accounts for turnout at half its actual deviation from baseline.
+    const turnout = game?.__nickBronzeHalfTurnout
+      ? baseline + 0.5 * (rawTurnout - baseline)
+      : rawTurnout;
     out[party] = (share / 100) * (turnout / baseline) * units;
   });
   return out;

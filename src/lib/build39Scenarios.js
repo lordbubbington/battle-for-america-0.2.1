@@ -13,7 +13,7 @@ const REGIONAL_IDS = Object.keys(REGIONAL_PARTY_STATES);
 const FAVORITE_IDS = Object.keys(FAVORITE_BALLOT_ACCESS);
 const SIX_PARTY_EXCLUSIVE_IDS = ['progressive', 'maga'];
 const SIX_PARTY_MIDWEST = new Set(['IL', 'IN', 'IA', 'KS', 'MI', 'MN', 'MO', 'NE', 'ND', 'OH', 'SD', 'WI']);
-const SCENARIO_IDS = new Set(SCENARIOS.map(({ id }) => id));
+const SCENARIO_IDS = new Set([...SCENARIOS.map(({ id }) => id), 'six-party']);
 const total = (values) => values.reduce((sum, value) => sum + value, 0);
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 const finite = (value) => Number.isFinite(value) ? value : 0;

@@ -115,12 +115,19 @@ import { VANCE_SUCCESSION_BY_ID, VANCE_SUCCESSION_PART_EFFECTS } from '@/data/va
 import {
   CLOSE_RACE,
   addGeneric,
+  applyWeeklyPresidentialCoattails,
   decayGeneric,
   genericAverage,
   genericIn,
-  rallyGenericFactor,
   initialGenericEnvironment,
+  isRegionalEnvironmentIgnored,
+  rallyGenericFactor,
+  recomputeEffectiveGeneric,
 } from '@/lib/environment';
+import {
+  drawWeightedPlayerEvent,
+  scaleRegionalPersuasion,
+} from '@/lib/v022Balance';
 
 export { policyMargin, issueBreakdown } from '@/lib/policy';
 import {
@@ -486,12 +493,15 @@ export function createGame({
   if (modeId) {
     const mode = normalizeBuild40Mode(modeId);
     if (mode.legacyFavorite) throw new RangeError('Favorite Sons and Daughters is available only in saved campaigns');
+    if (mode.modeId === 'six-party') throw new RangeError('Six Party Mode has been removed for new campaigns; existing saves can still be resumed.');
     ({ scenarioId, thirdMode, modeId } = mode);
   } else {
     scenarioId = normalizeScenarioId(scenarioId);
     thirdMode = SCENARIOS.find((scenario) => scenario.id === scenarioId)?.thirdMode || thirdMode;
   }
-  const diff = DIFFICULTIES[difficultyId] || DIFFICULTIES.medium;
+  const isRegionalNew = modeId === 'regional-parties' || scenarioId === 'regional-parties';
+  // R02: Regional Parties locks difficulty to Normal (medium) and ignores national environment.
+  const diff = isRegionalNew ? DIFFICULTIES.medium : (DIFFICULTIES[difficultyId] || DIFFICULTIES.medium);
   const startingLeans = { ...(leans || BASE_LEANS) };
   if (['cupcake', 'easy'].includes(diff.id) && stateAdjustments && typeof stateAdjustments === 'object') {
     const stateAbbrs = new Set(STATES.map(({ abbr }) => abbr));
@@ -509,7 +519,7 @@ export function createGame({
   const requestedGeneric = Number.isFinite(nationalGeneric)
     ? nationalGeneric
     : defaultStartEnvironment.nationalGeneric;
-  const startingGeneric = clampStartingNationalEnvironment({ difficultyId: diff.id, playerParty: party, nationalGeneric: requestedGeneric });
+  const startingGeneric = isRegionalNew ? 0 : clampStartingNationalEnvironment({ difficultyId: diff.id, playerParty: party, nationalGeneric: requestedGeneric });
   const expectedRival = party === 'dem' ? 'rep' : 'dem';
   const candidateParty = CANDIDATE_BY_ID[opponentId]?.party;
   const rivalParty = selectedOpponentParty || candidateParty;
@@ -669,10 +679,15 @@ export function createGame({
     track: 0,
     // The state-by-state generic ballot, and the national average of it. The
     // campaign moves these at half strength; the news moves them at full.
-    stateGeneric: initialGenericEnvironment(startingGeneric, startingLeans),
-    natGeneric: startingGeneric,
-    genericBaseline: startingGeneric,
+    baseStateGeneric: isRegionalNew ? {} : initialGenericEnvironment(startingGeneric, startingLeans),
+    coattailByState: {},
+    coattailResolvedWeeks: [],
+    coattailModelVersion: 1,
+    stateGeneric: isRegionalNew ? {} : initialGenericEnvironment(startingGeneric, startingLeans),
+    natGeneric: isRegionalNew ? 0 : startingGeneric,
+    genericBaseline: isRegionalNew ? 0 : startingGeneric,
     genericSwingDiagnostics: [],
+    nickBronzeSnapshot: null,
     // The national desk: this week's story, what has already run, and any story
     // still paying out week after week.
     natNews: null,
@@ -697,7 +712,7 @@ export function createGame({
     indieSenate: indieSenate
       ? { ND: true, SD: true, ID: true }
       : { ND: false, SD: false, ID: false },
-    mcmullin: mcmullin !== false,
+    mcmullin: isRegionalNew ? false : mcmullin !== false,
     houseStart: houseStartRoll(),
     govStart: govStartRoll(),
     opponentParty,
@@ -885,7 +900,10 @@ export function noiseRamp(week = 0) {
 
 // What the polls say, from the Democratic candidate's point of view.
 export function pollMargin(abbr, game) {
-  const base = (game.leans[abbr] ?? BASE_LEANS[abbr] ?? 0) + (game.build38?.openingModel ? ideologyEnvironmentDelta(abbr, game.natGeneric || 0) : 0) + (game.build38?.regionalMarginByState?.[abbr] || 0);
+  const envForPres = isRegionalEnvironmentIgnored(game)
+    ? 0
+    : (game.coattailModelVersion >= 1 ? (game.genericBaseline ?? game.natGeneric ?? 0) : (game.natGeneric || 0));
+  const base = (game.leans[abbr] ?? BASE_LEANS[abbr] ?? 0) + (game.build38?.openingModel ? ideologyEnvironmentDelta(abbr, envForPres) : 0) + (game.build38?.regionalMarginByState?.[abbr] || 0);
   if (isThirdParty(game.party)) {
     // A third-party run does not move the two-party margin, it eats into it:
     // the campaign lives in the third-party share instead.
@@ -1250,8 +1268,9 @@ function applyMomentumPersuasion(game, shifts) {
 
 // The line a player reads when an action lands with a thud.
 function applyMinorPartyPersuasion(game, party, abbr, amount) {
+  const scaledAmount = scaleRegionalPersuasion(game, amount);
   const stateMods = { ...(game.thirdMods?.[party] || {}) };
-  stateMods[abbr] = (stateMods[abbr] || 0) + amount;
+  stateMods[abbr] = (stateMods[abbr] || 0) + scaledAmount;
   game.thirdMods = { ...game.thirdMods, [party]: stateMods };
 }
 
@@ -1399,7 +1418,9 @@ export function nextEventFor(game, { random = Math.random, excludedEventIds = []
     if (event?.choices.some((choice) => !choice.unavailable)) legal.set(event.id, event);
   }
   const pool = [...legal.values()];
-  const event = pool[Math.floor(random() * pool.length)] || null;
+  const event = actingParty === game.party
+    ? drawWeightedPlayerEvent(pool, { random, playerParty: game.party })
+    : (pool[Math.floor(random() * pool.length)] || null);
   return { event, why: event?.why || null, followUps: [] };
 }
 
@@ -1577,7 +1598,9 @@ function applyLocalGroupShifts(next, shifts, abbr) {
   });
   const here = stateGroupShift(abbr, mapped) * RALLY_GROUP_SCALE;
   if (!here) return;
-  next.stateMods[abbr] = (next.stateMods[abbr] || 0) + here;
+  const playerSign = next.party === 'rep' ? -1 : 1;
+  const scaledHere = here * playerSign > 0 ? scaleRegionalPersuasion(next, Math.abs(here)) * playerSign : here;
+  next.stateMods[abbr] = (next.stateMods[abbr] || 0) + scaledHere;
 }
 
 // A card or an action that says "turnout" means your own people. Every party's
@@ -1677,7 +1700,7 @@ function applyBuild40MapEffect(next, stateId, party, amount) {
   if (isThirdParty(party) || isScenarioCandidate(party)) {
     if (scenarioBallotAccess(next.build39?.scenario?.id, 'president', stateId, party)) applyMinorPartyPersuasion(next, party, stateId, amount);
   }
-  else next.stateMods[stateId] = (next.stateMods[stateId] || 0) + amount * (party === 'rep' ? -1 : 1);
+  else next.stateMods[stateId] = (next.stateMods[stateId] || 0) + scaleRegionalPersuasion(next, amount) * (party === 'rep' ? -1 : 1);
 }
 
 function applyBuild40Package(game, context, choice, riskModifier = 1) {
@@ -2327,7 +2350,7 @@ function applyBuild34ProxyVisit(game, visit, candidates) {
   addTurnoutState(game, party, abbr, stopEffects.turnout * effectMultiplier);
   addPartyMomentum(game, party, stopEffects.momentum * effectMultiplier);
   if (visit.persuasionLanded) {
-    const persuasion = stopEffects.persuasion * effectMultiplier;
+    const persuasion = scaleRegionalPersuasion(game, stopEffects.persuasion * effectMultiplier);
     if (party === 'dem' || party === 'rep') {
       game.stateMods[abbr] = (game.stateMods[abbr] || 0) + persuasion;
     } else {
@@ -2967,7 +2990,7 @@ function applyRivalWeek(game, schedule, diff, style) {
     next.fatigue = { ...(next.fatigue || {}), [game.opponentParty]: partyFatigue };
   }
   next.stateGeneric = { ...(next.stateGeneric || {}) };
-  Object.entries(week.genericDeltas || {}).forEach(([abbr, amount]) => addGeneric(next, abbr, amount));
+  Object.entries(week.genericDeltas || {}).forEach(([abbr, amount]) => addGeneric(next, abbr, amount, { source: 'presidential' }));
 
   // A changed position makes an earlier promise a live attack line. The rival
   // spends one action on it each week until voters have heard the counterstory.
@@ -3410,13 +3433,31 @@ export function advanceWeek(game) {
   // Every state's own environment settles a little, and the national environment
   // is whatever the states add up to: when fifty state environments move, the
   // country moves with them.
-  next.stateGeneric = decayGeneric(game);
+  next.baseStateGeneric = decayGeneric(game);
+  recomputeEffectiveGeneric(next);
+  // R19: Apply gradual presidential coattails once per week starting at Week 2 (completed week >= 1).
+  const nextWeekNum = (game.week || 0) + 1;
+  if (nextWeekNum >= 1 && !isRegionalEnvironmentIgnored(next) && ['dem', 'rep'].includes(next.party)) {
+    const gapByState = {};
+    STATES.forEach((s) => {
+      gapByState[s.abbr] =
+        candidateMods(s.abbr, next) +
+        policyMargin(s.abbr, next) +
+        (next.track || 0) +
+        (next.stateMods?.[s.abbr] || 0) +
+        demographicShift(s.abbr, next) +
+        (next.dragMods?.[s.abbr] || 0);
+    });
+    applyWeeklyPresidentialCoattails(next, { weekNumber: nextWeekNum, gapByState });
+  }
   const genericNow = genericAverage(next);
   const priorGenericBaseline = Number.isFinite(game.genericBaseline) ? game.genericBaseline : (game.natGeneric || 0);
-  const genericPull = (genericNow - priorGenericBaseline) * 0.5;
+  const genericPull = isRegionalEnvironmentIgnored(next) ? 0 : (genericNow - priorGenericBaseline) * 0.5;
   next.genericBaseline = genericNow;
   next.natGeneric = genericNow;
-  next.track = round1(Math.max(-14, Math.min(14, (game.track || 0) * 0.9 + gauss() * 0.3 + genericPull)));
+  next.track = isRegionalEnvironmentIgnored(next)
+    ? 0
+    : round1(Math.max(-14, Math.min(14, (game.track || 0) * 0.9 + gauss() * 0.3 + genericPull)));
 
   // Drift: on the harder difficulties the map slides toward your opponent a
   // little every week, and faster in the states that will decide the election.
@@ -3966,7 +4007,7 @@ function applyRallyGeneric(before, next, abbr, excludedMargin = 0) {
   if (!abbr || !before) return;
   const moved = pollMargin(abbr, next) - pollMargin(abbr, before) - excludedMargin;
   if (!moved) return;
-  addGeneric(next, abbr, moved * rallyGenericFactor(downballotTight(before, abbr)));
+  addGeneric(next, abbr, moved * rallyGenericFactor(downballotTight(before, abbr)), { source: 'presidential' });
 }
 
 export function applyAction(game, actionId, abbr, payload = {}) {
@@ -5056,6 +5097,11 @@ export function loadGame() {
       downballotNews: parsed.downballotNews || { senate: {}, house: {}, gov: {} },
       indieSenate: parsed.indieSenate || { ND: false, SD: false, ID: false },
       mcmullin: parsed.mcmullin !== false,
+      baseStateGeneric: parsed.baseStateGeneric || { ...(parsed.stateGeneric || {}) },
+      coattailByState: parsed.coattailByState || {},
+      coattailResolvedWeeks: Array.isArray(parsed.coattailResolvedWeeks) ? parsed.coattailResolvedWeeks : [],
+      coattailModelVersion: parsed.coattailModelVersion ?? 0,
+      nickBronzeSnapshot: parsed.nickBronzeSnapshot || null,
       houseStart: houseStartRoll(),
       govStart: parsed.govStart
         ? {

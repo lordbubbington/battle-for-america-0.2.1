@@ -1,6 +1,7 @@
 import { SCENARIO_PARTIES } from '@/data/build39Scenarios';
 import { stateGroupShift } from '@/data/demographics';
 import { applyScenarioShares, scenarioPartyIds, scenarioRankedChoiceTally } from '@/lib/build39Scenarios';
+import { REGIONAL_PARTY_IDS } from '@/data/build39Scenarios';
 import { candidateOpeningBonus } from '@/lib/build39Candidates';
 // The downballot engine: who wins the Senate, the House and the governor's
 // mansions, and why.
@@ -591,7 +592,12 @@ export function raceMargin(state, kind, game, marginOf, mode = 'poll') {
   // The top of the ticket, plus whatever this state's own environment has done
   // since: the generic ballot is not the presidential ballot, and the whole point
   // of tracking it separately is that it can drift on its own.
-  const top = marginOf(state) + genericIn(state, game);
+  // R19: Under the 0.2.2 coattail model, presidential coattails reach Senate and
+  // Governor races once through genericIn(state, game) rather than double-counting
+  // the full presidential marginOf(state). Legacy saves retain prior behavior.
+  const top = game?.coattailModelVersion >= 1
+    ? (game.leans?.[state] ?? BASE_LEANS[state] ?? 0) + genericIn(state, game)
+    : marginOf(state) + genericIn(state, game);
 
   // Election-night house effects hit downballot races softer than the top line.
   const damped = mode === 'result' ? top * 0.92 : top;
@@ -904,7 +910,7 @@ function calledHouseSeats(report) {
 function buildHouseProportional(game, marginOf, mode) {
   const votes = houseVoteRows(game, marginOf, mode);
   const national = weightedNationalShares(votes, (row) => row.shares, (row) => ballotsInState(row.state.abbr));
-  const qualifying = Object.keys(national).filter((party) => national[party] >= 5 || (game.build39?.scenario?.id === 'regional-parties' && ['farmer-labor', 'conservation', 'localist'].includes(party)));
+  const qualifying = Object.keys(national).filter((party) => national[party] >= 5 || (game.build39?.scenario?.id === 'regional-parties' && REGIONAL_PARTY_IDS.includes(party)));
   const states = votes.map(({ state, margin, shares }) => stateAllocatedHouseRow(
     state,
     HOUSE_SEATS[state.abbr],
@@ -938,7 +944,7 @@ function buildHouseMmp(game, marginOf, mode) {
   housePartyIds(game).forEach((party) => {
     directTotals[party] = directStates.reduce((sum, row) => sum + (row.seatsByParty[party] || 0), 0);
   });
-  const qualifying = Object.keys(national).filter((party) => national[party] >= 5 || directTotals[party] >= 3 || (game.build39?.scenario?.id === 'regional-parties' && ['farmer-labor', 'conservation', 'localist'].includes(party)));
+  const qualifying = Object.keys(national).filter((party) => national[party] >= 5 || directTotals[party] >= 3 || (game.build39?.scenario?.id === 'regional-parties' && REGIONAL_PARTY_IDS.includes(party)));
   const states = directStates.map((directRow) => {
     const voteRow = byState[directRow.state];
     const seats = directRow.seats;
