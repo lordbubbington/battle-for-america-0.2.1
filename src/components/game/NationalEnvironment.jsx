@@ -85,7 +85,7 @@ export default function NationalEnvironment({ game, snap, showExact, row = null,
           </div>
           <p className="mt-1.5 text-[10px] font-semibold leading-snug text-slate-500">
             This is {stateName}&apos;s generic congressional ballot — what its House races are polling at, not the
-            presidential margin — and its own environment can drift away from the top of the ticket.
+            presidential margin — and its own environment can move independently of the top of the ticket.
           </p>
         </>
       ) : (
@@ -143,7 +143,7 @@ export default function NationalEnvironment({ game, snap, showExact, row = null,
       <p className="mt-2 text-[10px] font-semibold leading-snug text-slate-500">
         {showExact
           ? 'Exact margins on — the polls are showing their real numbers, and they still miss on the night.'
-          : 'Ratings only. The country drifts a little every week, and every state drifts with it.'}
+          : 'Ratings only. The country shifts a little every week, and every state moves with it.'}
       </p>
     </div>
   );

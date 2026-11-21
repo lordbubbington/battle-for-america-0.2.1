@@ -314,7 +314,8 @@ export const DIFFICULTIES = {
     blurb: 'A real race. Ratings instead of numbers, and the polls miss like they do in real life.',
     // How far the national mood can be dragged toward your own party...
     genericCap: DIFFICULTY_START_RULES.medium.favorableCap,
-    swingDrift: 0.1,
+    drift: 0.28,
+    swingDrift: 0.2,
     startFunds: DIFFICULTY_START_RULES.medium.fundsM,
     noise: 1.9,
     oppSkill: 1.0,
@@ -331,7 +332,7 @@ export const DIFFICULTIES = {
     id: 'hard',
     label: 'Hard',
     icon: 'difficulty-hard',
-    blurb: 'Bad news finds you, the opponent never misses, and the map drifts toward them every week.',
+    blurb: 'Bad news finds you, the opponent never misses, and every swing state is a fight.',
     genericCap: DIFFICULTY_START_RULES.hard.favorableCap,
     // Drift: the map slides toward your opponent every week, fastest in the
     // states that will decide it.
@@ -352,7 +353,7 @@ export const DIFFICULTIES = {
     id: 'brutal',
     label: 'Brutal',
     icon: 'difficulty-brutal',
-    blurb: 'A war chest the size of a small economy, a news cycle that hunts you for sport, and a map that drifts hard.',
+    blurb: 'A war chest the size of a small economy, a news cycle that hunts you for sport, and relentless opposition.',
     // ...and the mood starts against you: it can never be better than R+2.
     genericCap: DIFFICULTY_START_RULES.brutal.favorableCap,
     drift: 0.2,
@@ -372,7 +373,7 @@ export const DIFFICULTIES = {
     id: 'nightmare',
     label: 'Nightmare',
     icon: 'difficulty-nightmare',
-    blurb: 'Forty million dollars, an opponent who never errs, a press corps with receipts, and the whole map sliding away.',
+    blurb: 'Forty million dollars, an opponent who never errs, a press corps with receipts, and every battleground under siege.',
     // The country begins ten points against you, and stays there.
     genericCap: DIFFICULTY_START_RULES.nightmare.favorableCap,
     drift: 0.5,
@@ -3476,7 +3477,7 @@ export function advanceWeek(game) {
 
   // Drift: on the harder difficulties the map slides toward your opponent a
   // little every week, and faster in the states that will decide the election.
-  const drift = diff.drift || 0;
+  const drift = isRegionalEnvironmentIgnored(next) ? 0 : (diff.drift || 0);
   if (drift) {
     const pov = game.party === 'rep' ? -1 : 1;
     STATES.forEach((s) => {

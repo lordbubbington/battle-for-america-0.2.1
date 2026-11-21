@@ -12,7 +12,7 @@ Your six campaign actions are rallies, town halls, volunteer drives, fundraising
 
 Between your week and the next one, three other things happen: the event card in front of you resolves, the opponent takes their own seven actions, and an outside group spends money nobody approved.
 
-When you run out of actions, advance the week. Money comes in, the field operation keeps persuading, and the map drifts. Do that until the calendar runs out and the votes are counted.`,
+When you run out of actions, advance the week. Money comes in, the field operation keeps persuading, and the race shifts. Do that until the calendar runs out and the votes are counted.`,
   },
   {
     slug: 'electoral-college',
@@ -43,7 +43,7 @@ The standard Electoral College rule is winner-take-all except for Maine and Nebr
     slug: 'polling',
     title: 'Polls, ratings, and why they lie',
     section: 'Mechanics',
-    body: `Every margin on the map is built from the same ingredients: the state's base lean, how well your platform fits its voters, your campaign's accumulated work there, national drift, and sampling noise.
+    body: `Every margin on the map is built from the same ingredients: the state's base lean, how well your platform fits its voters, your campaign's accumulated work there, national trend, and sampling noise.
 
 Momentum is not one of those ingredients. It moves voters and nothing else: a campaign running hot drags its own turnout up, cools itself doing it, and pulls vote share off every party it is running against. A party five or more points hotter than its own people are likely to vote gets, every week, a chance equal to that gap of lifting its turnout three points, and each lift costs three points of momentum, never below fifty. A party whose people are fifteen points more likely to vote than its mood suggests sheds two points a week instead.
 
@@ -233,11 +233,11 @@ On the Senate side, the independent options are North Dakota, South Dakota and I
 
 **Medium** is the intended race: $225M, ratings instead of numbers, a real opponent.
 
-**Hard** starts with $187.5M and gives the opponent a skill multiplier above one. It also turns on **Drift**: every state slides **0.1** points toward your opponent each week, and states inside five points slide an extra **0.1**.
+**Hard** starts with $187.5M, sharper opponent strategy, tighter margins, and a tougher news cycle.
 
-**Brutal** starts with $82.5M, a news cycle that hunts you, and a hard drift: **0.2** a week everywhere, **0.3 more** in the states that decide it.
+**Brutal** starts with $82.5M, a hostile news cycle, and intense pressure in the states that decide the election.
 
-**Nightmare** starts with $60M, an opponent who rarely errs, polls that miss wide, a press corps with receipts, and drift of **0.5** a week — **1 full point** in a swing state. Difficulty also multiplies your final score.`,
+**Nightmare** starts with $60M, an opponent who rarely errs, polls that miss wide, a press corps with receipts, and relentless pressure in every battleground. Difficulty also multiplies your final score.`,
   },
   {
     slug: 'national-desk',

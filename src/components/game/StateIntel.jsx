@@ -26,7 +26,7 @@ export default function StateIntel({ game, abbr, showExact }) {
     { label: 'Policy fit', value: policy },
     { label: 'Campaign & events', value: shift },
     { label: 'Voter groups', value: groupShift },
-    { label: 'National drift', value: track },
+    { label: 'National trend', value: track },
     { label: 'Sampling noise', value: noise },
   ];
 
