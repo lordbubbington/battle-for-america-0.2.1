@@ -525,12 +525,19 @@ export function createGame({
   const candidateParty = CANDIDATE_BY_ID[opponentId]?.party;
   const rivalParty = selectedOpponentParty || candidateParty;
   const opponentParty = rivalParty && rivalParty !== party ? rivalParty : expectedRival;
+  const HISTORICAL_IDS = new Set(['fdr', 'reagan', 'debs', 'washington']);
+  const pickDefaultCandidate = (pId, excludeId = null) => {
+    const pool = byParty(pId, scenarioId).filter(({ id }) => id !== excludeId);
+    const modern = pool.filter(({ id }) => !HISTORICAL_IDS.has(id));
+    const list = modern.length ? modern : pool;
+    return list.slice().sort((a, b) => (b.weight || 0) - (a.weight || 0))[0]?.id || null;
+  };
   if (openingModel) {
     if (!byParty(party, scenarioId).some(({ id }) => id === candidateId)) {
-      candidateId = byParty(party, scenarioId)[0]?.id || candidateId;
+      candidateId = pickDefaultCandidate(party) || candidateId;
     }
     if (opponentId === candidateId || !byParty(opponentParty, scenarioId).some(({ id }) => id === opponentId)) {
-      opponentId = byParty(opponentParty, scenarioId).find(({ id }) => id !== candidateId)?.id || opponentId;
+      opponentId = pickDefaultCandidate(opponentParty, candidateId) || opponentId;
     }
   }
   const board = rollThirdBoard();
@@ -904,7 +911,7 @@ export function pollMargin(abbr, game) {
   const envForPres = isRegionalEnvironmentIgnored(game)
     ? 0
     : (game.coattailModelVersion >= 1 ? baseGenericAverage(game) : (game.natGeneric || 0));
-  const base = (game.leans[abbr] ?? BASE_LEANS[abbr] ?? 0) + (game.build38?.openingModel ? ideologyEnvironmentDelta(abbr, envForPres) : 0) + (game.build38?.regionalMarginByState?.[abbr] || 0);
+  const base = (game.leans[abbr] ?? BASE_LEANS[abbr] ?? 0) + (!isRegionalEnvironmentIgnored(game) && game.build38?.openingModel ? ideologyEnvironmentDelta(abbr, envForPres) : 0) + (game.build38?.regionalMarginByState?.[abbr] || 0);
   if (isThirdParty(game.party)) {
     // A third-party run does not move the two-party margin, it eats into it:
     // the campaign lives in the third-party share instead.
@@ -1262,8 +1269,15 @@ export function capMomentumPersuasion(game, shifts) {
 
 function applyMomentumPersuasion(game, shifts) {
   const capped = capMomentumPersuasion(game, shifts);
+  const pov = game.party === 'rep' ? -1 : 1;
   Object.entries(capped).forEach(([abbr, amount]) => {
-    game.stateMods[abbr] = (game.stateMods[abbr] || 0) + amount;
+    if (isThirdParty(game.party)) {
+      const mag = Math.abs(amount);
+      if (mag > 0) applyMinorPartyPersuasion(game, game.party, abbr, amount * pov >= 0 ? mag : -mag);
+    } else {
+      const scaled = amount * pov > 0 ? scaleRegionalPersuasion(game, Math.abs(amount)) * pov : amount;
+      game.stateMods[abbr] = (game.stateMods[abbr] || 0) + scaled;
+    }
   });
 }
 
@@ -4058,7 +4072,7 @@ export function applyAction(game, actionId, abbr, payload = {}) {
     } else {
       note = `Rallied in ${state.name}`;
     }
-    if (isThirdParty(game.party)) applyMinorPartyPersuasion(next, game.party, abbr, persuasionPoints);
+    if (isThirdParty(game.party)) applyMinorPartyPersuasion(next, game.party, abbr, persuasionPoints || Math.abs(stopEffects.persuasion) || 0.1);
     else next.stateMods[abbr] = (next.stateMods[abbr] || 0) + scaleRegionalPersuasion(next, persuasionPoints) * pov;
     const crowd = createSeededRandom([game.build34CampaignId, game.week, left, abbr, 'rally-crowd'].join(':'));
     const expectedAttendance = 200 + state.ev * 40;

@@ -178,7 +178,7 @@ export const SCENARIO_CANDIDATES = Object.freeze({
   'southern-heritage': nominee('southern-heritage', 'Ron DeSantis', 'DeSantis', 'Florida', 'FL', 'Southern Heritage Nominee', 'Florida governor leading the far-right Southern Heritage Party across the Deep South.', { baseCandidateId: 'desantis' }),
   'alaskan-ind': nominee('alaskan-ind', 'Mara Kitt', 'Kitt', 'Alaska', 'AK', 'Alaskan Independence Nominee', 'A fictional Alaska organizer advocating Alaskan independence.', { aiOnly: true, fictional: true }),
   'hawaiian-ind': nominee('hawaiian-ind', 'Leilani Kealoha', 'Kealoha', 'Hawaii', 'HI', 'Hawaiian Independence Nominee', 'A fictional Hawaii organizer advocating Hawaiian independence.', { aiOnly: true, fictional: true }),
-  deseret: nominee('deseret', 'Evan McMullin', 'McMullin', 'Utah', 'UT', 'Deseret Party Nominee', 'Utah independent and former presidential contender leading the Deseret Party across the Mountain West.'),
+  deseret: nominee('deseret', 'Evan McMullin', 'McMullin', 'Utah', 'UT', 'Deseret Party Nominee', 'Utah independent and former presidential contender leading the Deseret Party across the Mountain West.', { portrait: '/art/candidates/expressions/mcmullin-smile.png' }),
   'rocky-mountain': nominee('rocky-mountain', 'Jordan Mercer', 'Mercer', 'Colorado', 'CO', 'Rocky Mountain Nominee', 'A fictional Colorado coalition builder leading the Rocky Mountain Party.', { aiOnly: true, fictional: true }),
   // Legacy 0.2.1 save compatibility only:
   conservation: nominee('conservation', 'Rowan Pike', 'Pike', 'Montana', 'MT', 'The Public Lands Advocate', 'A fictional candidate building a Mountain West campaign around conservation and local stewardship.', { legacy: true }),

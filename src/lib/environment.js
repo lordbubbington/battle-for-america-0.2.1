@@ -26,9 +26,9 @@ export const GENERIC_DECAY = 0.94;
 // R19 initial design coefficients (uncalibrated starting parameters):
 // R14/R19 calibrated coattail parameters (tuned from initial 0.20 / 3.0 / 0.25
 // so strong 14-week campaign play + existing rallies can approach the ~5-point goal).
-export const COATTAIL_COEFFICIENT = 0.35;
-export const COATTAIL_STATE_CAP = 5.0;
-export const COATTAIL_WEEKLY_STEP = 0.30;
+export const COATTAIL_COEFFICIENT = 0.20;
+export const COATTAIL_STATE_CAP = 3.0;
+export const COATTAIL_WEEKLY_STEP = 0.25;
 
 export function isRegionalEnvironmentIgnored(game) {
   return game?.build40?.modeId === 'regional-parties'

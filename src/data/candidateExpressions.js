@@ -1,6 +1,13 @@
 ﻿/* Expression assets are ready; no runtime expression switching is connected yet. */
 export const CANDIDATE_EXPRESSION_PROFILES = 
 {
+    "deseret": {
+                   "defaultExpression": "smile",
+                   "defaultPortrait": "/art/candidates/expressions/mcmullin-smile.png",
+                   "smile": "/art/candidates/expressions/mcmullin-smile.png",
+                   "frown": "/art/candidates/expressions/mcmullin-frown.png",
+                   "neutral": "/art/candidates/expressions/mcmullin-neutral.png"
+               },
     "abbott":  {
                    "defaultExpression":  "frown",
                    "defaultPortrait":  "/art/candidates/expressions/abbott-frown.png",
