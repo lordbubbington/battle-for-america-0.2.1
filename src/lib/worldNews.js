@@ -167,7 +167,7 @@ export function rollWorldNews(game, { random = Math.random } = {}) {
     const mine = [];
 
     for (let i = 0; i < count; i++) {
-      const story = pickStory(tags, new Set([...taken, ...recent]), game, abbr, random);
+      const story = pickStory(tags, new Set([...taken, ...recent]), game, s.abbr, random);
       if (!story) break;
       taken.add(story.id);
       mine.push(story.id);
