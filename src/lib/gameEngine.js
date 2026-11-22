@@ -182,7 +182,7 @@ export { isThirdParty, PARTY_COLOR, ratingFor, isTossup, TOSSUP_COLOR, TOSSUP_MA
 const staffWeeklyUpkeep = (..._args) => ({ totalM: 0 });
 const isTraditionalStaffingReady = (..._args) => true;
 const applyBuild35Agenda = (_game, _next, _action, payload, ..._rest) => payload;
-const applyBuild35Contract = (..._args) => ({ applied: false, extraMargin: 0, extraTurnout: 0, extraMomentum: 0 });
+const applyBuild35Contract = (_game, _next, _contractId, _context, payload = {}) => ({ applied: false, extraMargin: 0, extraTurnout: 0, extraMomentum: 0, generalFatigue: 1, persuasionCeiling: 1, ...(payload && typeof payload === 'object' ? payload : {}) });
 const build35Attendance = (_game, _next, _actionId, _abbr, turnout, ..._rest) => ({ turnout, multiplier: 1 });
 const build35QualityRoll = (_game, _next, _kind, roll, ..._rest) => roll;
 const build35FieldConversion = (_game, _next, _abbr, _actionId, turnout, ..._rest) => turnout;
