@@ -18,7 +18,7 @@ const profile = (party, factionSupport, suburbanMiddleAffinity = 0, extra = {}) 
 
 import { SCENARIO_CANDIDATES } from './build39Scenarios.js';
 
-export const CANDIDATE_FACTION_PROFILES = Object.freeze({
+export const CANDIDATE_FACTION_PROFILES = {
   ...Object.fromEntries(Object.keys(SCENARIO_CANDIDATES).map((id) => [id, profile(id, {})])),
   massie: profile('lib', { activists: 68, students: 54, officials: 42, donors: 48 }),
   'rand-paul': profile('lib', { activists: 62, students: 52, officials: 55, donors: 59 }),
@@ -73,7 +73,7 @@ export const CANDIDATE_FACTION_PROFILES = Object.freeze({
       multiplier: 1.15,
     }),
   }),
-});
+};
 
 const HISTORICAL_LAST_BY_PARTY = Object.freeze({ dem: 'fdr', rep: 'reagan' });
 
@@ -160,4 +160,34 @@ export function validateCandidateFactionProfiles(candidates, factionsByParty) {
 
   if (errors.length) throw new Error(`Invalid Build 34 candidate profiles:\n${errors.join('\n')}`);
   return true;
+}
+
+
+const DEFAULT_FACTION_SUPPORT_BY_PARTY = {
+  dem: { activists: 50, labor: 50, suburbs: 50, officials: 50, donors: 50 },
+  rep: { base: 50, religious: 50, business: 50, officials: 50, donors: 50 },
+  lib: { activists: 50, students: 50, officials: 50, donors: 50 },
+  grn: { activists: 50, climate: 50, officials: 50, donors: 50 },
+};
+
+const MOD_REGISTERED_PROFILE_IDS = new Set();
+
+export function registerModCandidateFactionProfile(candidate) {
+  if (!candidate?.id || !candidate?.party) return;
+  if (CANDIDATE_FACTION_PROFILES[candidate.id] && !MOD_REGISTERED_PROFILE_IDS.has(candidate.id)) return;
+  const baseSupport = DEFAULT_FACTION_SUPPORT_BY_PARTY[candidate.party] || {};
+  const customSupport = candidate.factionSupport && typeof candidate.factionSupport === 'object'
+    ? { ...baseSupport, ...candidate.factionSupport }
+    : { ...baseSupport };
+  CANDIDATE_FACTION_PROFILES[candidate.id] = profile(candidate.party, customSupport, 0, {
+    perceivedCorruptionScore: 25,
+  });
+  MOD_REGISTERED_PROFILE_IDS.add(candidate.id);
+}
+
+export function clearModCandidateFactionProfiles() {
+  for (const id of MOD_REGISTERED_PROFILE_IDS) {
+    delete CANDIDATE_FACTION_PROFILES[id];
+  }
+  MOD_REGISTERED_PROFILE_IDS.clear();
 }

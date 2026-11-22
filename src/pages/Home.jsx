@@ -43,6 +43,7 @@ import { movementFor } from '@/lib/campaignPulse';
 import { withReactionSummary } from '@/lib/reactions';
 import { spinStory } from '@/lib/news';
 import { recordIncident } from '@/lib/incidentLedger';
+import { checkSaveModCompatibility, getModState, loadAndApplyMods, subscribeModRegistry } from '@/lib/modRegistry';
 
 function impactLabel(game, next, context) {
   const stateName = context.abbr ? STATE_BY_ABBR[context.abbr]?.name : null;
@@ -106,6 +107,17 @@ export default function Home() {
   const [showResults, setShowResults] = useState(false);
   const [config, setConfig] = useState(null);
   const [saveFailed, setSaveFailed] = useState(false);
+  const [modRevision, setModRevision] = useState(0);
+  const [activeModCount, setActiveModCount] = useState(() => getModState().activeDescriptors.length);
+
+  useEffect(() => {
+    const unsub = subscribeModRegistry((st) => {
+      setModRevision(st.revision);
+      setActiveModCount(st.activeDescriptors.length);
+    });
+    loadAndApplyMods();
+    return unsub;
+  }, []);
 
   useEffect(() => {
     const saved = loadGame();
@@ -303,12 +315,22 @@ export default function Home() {
   };
 
   if (showSetup || !game) {
+    const modCompat = game ? checkSaveModCompatibility(game) : { compatible: true, missing: [], versionMismatch: [] };
+    const saveModWarning = !modCompat.compatible
+      ? `Saved campaign used mods that are missing or changed: ${[
+          ...modCompat.missing.map((m) => `${m.name || m.id} (disabled/missing)`),
+          ...modCompat.versionMismatch.map((m) => `${m.saved.name || m.saved.id} (version/content changed)`),
+        ].join(', ')}.`
+      : '';
     return (
       <SetupScreen
+        key={`setup-mod-${modRevision}`}
         onStart={begin}
         hasSave={!!game}
         onResume={() => setShowSetup(false)}
         onDiscardSave={handleDiscard}
+        activeModCount={activeModCount}
+        saveModWarning={saveModWarning}
       />
     );
   }

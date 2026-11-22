@@ -1,3 +1,4 @@
+import { getActiveModDescriptors } from '@/lib/modRegistry';
 import { BUILD40_EVENTS } from '@/data/build40EventCatalog';
 import { CANDIDATE_EVENTS, CANDIDATE_EVENTS_BY_ID } from '@/data/candidateEvents/index';
 import { NEIGHBORS } from '@/data/neighbors';
@@ -863,6 +864,7 @@ export function createGame({
   ]));
   game.raceBaseline = raceBaselines(game);
   game.candidateEvents = candidateEventState();
+  game.activeMods = getActiveModDescriptors();
   if (!game.build40?.fieldPlanCommitted) {
     game.build40 = { ...game.build40, fieldPlanCommitted: true };
   }

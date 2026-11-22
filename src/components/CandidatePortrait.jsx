@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 const normalizePublicPath = (path) => {
   if (typeof path !== 'string' || !path.trim()) return '';
-  if (/^(https?:|data:|blob:)/i.test(path)) return path;
+  if (/^(https?:|data:|blob:|bfa-mod:)/i.test(path)) return path;
   const trimmed = path.trim().replace(/\\/g, '/').replace(/^\.\//, '/');
   return trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
 };

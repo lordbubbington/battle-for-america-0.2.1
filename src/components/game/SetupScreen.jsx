@@ -15,12 +15,13 @@ import MapTuner from '@/components/setup/MapTuner';
 import { leadLabel } from '@/components/setup/ScaleSlider';
 import RunningMatePicker from '@/components/setup/RunningMatePicker';
 import { mateOptions } from '@/data/runningMates';
-import { ArrowRight, CircleHelp, Dices, RotateCcw } from 'lucide-react';
+import { ArrowRight, CircleHelp, Puzzle, Dices, RotateCcw } from 'lucide-react';
 import QuickOutcomeReport from '@/components/game/QuickOutcomeReport';
 import QuickSweepControl from '@/components/setup/QuickSweepControl';
 import { VOTING_RULES } from '@/data/build38VotingRules';
 import { QUICK_SIMULATION_DRAWS, simulateQuickOutcomes } from '@/lib/outcomeSimulation';
 import TutorialDialog from '@/components/game/TutorialDialog';
+import ModManagerModal from '@/components/game/ModManagerModal';
 import Build40ModePicker from '@/components/setup/Build40ModePicker';
 import { normalizeBuild40Mode, scenarioPartyIds } from '@/lib/build40Elections';
 
@@ -68,7 +69,7 @@ function pickRandom(list, exclude = []) {
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
-export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave }) {
+export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave, activeModCount = 0, saveModWarning = '' }) {
   const [party, setParty] = useState('dem');
   const [candidateId, setCandidateId] = useState('harris');
   const [rivalParty, setRivalParty] = useState('rep');
@@ -95,6 +96,7 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave 
   const [quickProgress, setQuickProgress] = useState(0);
   const [quickBusy, setQuickBusy] = useState(false);
   const [tutorialOpen, setTutorialOpen] = useState(false);
+  const [modsOpen, setModsOpen] = useState(false);
   const [quickError, setQuickError] = useState('');
   const startChoice = START_OPTIONS.find((o) => o.id === startId) || START_OPTIONS[2];
   const defaultStartEnvironment = startingNationalEnvironment({
@@ -323,14 +325,22 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave 
           <span className="chip">Third parties</span>
           <span className="chip">Polling misses</span>
         </div>
-        <button type="button" onClick={() => setTutorialOpen(true)} className="btn-outline mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-extrabold">
-          <CircleHelp className="h-3.5 w-3.5" /> How to play
-        </button>
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+          <button type="button" onClick={() => setTutorialOpen(true)} className="btn-outline inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-extrabold">
+            <CircleHelp className="h-3.5 w-3.5" /> How to play
+          </button>
+          <button type="button" onClick={() => setModsOpen(true)} className="btn-outline inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-extrabold">
+            <Puzzle className="h-3.5 w-3.5" /> {activeModCount > 0 ? `Mods (${activeModCount})` : 'Mods'}
+          </button>
+        </div>
       </header>
 
       {hasSave && (
         <div className="panel mb-4 border-primary/40 p-3 sm:flex sm:items-center sm:justify-between">
-          <p className="text-[13px] font-bold text-white">You have a campaign in progress.</p>
+          <div>
+            <p className="text-[13px] font-bold text-white">You have a campaign in progress.</p>
+            {saveModWarning && <p className="mt-1 text-[11px] font-semibold text-amber-300">{saveModWarning}</p>}
+          </div>
           <div className="mt-2 flex gap-2 sm:mt-0">
             <button type="button" onClick={onResume} className="btn-gold px-4 py-1.5 text-[13px]">
               Resume
@@ -693,6 +703,7 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave 
         </p>
       </div>
       <TutorialDialog open={tutorialOpen} onClose={() => setTutorialOpen(false)} />
+      <ModManagerModal open={modsOpen} onClose={() => setModsOpen(false)} />
 
       <QuickOutcomeReport
         open={quickReportOpen}
