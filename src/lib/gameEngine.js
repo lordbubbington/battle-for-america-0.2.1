@@ -3390,7 +3390,7 @@ export function incomeFor(game) {
   const weeklyBase = Number.isFinite(game.weeklyBaseIncomeDraw)
     ? game.weeklyBaseIncomeDraw
     : weeklyBaseIncomeM(nationalShares(game)[game.party]);
-  const raw = weeklyBase + levels * 0.55;
+  const raw = (weeklyBase + levels * 0.55) * (game?.difficultyId === 'medium' ? 0.55 : 1);
   return Math.max(2, round1(raw));
 }
 
