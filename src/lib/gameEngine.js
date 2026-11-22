@@ -19,7 +19,6 @@ import { VOTER_COMPOSITION } from '@/lib/build38Runtime';
 import { applyOpeningTicket, build38Field, ideologyEnvironmentDelta, initializeBuild38, volunteerPrice } from '@/lib/build38Runtime';
 import { regionalPersuasionDelta } from '@/lib/build38VoterRegions';
 import { spanishAdEffect } from '@/lib/build38SpanishAds';
-import { staffWeeklyUpkeep } from '@/lib/build38StaffRules';
 import { calibrateGovernorOpening } from '@/lib/build38VotingRules';
 import { compressSync, decompressSync, strFromU8, strToU8 } from 'fflate';
 import {
@@ -95,9 +94,6 @@ import { decisionCountForWeek } from '@/lib/build36DecisionSchedule';
 import { planWeeklyEventCadence } from '@/lib/eventCadenceV2';
 import { ELECTION_MODEL_VERSION, closeEarlyBallots, earlyBallotsByState, presidentialBallots, projectEarlyBallotPace, restoreEarlyBallots } from '@/lib/build37Ballots';
 import { createEarlyBallotLedger } from '@/lib/earlyBallotLedger';
-import { migrateBuild36Staffing } from '@/lib/build36StaffMigration';
-import { initialBuild36Staff, applyBuild35Agenda, applyBuild35Contract, build35Attendance, build35QualityRoll, build35FieldConversion, build35SignageCost, fileBuild35StaffDebrief } from '@/lib/build35Staff';
-import { isTraditionalStaffingReady, selectInitialTraditionalStaff } from '@/lib/traditionalStaffRules';
 import { resolveRivalForecastTurn } from '@/lib/rivalForecastPlanner';
 import { BALLOT_MEASURE_RULES, BALLOT_MEASURE_RULES_VERSION } from '@/data/ballotMeasureRules';
 import { ballotMeasureEligibility, sanitizeBallotMeasures } from '@/lib/ballotMeasures';
@@ -181,6 +177,17 @@ import {
 
 export { EV_TO_WIN };
 export { isThirdParty, PARTY_COLOR, ratingFor, isTossup, TOSSUP_COLOR, TOSSUP_MARGIN };
+// Campaign Staff DLC stubs (staff modules archived in dlc/campaign-staff/).
+const staffWeeklyUpkeep = (..._args) => ({ totalM: 0 });
+const isTraditionalStaffingReady = (..._args) => true;
+const applyBuild35Agenda = (_game, _next, _action, payload, ..._rest) => payload;
+const applyBuild35Contract = (..._args) => ({ applied: false, extraMargin: 0, extraTurnout: 0, extraMomentum: 0 });
+const build35Attendance = (_game, _next, _actionId, _abbr, turnout, ..._rest) => ({ turnout, multiplier: 1 });
+const build35QualityRoll = (_game, _next, _kind, roll, ..._rest) => roll;
+const build35FieldConversion = (_game, _next, _abbr, _actionId, turnout, ..._rest) => turnout;
+const build35SignageCost = (_game, _next, _abbr, cost, ..._rest) => cost;
+const fileBuild35StaffDebrief = (..._args) => {};
+
 export const TOTAL_WEEKS = 14;
 export const ACTIONS_PER_WEEK = 7;
 const BUILD40_EVENTS_BY_ID = Object.fromEntries(BUILD40_EVENTS.map((event) => [event.id, event]));
@@ -792,7 +799,7 @@ export function createGame({
     worldRecent: [],
   };
 
-  game.staffing = initialBuild36Staff(game.build34CampaignId);
+  game.staffing = null;
   game.electionModelVersion = ELECTION_MODEL_VERSION;
   game.earlyBallotLedger = createEarlyBallotLedger({ campaignId: game.build34CampaignId });
   if (MAIN_GAME_ENDORSEMENTS_ENABLED) game.build34EndorserRelationships = initialEndorserRelationships({
@@ -856,7 +863,10 @@ export function createGame({
   ]));
   game.raceBaseline = raceBaselines(game);
   game.candidateEvents = candidateEventState();
-  return game;
+  if (!game.build40?.fieldPlanCommitted) {
+    game.build40 = { ...game.build40, fieldPlanCommitted: true };
+  }
+  return startTurn(game);
 }
 
 export function candidatesOf(game) {
@@ -3680,15 +3690,9 @@ export function startTurn(game) {
   return game.finished || !isTraditionalStaffingReady(game.staffing) || game.eventScheduleWeek === game.week ? game : beginWeek(game);
 }
 
-export function confirmBuild35Staffing(game, selectedIds) {
-  if (game.finished || isTraditionalStaffingReady(game.staffing)) return game;
-  const result = selectInitialTraditionalStaff(selectedIds, game.staffing, game.build34CampaignId);
-  if (!result.ok) return game;
-  let next = { ...game, staffing: result.staffing };
-  // Ground game is bought from the in-campaign budget panel. Keep legacy plan
-  // data on saves, but never commit a new player or rival operation at setup.
-  if (!game.build40?.fieldPlanCommitted) next = { ...next, build40: { ...next.build40, fieldPlanCommitted: true } };
-  return startTurn(next);
+export function confirmBuild35Staffing(game) {
+  if (!game || game.finished) return game;
+  return startTurn(game);
 }
 
 /** Recalculate a detailed state poll from the live map without changing game state. */
@@ -5224,7 +5228,6 @@ export function loadGame() {
         campaignId: loaded.build34CampaignId, weekNumber: activePacWeek,
       });
     }
-    Object.assign(loaded, migrateBuild36Staffing(loaded));
     loaded.build38 = parsed.build38?.version === 1 ? parsed.build38 : { version: 1, votingRuleId: 'current', openingModel: false };
     loaded.build39 = parsed.build39?.version === 1 && parsed.build39.scenario?.version === 1
       ? parsed.build39 : { version: 1, scenario: initializeScenarioState() };

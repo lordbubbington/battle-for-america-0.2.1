@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { ISSUES_BY_WEIGHT, stanceLabel } from '@/data/platform';
 import { flipCost, actionsLeftIn } from '@/lib/gameEngine';
 import { X } from 'lucide-react';
-import { inspectPolicyPromiseConflicts } from '@/lib/traditionalStaffRules';
 import SpotArt from '@/components/ui/spot-art';
-import StaffPortrait from '@/components/game/StaffPortrait';
 
 export default function ShiftPolicyPanel({ game, onShift, onClose, accent }) {
   const [issueId, setIssueId] = useState(ISSUES_BY_WEIGHT[0].id);
@@ -57,7 +55,6 @@ export default function ShiftPolicyPanel({ game, onShift, onClose, accent }) {
         <p className="label-xs">Move to</p>
         {issue.options.map((option, index) => {
           const active = index === current;
-          const review = inspectPolicyPromiseConflicts(game, { issueId, proposedStance: index });
           return (
             <button
               key={option}
@@ -68,12 +65,6 @@ export default function ShiftPolicyPanel({ game, onShift, onClose, accent }) {
               style={active ? { borderColor: `${accent}88`, backgroundColor: `${accent}1f` } : undefined}
             >
               {option}
-              {review.status === 'ready' && review.conflicts.length > 0 && (
-                <span className="mt-1 flex items-center gap-1.5 text-amber-200">
-                  <StaffPortrait portraitId={game.staffing.traditionalPortraitByRole.policy} alt="Policy Director" size="compact" />
-                  Conflicts with {review.conflicts.length} recorded promise{review.conflicts.length === 1 ? '' : 's'}.
-                </span>
-              )}
               {active && <span className="ml-1.5 text-[9.5px] font-bold uppercase tracking-wide text-slate-400">current</span>}
             </button>
           );

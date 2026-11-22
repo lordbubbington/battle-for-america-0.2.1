@@ -1,6 +1,5 @@
 import { STATES, STATE_BY_ABBR } from '@/data/states';
 import { groundSetupCost, groundWeeklyCost } from '@/lib/fieldOperations';
-import { build35SignageCost } from '@/lib/build35Staff';
 import { createSeededRandom } from '@/lib/seededRandom';
 
 import { scenarioBallotAccess } from '@/lib/build39Scenarios';
@@ -24,8 +23,7 @@ export function openingFieldLevelCost(game, abbr, level, party = game?.party) {
       staffing: game.aiStaffing?.[party] || null }
     : game;
   const native = groundSetupCost(abbr);
-  const quoteGame = { ...actorGame };
-  return round2(build35SignageCost(quoteGame, { ...quoteGame }, abbr, native));
+  return round2(native);
 }
 
 /**
@@ -61,10 +59,7 @@ export function quoteOpeningFieldPlan({ game = null, plan = {}, party = game?.pa
   const nativeCost = round2(levelEntries.reduce((sum, entry) => sum + entry.cost, 0));
   // A plan is one opening transaction, so the shipped one-per-action staff discount
   // is applied once to its aggregate setup price.
-  const discountNext = { ...game };
-  const discountedCost = nativeCost > 0
-    ? round2(build35SignageCost(game, discountNext, levelEntries[0]?.abbr || 'DC', nativeCost))
-    : 0;
+  const discountedCost = nativeCost > 0 ? round2(nativeCost) : 0;
   const upkeep = round2(STATES.reduce((sum, { abbr }) => sum + groundWeeklyCost(abbr, normalized[abbr]), 0));
   const budget = budgetFor(game, party);
   if (discountedCost > budget) errors.push(`Plan costs $${discountedCost}M but budget is $${round2(budget)}M`);
@@ -77,7 +72,7 @@ export function quoteOpeningFieldPlan({ game = null, plan = {}, party = game?.pa
     cost: discountedCost,
     nativeCost,
     upkeep,
-    staffContractEffectReceiptIds: discountNext.staffContractEffectReceiptIds || game.staffContractEffectReceiptIds || [],
+    staffContractEffectReceiptIds: game.staffContractEffectReceiptIds || game.staffContractEffectReceiptIds || [],
     remainingFunds: round2(Math.max(0, budget - discountedCost)),
     budget: round2(budget),
   };

@@ -11,7 +11,6 @@ import {
   debateDefinition,
 } from '@/lib/gameEngine';
 import HudBar from '@/components/game/HudBar';
-import StaffWorkspace from '@/components/game/StaffWorkspace';
 import BoardPanel from '@/components/game/BoardPanel';
 import EventCard from '@/components/game/EventCard';
 import CandidateDecisionRecaps from '@/components/game/CandidateDecisionRecaps';
@@ -60,7 +59,6 @@ export default function GameScreen({
   onGroundGame,
   onDebate,
   onShift,
-  onSetAgenda,
   onSpin,
   isDev,
   onTriggerEvent,
@@ -156,12 +154,6 @@ export default function GameScreen({
     setPanel(id);
   };
 
-  const openStaffAction = (actionId, targetId, options) => {
-    setStaffFocus({ actionId, targetId, ...options, request: Date.now() });
-    setSelected(targetId);
-    if (actionId === 'ad') setAdAbbrs([targetId]);
-    setPanel(actionId === 'ad' ? 'ads' : ['townhall', 'shift'].includes(actionId) ? actionId : null);
-  };
 
   useEffect(() => {
     if (!staffFocus) return undefined;
@@ -326,8 +318,6 @@ export default function GameScreen({
               adSelected={adAbbrs}
               onAdToggle={toggleAdState}
               onPathMapChange={onPathMapChange}
-              staffContent={<StaffWorkspace game={game} paused={eventOpen || game.simulateElection}
-                onSetAgenda={onSetAgenda} onOpenAction={openStaffAction} />}
             />
             )}
           </div>

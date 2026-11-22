@@ -4,7 +4,6 @@ import { GROUP_BY_ID } from '@/data/demographics';
 import { scandalWord } from '@/lib/gameEngine';
 import { Coins, Flame, Skull, Sparkles, Users, TrendingDown, AlertTriangle, GitBranch } from 'lucide-react';
 import SpotArt from '@/components/ui/spot-art';
-import StaffMention from '@/components/game/StaffMention';
 
 const REGION_LABELS = { northeast: 'Northeast', south: 'South', midwest: 'Midwest', west: 'West' };
 const EFFECT_TONES = {
@@ -167,7 +166,7 @@ export default function EventCard({ game, event, onChoose, outcome = null, disab
               hero ? 'text-2xl sm:text-[34px]' : 'text-xl sm:text-[22px]'
             }`}
           >
-            <StaffMention game={game} text={event.title} />
+            {event.title}
           </h2>
         </div>
       </div>
@@ -177,7 +176,7 @@ export default function EventCard({ game, event, onChoose, outcome = null, disab
           <GitBranch className="mt-[2px] h-3 w-3 shrink-0 text-primary" />
           <span>
             <span className="mr-1 font-extrabold uppercase tracking-[0.1em] text-[9px] text-slate-500">Why now</span>
-            <StaffMention game={game} text={why} />
+            {why}
           </span>
         </p>
       )}
@@ -187,7 +186,7 @@ export default function EventCard({ game, event, onChoose, outcome = null, disab
           hero ? 'text-[14px] sm:text-[15px]' : 'text-[13px]'
         }`}
       >
-        <StaffMention game={game} text={event.text} />
+        {event.text}
       </p>
 
       {!outcome ? (
@@ -217,11 +216,11 @@ export default function EventCard({ game, event, onChoose, outcome = null, disab
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className={`block font-heading leading-tight text-white ${hero ? 'text-[15px] sm:text-[16px]' : 'text-[14px]'}`}>
-                      <StaffMention game={game} text={c.displayLabel || c.label} />
+                      {c.displayLabel || c.label}
                     </span>
                     {detail && (
                       <span className={`block font-semibold text-slate-400 ${hero ? 'text-[11.5px] sm:text-[12px]' : 'text-[11px]'}`}>
-                        <StaffMention game={game} text={detail} />
+                        {detail}
                       </span>
                     )}
                     <PresentedEffects effects={c.presentation?.effects} testId="event-choice-presentation" />
@@ -240,9 +239,9 @@ export default function EventCard({ game, event, onChoose, outcome = null, disab
       ) : (
         <div className="mt-4 animate-pop-in rounded-xl border border-white/15 bg-black/30 p-3" data-testid="event-outcome">
           <p className="label-xs">You chose</p>
-          <p className="font-heading text-[14px] leading-tight text-white"><StaffMention game={game} text={outcome.label} /></p>
+          <p className="font-heading text-[14px] leading-tight text-white">{outcome.label}</p>
           {outcome.text && (
-            <p className="mt-1 text-[13px] font-medium leading-relaxed text-slate-200/90"><StaffMention game={game} text={outcome.text} /></p>
+            <p className="mt-1 text-[13px] font-medium leading-relaxed text-slate-200/90">{outcome.text}</p>
           )}
           <PresentedEffects effects={outcome.presentation?.effects} testId="event-outcome-presentation" />
           {legacyOutcome && outcome.scandal ? (

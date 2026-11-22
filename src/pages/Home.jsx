@@ -1,17 +1,12 @@
 import { captureActionLayout, restoreActionLayout } from '@/lib/build39ActionLayout';
 import { scenarioPartyMeta } from '@/lib/build39Scenarios';
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import StaffSelection from '@/components/game/StaffSelection';
-import StaffPortrait from '@/components/game/StaffPortrait';
-import { isTraditionalStaffingReady } from '@/lib/traditionalStaffRules';
-import { LIVE_NONTRADITIONAL_EFFECTS, recordBuild35StaffAction, setBuild35Agenda } from '@/lib/build35Staff';
 import SetupScreen from '@/components/game/SetupScreen';
 import GameScreen from '@/components/game/GameScreen';
 import ResultsScreen from '@/components/game/ResultsScreen';
 import ElectionNight from '@/components/game/ElectionNight';
 import {
   createGame,
-  confirmBuild35Staffing,
   applyChoice,
   acknowledgeCampaignNews,
   applyAction,
@@ -144,7 +139,7 @@ export default function Home() {
   }, [game]);
 
   useEffect(() => {
-    if (!game?.simulateElection || !isTraditionalStaffingReady(game.staffing) || game.finished || showSetup || showResults) return undefined;
+    if (!game?.simulateElection || game.finished || showSetup || showResults) return undefined;
     const timer = window.setTimeout(() => {
       setGame((current) => {
         if (!current?.simulateElection || current.finished) return current;
@@ -238,7 +233,7 @@ export default function Home() {
       const next = recordCampaignStrategy(g, recordIncident(g, resolved, ctx), ctx);
       const reacted = withReactionSummary(g, next, ctx);
       if (ctx.type === 'stance') constrainPolicyPolling(g, reacted, resolved.build39.lastPolicyResponse.pollPoints);
-      return advanceDecisionEvent(trackMapImpact(g, recordBuild35StaffAction(g, reacted, ctx), ctx));
+      return advanceDecisionEvent(trackMapImpact(g, reacted, ctx));
     });
   };
 
@@ -278,7 +273,7 @@ export default function Home() {
       if (decisionPending(g)) return g;
       const context = { type: 'spin', abbr, storyId, spinMode: mode };
       const next = recordCampaignStrategy(g, recordIncident(g, spinStory(g, abbr, storyId, mode), context), context);
-      return advanceDecisionEvent(trackMapImpact(g, recordBuild35StaffAction(g, next, context), context));
+      return advanceDecisionEvent(trackMapImpact(g, next, context));
     });
 
   const handleAdvance = () => {
@@ -316,14 +311,6 @@ export default function Home() {
         onDiscardSave={handleDiscard}
       />
     );
-  }
-
-  if (!game.finished && !isTraditionalStaffingReady(game.staffing)) {
-    return <main className="mx-auto max-w-6xl p-4">
-      <button className="btn-ghost mb-3" onClick={handleQuit}>Back to main menu</button>
-      <StaffSelection staffing={game.staffing} campaignId={game.build34CampaignId} Portrait={StaffPortrait}
-        liveNonTraditionalIds={LIVE_NONTRADITIONAL_EFFECTS} onComplete={(selectedIds) => setGame((current) => confirmBuild35Staffing(current, selectedIds))} />
-    </main>;
   }
 
   if (game.finished && !showResults) {
@@ -383,7 +370,6 @@ export default function Home() {
       onDebate={handleDebate}
       onGroundGame={handleGroundGame}
       onShift={handleShift}
-      onSetAgenda={(id) => setGame((g) => decisionPending(g) ? g : setBuild35Agenda(g, id))}
       onSpin={handleSpin}
       onAdvance={handleAdvance}
       onQuit={handleQuit}

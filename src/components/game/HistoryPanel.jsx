@@ -4,7 +4,6 @@ import { EVENT_BY_ID } from '@/data/events';
 import { ISSUE_BY_ID } from '@/data/platform';
 import { Check, Landmark } from 'lucide-react';
 import SpotArt from '@/components/ui/spot-art';
-import StaffMention from '@/components/game/StaffMention';
 
 const DEM = '#4C7BFF';
 const REP = '#E8433C';
@@ -110,7 +109,7 @@ export default function HistoryPanel({ game, you, them, accent, oppAccent }) {
         </div>
         {currentEvent && (
           <p className="mt-1 font-heading text-[12px] text-white">
-            <span className="inline-flex items-center gap-1"><SpotArt symbol={currentEvent.icon} className="h-4 w-4" /><StaffMention game={game} text={currentEvent.title} /></span>
+            <span className="inline-flex items-center gap-1"><SpotArt symbol={currentEvent.icon} className="h-4 w-4" />{currentEvent.title}</span>
           </p>
         )}
         {(game.weekLog || []).length === 0 ? (
@@ -120,7 +119,7 @@ export default function HistoryPanel({ game, you, them, accent, oppAccent }) {
         ) : (
           <div className="mt-1 space-y-0.5">
             {game.weekLog.map((line, i) => (
-              <Line key={i}><StaffMention game={game} text={line} /></Line>
+              <Line key={i}>{line}</Line>
             ))}
           </div>
         )}
@@ -151,7 +150,7 @@ export default function HistoryPanel({ game, you, them, accent, oppAccent }) {
 
             {e.eventTitle && (
               <p className="mt-0.5 font-heading text-[12px] leading-snug text-slate-200">
-                <StaffMention game={game} text={e.eventTitle} />
+                {e.eventTitle}
               </p>
             )}
 
@@ -159,15 +158,15 @@ export default function HistoryPanel({ game, you, them, accent, oppAccent }) {
               <Side name={you.short} color={accent}>
                 {e.decisions?.length ? e.decisions.map((decision) => (
                   <Line key={decision.decisionKey || decision.id} tone="choice">
-                    <StaffMention game={game} text={decision.title + ' · ' + decision.choice} />
+                    {decision.title + ' · ' + decision.choice}
                   </Line>
-                )) : e.choice ? <Line tone="choice"><StaffMention game={game} text={e.choice} /></Line> : null}
+                )) : e.choice ? <Line tone="choice">{e.choice}</Line> : null}
                 {e.decisionEventShortfall > 0 && <Line>{e.decisionEventShortfall} decision slot{e.decisionEventShortfall === 1 ? '' : 's'} had no eligible event.</Line>}
                 {e.actions.map((a, i) => (
-                  <Line key={i}><StaffMention game={game} text={a} /></Line>
+                  <Line key={i}>{a}</Line>
                 ))}
                 {debrief?.dialogue && (
-                  <Line><StaffMention game={game} text={debrief.dialogue} staffIds={[debrief.staffId]} /></Line>
+                  <Line>{debrief.dialogue}</Line>
                 )}
                 {e.debate ? (
                   <Line tone="choice">

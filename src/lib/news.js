@@ -5,7 +5,6 @@
 // and crosses into neighbouring states when it gets big enough. Campaign actions
 // put stories into the cycle; money can push one up or bury one.
 
-import { applyBuild35Agenda } from '@/lib/build35Staff';
 import { STATE_BY_ABBR, STATE_LIST } from '@/data/states';
 import { NEIGHBORS } from '@/data/neighbors';
 import { mediaEnvironment } from '@/data/media';
@@ -222,9 +221,7 @@ export function spinStory(game, abbr, storyId, mode) {
   const target = next.stories.find((s) => s.id === storyId);
   const salienceBefore = target.salience;
   const backfire = Math.random() < (mode === 'amplify' ? 0.14 : 0.22);
-  const { salienceChange } = applyBuild35Agenda(game, next, {
-    actionId: 'spin', targetId: abbr, storyId, spinMode: mode,
-  }, { storyId, backfire, salienceChange: mode === 'amplify' ? 26 : -42 });
+  const salienceChange = mode === 'amplify' ? 26 : -42;
   let note = '';
   target.campaignResponses = (target.campaignResponses || 0) + 1;
 

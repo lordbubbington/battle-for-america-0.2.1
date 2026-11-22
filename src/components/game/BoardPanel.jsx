@@ -25,7 +25,6 @@ export const BOARD_TABS = [
   { id: 'gov', label: 'Governors', icon: 'governors' },
   { id: 'legislatures', label: 'State legislatures', icon: Scale },
   { id: 'measures', label: 'Ballot measures', icon: ClipboardList },
-  { id: 'staff', label: 'Staff', icon: ClipboardList },
   { id: 'path', label: 'Path to 270', icon: Target },
   { id: 'log', label: 'Log', icon: ScrollText },
 ];
@@ -61,7 +60,6 @@ export default function BoardPanel({
   adSelected = null,
   onAdToggle,
   onPathMapChange,
-  staffContent,
   forecast = null,
 }) {
   const mapPulse = snap.rows
@@ -349,7 +347,6 @@ export default function BoardPanel({
         />
       )}
 
-      {tab === 'staff' && staffContent}
 
       {tab === 'measures' && <BallotMeasurePanel />}
 
