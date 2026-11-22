@@ -504,20 +504,33 @@ const FIXED_QUALITY = {
 export const HOUSE_DISTRICT_BASELINES = houseDistrictBaselineData.districts;
 export const HOUSE_DISTRICT_BY_ID = Object.fromEntries(HOUSE_DISTRICT_BASELINES.map((district) => [district.id, district]));
 
+function netFactionDownballotBonus(game) {
+  const playerSign = game.party === 'rep' ? -1 : game.party === 'dem' ? 1 : 0;
+  let total = playerSign * factionEffects(game).downballotBonus;
+  const oppParty = game.opponentParty;
+  if ((oppParty === 'dem' || oppParty === 'rep') && game.aiFactions?.[oppParty]) {
+    const oppSign = oppParty === 'rep' ? -1 : 1;
+    const oppGame = { ...game, party: oppParty, candidateId: game.opponentId, factions: game.aiFactions[oppParty], factionCrises: null };
+    total += oppSign * factionEffects(oppGame).downballotBonus;
+  }
+  return total;
+}
+
 function houseStateAdjustment(state, game, factionBonus = null) {
   const quality = (qualityOf(game, `house:${state}`) + fixedQuality('house', state)) * 0.5;
   const localNews = game.downballotNews?.house?.[state] || 0;
   const eventEffects = game.build40?.houseEffectsByState?.[state];
   const directCampaign = (game.dbMods?.[state] || 0) + (eventEffects?.dem || 0) - (eventEffects?.rep || 0);
   const drift = game.dbDrag?.[`house:${state}`] || 0;
-  const faction = factionBonus ?? (game.party === 'rep' ? -1 : 1) * factionEffects(game).downballotBonus;
+  const faction = factionBonus ?? netFactionDownballotBonus(game);
   return { quality, localNews, directCampaign, drift, faction, total: quality + localNews + directCampaign + drift + faction };
 }
 
 function houseDistrictMarginWithEffects(baseline, game, effects) {
   const state = baseline.stateAbbr || baseline.state;
   const stateDraw = (game.houseStateDrawErrors?.[state] || 0) * (game.houseReportedDistrictRemaining?.[baseline.id] ?? 1);
-  return baseline.districtLeanDMinusR + genericIn(state, game) + effects.total + stateDraw
+  const houseNeutralOffset = game?.coattailModelVersion >= 1 && !game.presidentialDistrictAllocation ? 1.5 : 0;
+  return baseline.districtLeanDMinusR + houseNeutralOffset + genericIn(state, game) + effects.total + stateDraw
     + (game.houseDistrictErrors?.[baseline.id] || 0)
     + (game.houseDistrictReportShifts?.[baseline.id] || 0);
 }
@@ -531,7 +544,7 @@ export function houseDistrictMargin(district, game) {
 }
 
 function houseDistrictRaces(game, mode = 'poll') {
-  const factionBonus = (game.party === 'rep' ? -1 : 1) * factionEffects(game).downballotBonus;
+  const factionBonus = netFactionDownballotBonus(game);
   const effectsByState = Object.fromEntries(STATE_LIST
     .filter((state) => (HOUSE_SEATS[state.abbr] || 0) > 0)
     .map((state) => [state.abbr, houseStateAdjustment(state.abbr, game, factionBonus)]));
@@ -619,7 +632,7 @@ export function raceMargin(state, kind, game, marginOf, mode = 'poll') {
   const field = (game.dbMods?.[state] || 0) + (isThirdParty(game.party) ? 0 : (game.stateMods?.[state] || 0) * 0.42);
   m += field;
   if (kind === 'senate' || kind === 'house' || kind === 'gov') {
-    m += (game.party === 'rep' ? -1 : 1) * factionEffects(game).downballotBonus;
+    m += netFactionDownballotBonus(game);
   }
 
   if (kind === 'senate') m += (SENATE_MOD[state] || 0) + 0.4 * senateDemocraticShareBonus(game);

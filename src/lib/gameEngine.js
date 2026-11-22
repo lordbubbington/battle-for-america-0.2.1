@@ -1783,7 +1783,9 @@ function applyBuild40Package(game, context, choice, riskModifier = 1) {
       const native = rollScandal(risk, rolled.random);
       scandal = { ...native, hit: native.hit * severity };
       addPartyMomentum(next, party, -scandal.hit);
-      for (const state of STATES) applyBuild40MapEffect(next, state.abbr, party, -(SCANDAL_VOTE_LOSS[scandal.level] || 0) * 2.5 * severity);
+      const priorScandals = mine ? (game.scandals?.length || 0) : 0;
+      const scandalDamp = 1 / (1 + 0.15 * priorScandals);
+      for (const state of STATES) applyBuild40MapEffect(next, state.abbr, party, -(SCANDAL_VOTE_LOSS[scandal.level] || 0) * 1.4 * severity * scandalDamp);
       if (mine) next.scandals.push({ week: game.week, ...scandal });
       if (party === context.actingParty) score -= scandal.hit;
     } else if (effect.kind === 'ground') {

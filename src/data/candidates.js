@@ -207,7 +207,7 @@ export const DEMOCRATS = [
     bio: 'Twenty years of Newark politics, a filibuster record, and genuine cross-party friendships in the Senate. Runs on love and infrastructure, which is either the answer or a parody of one.',
     strengths: ['Strong with Black voters nationally', 'Can raise money in any room'],
     weaknesses: ['Runs as a personality, not a message', 'Coastal liberal voting record'],
-    nat: -0.5,
+    nat: 0.2,
     region: { northeast: 3.5, south: 0.5, midwest: -1.0, west: -0.5 },
   },
   {
@@ -418,7 +418,7 @@ export const REPUBLICANS = [
     strengths: ['Texas money, Texas turnout', 'Owns the border argument'],
     weaknesses: ['Unknown above the Mason-Dixon', 'One state, one message'],
     nat: 0.18,
-    region: { south: 5.0, west: 2.0, midwest: -0.5, northeast: -2.0 },
+    region: { south: 3.5, west: 1.0, midwest: -0.5, northeast: -2.0 },
   },
   {
     id: 'timscott',
@@ -465,8 +465,8 @@ export const REPUBLICANS = [
     bio: 'Won Georgia three times while the rest of the party lost it. Turns out a ground game nobody else in the field can replicate — with a base that remembers 2020.',
     strengths: ['Georgia machine actually works', 'Proven in tough cycles'],
     weaknesses: ['Wrong side of the base’s grievance', 'No national profile at all'],
-    nat: 1.0,
-    region: { south: 4.0, midwest: -1.0, northeast: -1.0, west: -0.5 },
+    nat: 0.3,
+    region: { south: 3.0, midwest: -1.0, northeast: -1.0, west: -0.5 },
   },
 ];
 
