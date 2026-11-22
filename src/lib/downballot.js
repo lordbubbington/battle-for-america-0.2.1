@@ -75,7 +75,7 @@ export const PARTY_NAME = {
 // How much of the top of the ticket each race inherits.
 // Senate candidates track the national tide more closely than the older model
 // allowed, so a Democratic wave can plausibly reach the high 50s or low 60s.
-export const RACE_WEIGHT = { senate: 0.68, gov: 0.42, house: 0.34 };
+export const RACE_WEIGHT = { senate: 0.85, gov: 0.42, house: 0.34 };
 
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
@@ -596,9 +596,13 @@ export function raceMargin(state, kind, game, marginOf, mode = 'poll') {
   // R19: Under the 0.2.2 coattail model, presidential coattails reach Senate and
   // Governor races once through genericIn(state, game) rather than double-counting
   // the full presidential marginOf(state). Legacy saves retain prior behavior.
-  const top = game?.coattailModelVersion >= 1
+  const senateTrim =
+    kind === 'senate' && game?.coattailModelVersion >= 1 && (Number(game.startingNationalGeneric) || 0) < 7
+      ? -1.5
+      : 0;
+  const top = (game?.coattailModelVersion >= 1
     ? (game.leans?.[state] ?? BASE_LEANS[state] ?? 0) + genericIn(state, game)
-    : marginOf(state) + genericIn(state, game);
+    : marginOf(state) + genericIn(state, game)) + senateTrim;
 
   // Election-night house effects hit downballot races softer than the top line.
   const damped = mode === 'result' ? top * 0.92 : top;
