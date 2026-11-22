@@ -70,7 +70,7 @@ export const DEMOCRATS = [
     strengths: ['Floods the airwaves', 'Relentless counter-puncher'],
     weaknesses: ['California is a 30-second attack ad', 'Coastal instincts in a Midwest year'],
     nat: 1.78,
-    region: { west: 4.5, northeast: 1.0, south: -7.5, midwest: -2.0 },
+    region: { west: 4.5, northeast: 1.0, south: -4.5, midwest: -0.5 },
     groups: { jewish: -2, }
 
   },
@@ -298,12 +298,12 @@ export const REPUBLICANS = [
     bio: 'Secretary of State with a foreign-policy record and real Hispanic outreach. The establishment lane, if the establishment still has a lane.',
     strengths: ['Best Republican with Latino voters', 'Strong Foreign Policy Experience gives him an edge with military voters'],
     weaknesses: ['Primary base suspects him', 'Centrists arent enthralled either'],
-    nat: 0,
+    nat: -1.0,
     region: { south: -1, west: 1.5, northeast: 1, midwest: -1.5 },
     states: { FL: 5, CA: -5 },
     // A machine, not a message: nobody in the South turns out like his people do.
     turnoutRegion: { south: 1 },
-    groups: { hispanic:15, evangelical: 10, irrelegious: -10},
+    groups: { hispanic: 10, evangelical: 6, irrelegious: -10 },
   },
   {
     id: 'trumpjr',
