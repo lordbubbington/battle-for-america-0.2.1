@@ -182,7 +182,8 @@ export function mateOptions(party, excludeId = null, scenarioId = 'standard') {
         region: { [home?.region || 'midwest']: 0.6 },
         states,
       };
-    });
+    })
+    .concat((RUNNING_MATES[party] || []).filter((m) => m.modId && m.id !== excludeId));
 }
 
 // The Twelfth Amendment gives each state's electors a single vote, so no ticket

@@ -49,7 +49,22 @@ function scanModsDirectory() {
     const ratingsRes = safeReadJson(path.join(modDir, 'ratings.json'));
     const statesRes = safeReadJson(path.join(modDir, 'states.json'));
     const scenariosRes = safeReadJson(path.join(modDir, 'scenarios.json'));
-    for (const r of [candidatesRes, ratingsRes, statesRes, scenariosRes]) {
+    const eventsRes = safeReadJson(path.join(modDir, 'events.json'));
+    const newsRes = safeReadJson(path.join(modDir, 'news.json'));
+    const debatesRes = safeReadJson(path.join(modDir, 'debates.json'));
+    const runningMatesRes = safeReadJson(path.join(modDir, 'runningMates.json'));
+    const issuesRes = safeReadJson(path.join(modDir, 'issues.json'));
+    for (const r of [
+      candidatesRes,
+      ratingsRes,
+      statesRes,
+      scenariosRes,
+      eventsRes,
+      newsRes,
+      debatesRes,
+      runningMatesRes,
+      issuesRes,
+    ]) {
       if (r.error) parseErrors.push(r.error);
     }
     mods.push({
@@ -60,6 +75,11 @@ function scanModsDirectory() {
       ratings: ratingsRes.data,
       states: statesRes.data,
       scenarios: scenariosRes.data,
+      events: eventsRes.data,
+      news: newsRes.data,
+      debates: debatesRes.data,
+      runningMates: runningMatesRes.data,
+      issues: issuesRes.data,
       parseErrors,
     });
   }
@@ -78,11 +98,11 @@ function scaffoldExampleMod() {
         {
           id: 'example-balance-mod',
           name: 'Example Mod: 2028 Wildcard Pack',
-          version: '1.0.0',
+          version: '1.1.0',
           author: 'Local Modder',
           minGameVersion: '0.2.2',
           mode: 'patch',
-          description: 'Starter template showing how to add a candidate, adjust ratings, and tweak state leans.',
+          description: 'Starter template showing candidates, ratings, states, running mates, events, and news.',
         },
         null,
         2
@@ -136,6 +156,99 @@ function scaffoldExampleMod() {
         {
           patch: {
             CO: { lean: 13.0 },
+          },
+        },
+        null,
+        2
+      ),
+      'utf8'
+    );
+    fs.writeFileSync(
+      path.join(dir, 'runningMates.json'),
+      JSON.stringify(
+        {
+          add: [
+            {
+              id: 'mod-mate-dem',
+              name: 'Elena Morales',
+              short: 'Morales',
+              party: 'dem',
+              state: 'Arizona',
+              stateAbbr: 'AZ',
+              title: 'Sun Belt Closer',
+              blurb: 'Example modded running mate who strengthens Southwest outreach.',
+              strengths: ['Boosts Arizona and Nevada margins'],
+              weakness: 'Lower Northeast name recognition',
+              nat: 0.2,
+              region: { west: 0.8 },
+              states: { AZ: 2.0, NV: 1.2 },
+            },
+          ],
+        },
+        null,
+        2
+      ),
+      'utf8'
+    );
+    fs.writeFileSync(
+      path.join(dir, 'events.json'),
+      JSON.stringify(
+        {
+          add: [
+            {
+              id: 'mod-event-town-hall-viral',
+              title: 'Viral Local Diner Stop',
+              tone: 'hope',
+              icon: 'megaphone',
+              text: 'A spontaneous Q&A at a swing-state diner racks up 12 million views overnight.',
+              choices: [
+                {
+                  label: 'Turn it into a grassroots ad push',
+                  detail: 'Amplify the clip across swing states.',
+                  effects: { mom: 3, funds: 4 },
+                },
+                {
+                  label: 'Keep the focus on policy details',
+                  detail: 'Steady, low-risk follow-through.',
+                  effects: { mom: 2 },
+                },
+              ],
+            },
+          ],
+        },
+        null,
+        2
+      ),
+      'utf8'
+    );
+    fs.writeFileSync(
+      path.join(dir, 'news.json'),
+      JSON.stringify(
+        {
+          national: {
+            add: [
+              {
+                id: 'mod-nat-clean-grid',
+                desk: 'Economy',
+                icon: 'economy',
+                headline: 'Regional power grid upgrade cuts utility bills across Midwest',
+                body: 'Consumers report lower monthly energy bills heading into the autumn stretch.',
+                nat: 0.4,
+                issue: 'energy',
+              },
+            ],
+          },
+          world: {
+            add: [
+              {
+                id: 'mod-world-tech-plant',
+                headline: 'A battery manufacturer announces two thousand new jobs',
+                issue: 'economy',
+                lean: 1,
+                mag: 1.0,
+                tags: ['midwest', 'purple'],
+              },
+            ],
           },
         },
         null,
