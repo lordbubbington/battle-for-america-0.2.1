@@ -23,7 +23,8 @@
     "check:build33": "node scripts/check-build33-foundations-Fenrir.mjs",
     "check:build34-background": "node scripts/check-build34-background.mjs",
     "build:voter-profiles": "node scripts/build-voter-issue-profiles.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "mod:validate": "node --loader ./tests/build40/field/alias-loader.mjs scripts/validate-mod.mjs"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^17.0.0",

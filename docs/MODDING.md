@@ -1,14 +1,12 @@
-# Battle for America — Modding Guide (Phase 1 + Phase 2)
+# Battle for America — Modding Guide (Phases 1–3)
 
 Battle for America uses **declarative JSON + PNG mod packs**—no executable JavaScript is loaded from mod folders.
 
-## Folder Location (Desktop / Electron)
-Place each mod in its own subfolder inside `<userData>/mods/`:
+## Quick Start (Starter Template)
+Copy `mods-template/starter-mod/` into your local mods folder (or click **Mods → Create Example Mod** on the setup screen):
 - **Windows:** `%APPDATA%/battle-for-america-2028/mods/<mod-id>/`
 - **macOS:** `~/Library/Application Support/battle-for-america-2028/mods/<mod-id>/`
 - **Linux:** `~/.config/battle-for-america-2028/mods/<mod-id>/`
-
-You can also click **Mods → Open Mods Folder** or **Create Example Mod** on the setup screen.
 
 ## Mod Folder Structure
 ```text
@@ -24,151 +22,29 @@ mods/
     news.json            # Optional: add, patch, or remove national & world news
     debates.json         # Optional: add, patch, or remove debates/questions
     issues.json          # Optional: add, patch, or remove platform issues
+    preview.png          # Optional: Steam Workshop thumbnail
     assets/
       portraits/         # Optional: 96x96 PNG portraits referenced as "assets/portraits/name.png"
 ```
 
-## Phase 1 Schemas
-
-### `manifest.json` (Required)
-```json
-{
-  "id": "election-1992",
-  "name": "1992 Election Pack",
-  "version": "1.0.0",
-  "author": "Your Name",
-  "minGameVersion": "0.2.2",
-  "mode": "patch",
-  "description": "Adds 1992 nominees and state leans."
-}
+## Validating, Packing & Sharing Mods (CLI)
+Validate any mod folder before sharing or uploading:
+```bash
+npm run mod:validate -- mods-template/starter-mod
 ```
 
-### `candidates.json`
-```json
-{
-  "add": [
-    {
-      "id": "clinton-92",
-      "name": "Bill Clinton",
-      "short": "Clinton",
-      "state": "Arkansas",
-      "title": "The Man from Hope",
-      "party": "dem",
-      "portrait": "assets/portraits/clinton.png",
-      "nat": 2.0,
-      "region": { "south": 4.0, "midwest": 2.0, "northeast": 1.0, "west": 1.5 }
-    }
-  ],
-  "patch": { "harris": { "nat": -1.5 } },
-  "remove": []
-}
+Pack a mod folder into a single shareable `.bfa-mod.json` file (for itch.io, Discord, or browser import):
+```bash
+npm run mod:validate -- mods-template/starter-mod --pack starter-mod.bfa-mod.json
 ```
 
-### `ratings.json` & `states.json`
-```json
-{ "clinton-92": { "debate": 16, "speech": 18, "rally": 17, "corruption": 14 } }
-```
-```json
-{ "patch": { "AR": { "lean": 8.0 }, "PA": { "lean": 2.5 } } }
-```
-
-## Phase 2 Schemas
-
-### `runningMates.json`
-```json
-{
-  "add": [
-    {
-      "id": "mod-mate-dem",
-      "name": "Elena Morales",
-      "short": "Morales",
-      "party": "dem",
-      "state": "Arizona",
-      "stateAbbr": "AZ",
-      "title": "Sun Belt Closer",
-      "nat": 0.2,
-      "region": { "west": 0.8 },
-      "states": { "AZ": 2.0, "NV": 1.2 }
-    }
-  ]
-}
-```
-
-### `events.json`
-```json
-{
-  "add": [
-    {
-      "id": "mod-event-diner-stop",
-      "title": "Viral Local Diner Stop",
-      "tone": "hope",
-      "icon": "megaphone",
-      "text": "A spontaneous Q&A at a swing-state diner racks up 12 million views overnight.",
-      "choices": [
-        { "label": "Amplify it with an ad push", "effects": { "mom": 3, "funds": 4 } },
-        { "label": "Stay focused on policy", "effects": { "mom": 2 } }
-      ]
-    }
-  ]
-}
-```
-
-### `news.json`
-```json
-{
-  "national": {
-    "add": [
-      {
-        "id": "mod-nat-clean-grid",
-        "desk": "Economy",
-        "headline": "Regional grid upgrade cuts utility bills across Midwest",
-        "body": "Consumers report lower monthly energy bills heading into autumn.",
-        "nat": 0.4,
-        "issue": "energy"
-      }
-    ]
-  },
-  "world": {
-    "add": [
-      {
-        "id": "mod-world-tech-plant",
-        "headline": "A battery manufacturer announces two thousand new jobs",
-        "issue": "economy",
-        "lean": 1,
-        "mag": 1.0,
-        "tags": ["midwest", "purple"]
-      }
-    ]
-  }
-}
-```
-
-### `debates.json` & `issues.json`
-```json
-{
-  "patch": {
-    "debate1": { "title": "The Cost-of-Living Showdown" }
-  }
-}
-```
-```json
-{
-  "add": [
-    {
-      "id": "mod-space-policy",
-      "label": "Space & orbital infrastructure",
-      "weight": 4.5,
-      "line": "Who leads commercial launch and lunar bases.",
-      "options": [
-        "Public NASA-led mission funding",
-        "Public-private commercial partnerships",
-        "Deregulate private launch corridors"
-      ],
-      "party": { "dem": 0, "rep": 2 }
-    }
-  ]
-}
-```
+## Steam Workshop Distribution (Phase 3)
+1. **Auto-discovery for players:** In the desktop app, open **Mods → Steam Workshop**, enter the game's numeric Steam AppID (or set `BFA_STEAM_APP_ID` / `BFA_STEAM_WORKSHOP_DIR`), and click **Save & Scan Workshop**. Subscribed items under `steamapps/workshop/content/<appId>/<publishedFileId>/` are automatically discovered, validated, and served over the sandboxed `bfa-mod://` protocol.
+2. **Uploading a mod via SteamCMD:** Generate a ready-to-use `workshop_build.vdf` either by clicking the cloud icon on any local mod in the Mod Manager or via CLI:
+   ```bash
+   npm run mod:validate -- mods-template/starter-mod --vdf --appid <YOUR_STEAM_APP_ID> --note "Initial release"
+   steamcmd +login <steam_user> +workshop_build_item "<path/to/workshop_build.vdf>" +quit
+   ```
 
 ## Validation & Quarantine
-Every mod is validated at load time by `src/lib/modSchema.js`. Invalid JSON, unknown state abbreviations, out-of-range ratings, invalid debate weeks, or malformed options quarantine only that mod and display the exact field errors in the Mod Manager without crashing the game.
+Every mod (local, browser-imported, or Steam Workshop) is validated at load time by `src/lib/modSchema.js`. Invalid JSON, unknown state abbreviations, out-of-range ratings, invalid debate weeks, or unsafe portrait paths (`..`) quarantine only that mod and display the exact field errors in the Mod Manager without crashing the game.

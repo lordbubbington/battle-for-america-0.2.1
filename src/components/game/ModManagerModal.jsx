@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { X, FolderOpen, RefreshCw, ArrowUp, ArrowDown, Plus, Upload, Trash2, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import {
+  X, FolderOpen, RefreshCw, ArrowUp, ArrowDown, Plus, Upload, Trash2,
+  AlertTriangle, CheckCircle2, Download, Cloud,
+} from 'lucide-react';
 import {
   buildExampleModBundle,
   getModState,
@@ -34,12 +37,24 @@ export default function ModManagerModal({ open, onClose }) {
   const [modState, setModState] = useState(() => getModState());
   const [busy, setBusy] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
+  const [workshopOpen, setWorkshopOpen] = useState(false);
+  const [steamAppId, setSteamAppId] = useState('');
+  const [workshopDir, setWorkshopDir] = useState('');
+  const [workshopStatus, setWorkshopStatus] = useState(null);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
     const unsub = subscribeModRegistry((next) => setModState({ ...next }));
     if (open) {
       loadAndApplyMods();
+      const api = /** @type {any} */ (window).bfaMods;
+      if (api?.getWorkshopStatus) {
+        api.getWorkshopStatus().then((st) => {
+          setWorkshopStatus(st);
+          setSteamAppId(st?.steamAppId || '');
+          setWorkshopDir(st?.workshopDir || '');
+        }).catch(() => {});
+      }
     }
     return unsub;
   }, [open]);
@@ -101,12 +116,75 @@ export default function ModManagerModal({ open, onClose }) {
     }
   };
 
+  const handleExportJson = (entry) => {
+    const b = entry.bundle || {};
+    const packed = {
+      manifest: b.manifest,
+      ...(b.candidates ? { candidates: b.candidates } : {}),
+      ...(b.ratings ? { ratings: b.ratings } : {}),
+      ...(b.states ? { states: b.states } : {}),
+      ...(b.scenarios ? { scenarios: b.scenarios } : {}),
+      ...(b.events ? { events: b.events } : {}),
+      ...(b.news ? { news: b.news } : {}),
+      ...(b.debates ? { debates: b.debates } : {}),
+      ...(b.runningMates ? { runningMates: b.runningMates } : {}),
+      ...(b.issues ? { issues: b.issues } : {}),
+    };
+    const blob = new Blob([JSON.stringify(packed, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${entry.id}.bfa-mod.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    setStatusMessage(`Exported ${entry.id}.bfa-mod.json.`);
+  };
+
+  const handleSaveWorkshopConfig = async () => {
+    const api = /** @type {any} */ (window).bfaMods;
+    if (!api?.configureWorkshop) return;
+    setBusy(true);
+    try {
+      await api.configureWorkshop({ steamAppId, workshopDir });
+      const st = await api.getWorkshopStatus();
+      setWorkshopStatus(st);
+      await loadAndApplyMods();
+      setStatusMessage(`Saved Steam Workshop settings (${st?.subscribedCount || 0} subscribed mods found).`);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handlePrepareVdf = async (entry) => {
+    const api = /** @type {any} */ (window).bfaMods;
+    if (!api?.prepareWorkshopUpload) return;
+    if (!steamAppId.trim()) {
+      setWorkshopOpen(true);
+      setStatusMessage('Enter your numeric Steam AppID in Steam Workshop settings first.');
+      return;
+    }
+    setBusy(true);
+    try {
+      const res = await api.prepareWorkshopUpload({
+        modId: entry.folderName || entry.id,
+        steamAppId: steamAppId.trim(),
+      });
+      if (res?.ok) {
+        setStatusMessage(`Wrote ${res.vdfPath}. Run: ${res.command}`);
+      } else {
+        setStatusMessage(`Workshop VDF error: ${res?.error || 'Unknown error'}`);
+      }
+    } finally {
+      setBusy(false);
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Mod Manager">
       <div className="panel flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden border-white/15 bg-[#121a2b] p-5 shadow-2xl">
         <div className="flex items-start justify-between gap-3 border-b border-white/10 pb-3">
           <div>
-            <p className="label-xs text-primary">Modding Infrastructure</p>
+            <p className="label-xs text-primary">Modding & Workshop</p>
             <h2 className="font-heading text-2xl text-white">Mod Manager</h2>
             <p className="mt-1 text-xs text-slate-400">
               Enable declarative JSON mods for candidates, ratings, portraits, state leans, running mates, events, news, debates, and issues.
@@ -130,13 +208,48 @@ export default function ModManagerModal({ open, onClose }) {
             <Upload className="h-3.5 w-3.5" /> Import JSON Bundle
           </button>
           <input ref={fileInputRef} type="file" accept="application/json,.json" onChange={handleImportJson} className="hidden" />
+          {modState.isDesktop && (
+            <button type="button" onClick={() => setWorkshopOpen((v) => !v)} className="btn-outline inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold">
+              <Cloud className="h-3.5 w-3.5" /> Steam Workshop{workshopStatus?.subscribedCount ? ` (${workshopStatus.subscribedCount})` : ''}
+            </button>
+          )}
           <button type="button" onClick={handleReload} disabled={busy} className="btn-ghost inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold">
             <RefreshCw className={`h-3.5 w-3.5 ${busy ? 'animate-spin' : ''}`} /> Reload
           </button>
         </div>
 
+        {workshopOpen && modState.isDesktop && (
+          <div className="mt-2 rounded-xl border border-white/10 bg-black/30 p-3 text-xs">
+            <p className="font-bold text-white">Steam Workshop UGC Settings</p>
+            <p className="mt-0.5 text-[11px] text-slate-400">
+              Set your numeric Steam AppID (or a custom Workshop folder) to auto-scan subscribed UGC items and generate SteamCMD upload VDFs.
+            </p>
+            <div className="mt-2 grid gap-2 sm:grid-cols-2">
+              <input
+                type="text"
+                value={steamAppId}
+                onChange={(e) => setSteamAppId(e.target.value)}
+                placeholder="Steam AppID (e.g. 480)"
+                className="rounded-lg border border-white/15 bg-black/40 px-2.5 py-1.5 text-xs text-white"
+              />
+              <input
+                type="text"
+                value={workshopDir}
+                onChange={(e) => setWorkshopDir(e.target.value)}
+                placeholder="Optional custom Workshop folder"
+                className="rounded-lg border border-white/15 bg-black/40 px-2.5 py-1.5 text-xs text-white"
+              />
+            </div>
+            <div className="mt-2 flex items-center justify-end gap-2">
+              <button type="button" onClick={handleSaveWorkshopConfig} disabled={busy} className="btn-gold px-3 py-1 text-[11px] font-extrabold">
+                Save & Scan Workshop
+              </button>
+            </div>
+          </div>
+        )}
+
         {statusMessage && (
-          <p className="mt-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-slate-200">
+          <p className="mt-2 break-all rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-slate-200">
             {statusMessage}
           </p>
         )}
@@ -180,7 +293,9 @@ export default function ModManagerModal({ open, onClose }) {
                           <span className="text-sm font-extrabold text-white">{m.name || entry.folderName}</span>
                           {m.version && <span className="chip text-[10px]">v{m.version}</span>}
                           <span className="chip text-[10px]">{m.mode || 'patch'}</span>
-                          <span className="chip text-[10px]">{entry.source}</span>
+                          <span className="chip text-[10px]">
+                            {entry.source === 'workshop' ? `workshop #${entry.bundle?.workshopItemId || entry.folderName}` : entry.source}
+                          </span>
                         </div>
                         <p className="mt-0.5 text-[11px] text-slate-400">
                           ID: <span className="font-mono text-slate-300">{entry.id}</span>
@@ -218,6 +333,28 @@ export default function ModManagerModal({ open, onClose }) {
                       >
                         <ArrowDown className="h-3.5 w-3.5" />
                       </button>
+                      {valid && (
+                        <button
+                          type="button"
+                          onClick={() => handleExportJson(entry)}
+                          disabled={busy}
+                          className="btn-ghost rounded p-1"
+                          title="Export shareable .bfa-mod.json bundle"
+                        >
+                          <Download className="h-3.5 w-3.5" />
+                        </button>
+                      )}
+                      {valid && modState.isDesktop && entry.source === 'desktop' && (
+                        <button
+                          type="button"
+                          onClick={() => handlePrepareVdf(entry)}
+                          disabled={busy}
+                          className="btn-ghost rounded p-1"
+                          title="Generate Steam Workshop workshop_build.vdf"
+                        >
+                          <Cloud className="h-3.5 w-3.5" />
+                        </button>
+                      )}
                       {entry.source === 'browser' && (
                         <button
                           type="button"

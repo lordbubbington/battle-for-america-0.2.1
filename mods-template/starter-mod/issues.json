@@ -1,0 +1,19 @@
+{
+  "add": [
+    {
+      "id": "starter-space-policy",
+      "label": "Space & orbital infrastructure",
+      "weight": 4.0,
+      "line": "Who leads commercial launch and lunar bases.",
+      "options": [
+        "Public NASA-led mission funding",
+        "Public-private commercial partnerships",
+        "Deregulate private launch corridors"
+      ],
+      "party": {
+        "dem": 0,
+        "rep": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "starter-mod",
+  "name": "Starter Mod Template",
+  "version": "1.0.0",
+  "author": "Your Name",
+  "minGameVersion": "0.2.2",
+  "mode": "patch",
+  "description": "Ready-to-copy template covering Phase 1 & Phase 2 mod schemas."
+}

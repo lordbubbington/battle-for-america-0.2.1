@@ -1,0 +1,26 @@
+{
+  "add": [
+    {
+      "id": "starter-event-diner",
+      "title": "Viral Local Diner Stop",
+      "tone": "hope",
+      "icon": "megaphone",
+      "text": "A spontaneous Q&A at a swing-state diner draws millions of views overnight.",
+      "choices": [
+        {
+          "label": "Amplify it with a digital push",
+          "effects": {
+            "mom": 3,
+            "funds": 3
+          }
+        },
+        {
+          "label": "Keep the focus on policy",
+          "effects": {
+            "mom": 2
+          }
+        }
+      ]
+    }
+  ]
+}

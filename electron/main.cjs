@@ -2,6 +2,12 @@ const { app, BrowserWindow, ipcMain, protocol, shell, net } = require('electron'
 const fs = require('node:fs');
 const path = require('node:path');
 const { pathToFileURL } = require('node:url');
+const {
+  saveWorkshopConfig,
+  scanWorkshopMods,
+  generateWorkshopUploadVdf,
+  resolveModAssetPath,
+} = require('./steamWorkshop.cjs');
 
 protocol.registerSchemesAsPrivileged([
   {
@@ -16,6 +22,7 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 let mainWindow = null;
+let cachedWorkshopDirMap = new Map();
 
 function getModsRoot() {
   const dir = path.join(app.getPath('userData'), 'mods');
@@ -32,58 +39,75 @@ function safeReadJson(filePath) {
   }
 }
 
-function scanModsDirectory() {
+function readModDir(modDir, folderName, source = 'desktop') {
+  const manifestRes = safeReadJson(path.join(modDir, 'manifest.json'));
+  const parseErrors = [];
+  if (!manifestRes.present) {
+    parseErrors.push('Missing manifest.json');
+  } else if (manifestRes.error) {
+    parseErrors.push(manifestRes.error);
+  }
+  const candidatesRes = safeReadJson(path.join(modDir, 'candidates.json'));
+  const ratingsRes = safeReadJson(path.join(modDir, 'ratings.json'));
+  const statesRes = safeReadJson(path.join(modDir, 'states.json'));
+  const scenariosRes = safeReadJson(path.join(modDir, 'scenarios.json'));
+  const eventsRes = safeReadJson(path.join(modDir, 'events.json'));
+  const newsRes = safeReadJson(path.join(modDir, 'news.json'));
+  const debatesRes = safeReadJson(path.join(modDir, 'debates.json'));
+  const runningMatesRes = safeReadJson(path.join(modDir, 'runningMates.json'));
+  const issuesRes = safeReadJson(path.join(modDir, 'issues.json'));
+  for (const r of [
+    candidatesRes,
+    ratingsRes,
+    statesRes,
+    scenariosRes,
+    eventsRes,
+    newsRes,
+    debatesRes,
+    runningMatesRes,
+    issuesRes,
+  ]) {
+    if (r.error) parseErrors.push(r.error);
+  }
+  return {
+    folderName,
+    source,
+    manifest: manifestRes.data,
+    candidates: candidatesRes.data,
+    ratings: ratingsRes.data,
+    states: statesRes.data,
+    scenarios: scenariosRes.data,
+    events: eventsRes.data,
+    news: newsRes.data,
+    debates: debatesRes.data,
+    runningMates: runningMatesRes.data,
+    issues: issuesRes.data,
+    parseErrors,
+  };
+}
+
+function scanAllMods() {
   const root = getModsRoot();
   const entries = fs.readdirSync(root, { withFileTypes: true }).filter((d) => d.isDirectory());
-  const mods = [];
-  for (const entry of entries) {
-    const modDir = path.join(root, entry.name);
-    const manifestRes = safeReadJson(path.join(modDir, 'manifest.json'));
-    const parseErrors = [];
-    if (!manifestRes.present) {
-      parseErrors.push('Missing manifest.json');
-    } else if (manifestRes.error) {
-      parseErrors.push(manifestRes.error);
-    }
-    const candidatesRes = safeReadJson(path.join(modDir, 'candidates.json'));
-    const ratingsRes = safeReadJson(path.join(modDir, 'ratings.json'));
-    const statesRes = safeReadJson(path.join(modDir, 'states.json'));
-    const scenariosRes = safeReadJson(path.join(modDir, 'scenarios.json'));
-    const eventsRes = safeReadJson(path.join(modDir, 'events.json'));
-    const newsRes = safeReadJson(path.join(modDir, 'news.json'));
-    const debatesRes = safeReadJson(path.join(modDir, 'debates.json'));
-    const runningMatesRes = safeReadJson(path.join(modDir, 'runningMates.json'));
-    const issuesRes = safeReadJson(path.join(modDir, 'issues.json'));
-    for (const r of [
-      candidatesRes,
-      ratingsRes,
-      statesRes,
-      scenariosRes,
-      eventsRes,
-      newsRes,
-      debatesRes,
-      runningMatesRes,
-      issuesRes,
-    ]) {
-      if (r.error) parseErrors.push(r.error);
-    }
-    mods.push({
-      folderName: entry.name,
-      source: 'desktop',
-      manifest: manifestRes.data,
-      candidates: candidatesRes.data,
-      ratings: ratingsRes.data,
-      states: statesRes.data,
-      scenarios: scenariosRes.data,
-      events: eventsRes.data,
-      news: newsRes.data,
-      debates: debatesRes.data,
-      runningMates: runningMatesRes.data,
-      issues: issuesRes.data,
-      parseErrors,
-    });
-  }
-  return { modsRoot: root, mods };
+  const localMods = entries.map((entry) => readModDir(path.join(root, entry.name), entry.name, 'desktop'));
+
+  const workshop = scanWorkshopMods({
+    userDataDir: app.getPath('userData'),
+    readModDir,
+  });
+  cachedWorkshopDirMap = workshop.modDirById;
+
+  return {
+    modsRoot: root,
+    mods: [...localMods, ...workshop.mods],
+    workshop: {
+      configured: workshop.configured,
+      steamAppId: workshop.steamAppId,
+      workshopDir: workshop.workshopDir,
+      workshopDirs: workshop.workshopDirs,
+      subscribedCount: workshop.subscribedCount,
+    },
+  };
 }
 
 function scaffoldExampleMod() {
@@ -265,23 +289,17 @@ function registerModProtocol() {
     try {
       const parsed = new URL(request.url);
       const modId = decodeURIComponent(parsed.hostname || '');
-      if (!/^[a-z0-9][a-z0-9-_]*$/i.test(modId)) {
-        return new Response('Invalid mod ID', { status: 400 });
+      const relPath = decodeURIComponent(parsed.pathname || '');
+      const resolved = resolveModAssetPath({
+        modId,
+        relPath,
+        localModsRoot: getModsRoot(),
+        workshopModDirs: cachedWorkshopDirMap,
+      });
+      if (!resolved.ok) {
+        return new Response(resolved.error, { status: resolved.status });
       }
-      const relPath = decodeURIComponent(parsed.pathname || '').replace(/^\/+/, '');
-      if (!relPath.startsWith('assets/')) {
-        return new Response('Only assets/ paths are accessible', { status: 403 });
-      }
-      const root = getModsRoot();
-      const allowedRoot = path.resolve(root, modId, 'assets');
-      const target = path.resolve(root, modId, relPath);
-      if (!target.startsWith(allowedRoot + path.sep) && target !== allowedRoot) {
-        return new Response('Forbidden path', { status: 403 });
-      }
-      if (!fs.existsSync(target) || !fs.statSync(target).isFile()) {
-        return new Response('Not found', { status: 404 });
-      }
-      return net.fetch(pathToFileURL(target).href);
+      return net.fetch(pathToFileURL(resolved.filePath).href);
     } catch {
       return new Response('Bad mod asset request', { status: 400 });
     }
@@ -289,13 +307,61 @@ function registerModProtocol() {
 }
 
 function registerModIpc() {
-  ipcMain.handle('bfa-mods:list', () => scanModsDirectory());
+  ipcMain.handle('bfa-mods:list', () => scanAllMods());
   ipcMain.handle('bfa-mods:open-folder', async () => {
     const dir = getModsRoot();
     await shell.openPath(dir);
     return { ok: true, dir };
   });
   ipcMain.handle('bfa-mods:create-example', () => scaffoldExampleMod());
+  ipcMain.handle('bfa-mods:workshop-status', () => {
+    const workshop = scanWorkshopMods({ userDataDir: app.getPath('userData'), readModDir });
+    cachedWorkshopDirMap = workshop.modDirById;
+    return {
+      configured: workshop.configured,
+      steamAppId: workshop.steamAppId,
+      workshopDir: workshop.workshopDir,
+      workshopDirs: workshop.workshopDirs,
+      subscribedCount: workshop.subscribedCount,
+    };
+  });
+  ipcMain.handle('bfa-mods:workshop-configure', (_evt, cfg) => {
+    const saved = saveWorkshopConfig(app.getPath('userData'), cfg || {});
+    return { ok: true, ...saved };
+  });
+  ipcMain.handle('bfa-mods:workshop-prepare-vdf', (_evt, opts) => {
+    const { modId, steamAppId, publishedFileId = '0', visibility = 0, changeNote = 'Update' } = opts || {};
+    if (!modId || !/^[a-z0-9][a-z0-9-_]*$/i.test(modId)) {
+      return { ok: false, error: 'Invalid modId.' };
+    }
+    const modDir = path.join(getModsRoot(), modId);
+    if (!fs.existsSync(modDir)) {
+      return { ok: false, error: `Mod folder not found: ${modId}` };
+    }
+    const bundle = readModDir(modDir, modId, 'desktop');
+    const previewCandidate = path.join(modDir, 'preview.png');
+    try {
+      const vdf = generateWorkshopUploadVdf({
+        steamAppId,
+        publishedFileId,
+        contentFolder: modDir,
+        previewFile: fs.existsSync(previewCandidate) ? previewCandidate : '',
+        visibility,
+        title: bundle.manifest?.name || modId,
+        description: bundle.manifest?.description || '',
+        changeNote,
+      });
+      const vdfPath = path.join(modDir, 'workshop_build.vdf');
+      fs.writeFileSync(vdfPath, vdf, 'utf8');
+      return {
+        ok: true,
+        vdfPath,
+        command: `steamcmd +login <steam_user> +workshop_build_item "${vdfPath}" +quit`,
+      };
+    } catch (err) {
+      return { ok: false, error: err.message };
+    }
+  });
 }
 
 function createWindow() {

@@ -1,0 +1,30 @@
+{
+  "national": {
+    "add": [
+      {
+        "id": "starter-nat-grid",
+        "desk": "Economy",
+        "icon": "economy",
+        "headline": "Regional grid upgrade lowers autumn utility bills",
+        "body": "Lower monthly energy bills ease pressure on Midwest households.",
+        "nat": 0.3,
+        "issue": "energy"
+      }
+    ]
+  },
+  "world": {
+    "add": [
+      {
+        "id": "starter-world-plant",
+        "headline": "A battery manufacturer announces two thousand new jobs",
+        "issue": "economy",
+        "lean": 1,
+        "mag": 1.0,
+        "tags": [
+          "midwest",
+          "purple"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "add": [
+    {
+      "id": "starter-mate-dem",
+      "name": "Elena Morales",
+      "short": "Morales",
+      "party": "dem",
+      "state": "Arizona",
+      "stateAbbr": "AZ",
+      "title": "Sun Belt Closer",
+      "blurb": "Template running mate strengthening Southwest margins.",
+      "strengths": [
+        "Boosts Arizona and Nevada"
+      ],
+      "weakness": "Lower Northeast profile",
+      "nat": 0.2,
+      "region": {
+        "west": 0.8
+      },
+      "states": {
+        "AZ": 2.0,
+        "NV": 1.0
+      }
+    }
+  ]
+}

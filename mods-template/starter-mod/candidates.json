@@ -1,0 +1,31 @@
+{
+  "add": [
+    {
+      "id": "starter-candidate-dem",
+      "name": "Jordan Reyes",
+      "short": "Reyes",
+      "state": "Colorado",
+      "title": "Mountain West Outsider",
+      "party": "dem",
+      "weight": 4,
+      "color": "#3D5AF1",
+      "portrait": "/art/candidates/expressions/moore-smile.png",
+      "bio": "Template Democratic candidate.",
+      "strengths": [
+        "Strong Mountain West appeal"
+      ],
+      "weaknesses": [
+        "Low East Coast name ID"
+      ],
+      "nat": 0.5,
+      "region": {
+        "west": 3.0,
+        "midwest": 0.5,
+        "northeast": -1.0,
+        "south": -1.0
+      }
+    }
+  ],
+  "patch": {},
+  "remove": []
+}
