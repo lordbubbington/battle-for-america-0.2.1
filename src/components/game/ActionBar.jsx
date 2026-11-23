@@ -33,7 +33,7 @@ export default function ActionBar({ game, selected, onAction, onOpenPanel, onAdv
     if (a.id === 'volunteers') return enhancedVolunteerReady
       ? `Faction mobilization in ${targetName}: no cost and 50% stronger turnout.`
       : `$${costFor(a)}M of organizers, vans and phone banks in ${targetName}. Turnout, not headlines.`;
-    if (a.id === 'townhall') return `Six rooms in ${targetName}: breakout week or a clip you cannot bury.`;
+    if (a.id === 'townhall') return `Persuasion marathon in ${targetName}: shift margins from -1.0 to +1.0 points (no turnout effect).`;
     if (a.id === 'shift') return `Move to a new stance. Momentum −${flip.momentum} and votes — worse every time.`;
     if (a.id === 'prep') {
       return prep >= DEBATE_PREP_MAX

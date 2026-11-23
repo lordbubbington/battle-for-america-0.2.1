@@ -1,3 +1,4 @@
+import { voteUnits } from '@/lib/turnout';
 import { SCENARIO_PARTIES } from '@/data/build39Scenarios';
 import { stateGroupShift } from '@/data/demographics';
 import { applyScenarioShares, scenarioPartyIds, scenarioRankedChoiceTally } from '@/lib/build39Scenarios';
@@ -151,12 +152,13 @@ export function thirdSharesFor(abbr, game) {
   return { lib: total * split.lib, grn: total * split.grn };
 }
 
-export function rollThirdBoard() {
+export function rollThirdBoard(randomness = 1) {
   const variance = {};
   const tilt = {};
+  const deterministic = Number(randomness) === 0;
   STATE_LIST.forEach((s) => {
-    variance[s.abbr] = 0.15 + Math.random() * 2.7;
-    tilt[s.abbr] = (Math.random() * 2 - 1) * (Math.random() < 0.5 ? 1 : 0.45);
+    variance[s.abbr] = deterministic ? 1 : 0.15 + Math.random() * 2.7;
+    tilt[s.abbr] = deterministic ? 0 : (Math.random() * 2 - 1) * (Math.random() < 0.5 ? 1 : 0.45);
   });
   return { thirdVariance: variance, thirdTilt: tilt };
 }
@@ -207,11 +209,13 @@ export function shareModel({ margin, abbr, game, mode = 'poll', indBase = 0, ope
   // the Democrats; the Greens are the mirror image. So a state where the Greens
   // run strong is a state the Democrats have already lost votes in — that is the
   // day-one map, and the campaign only moves it from there.
-  const libPay = DONORS.lib;
-  const grnPay = DONORS.grn;
+  // Keep the opening D-R spread anchored to `margin` so neutral state leans
+  // open at BASE_LEANS rather than drifting from asymmetric third-party splits.
+  const twoPartyPool = Math.max(0.4, 100 - libShare - grnShare);
+  const clampedMargin = Math.max(-(twoPartyPool - 0.4), Math.min(twoPartyPool - 0.4, margin));
   let shares = {
-    dem: Math.max(0.2, 50 + margin / 2 - libShare * libPay.dem - grnShare * grnPay.dem),
-    rep: Math.max(0.2, 50 - margin / 2 - libShare * libPay.rep - grnShare * grnPay.rep),
+    dem: Math.max(0.2, (twoPartyPool + clampedMargin) / 2),
+    rep: Math.max(0.2, (twoPartyPool - clampedMargin) / 2),
     lib: libShare,
     grn: grnShare,
     ind: 0,
@@ -1007,6 +1011,29 @@ export function buildHouse(game, marginOf, mode = 'poll') {
 // ---------------------------------------------------------------------------
 // Governors
 // ---------------------------------------------------------------------------
+
+
+// Sum modeled 435-district House votes across all states to get the exact
+// national House generic-ballot margin (D - R in percentage points).
+export function computeHouseNationalMargin(game, marginOf, mode = 'poll') {
+  const house = buildHouse(game, marginOf, mode);
+  let demVotes = 0;
+  let repVotes = 0;
+  let totalVotes = 0;
+  for (const state of house.states || []) {
+    const stateBallots = voteUnits(state.state);
+    const districts = state.districts || [];
+    const perDistrict = districts.length > 0 ? stateBallots / districts.length : stateBallots;
+    for (const d of districts) {
+      const sh = d.shares || {};
+      demVotes += ((sh.dem || 0) / 100) * perDistrict;
+      repVotes += ((sh.rep || 0) / 100) * perDistrict;
+      totalVotes += perDistrict;
+    }
+  }
+  if (!totalVotes) return 0;
+  return Math.round(((demVotes - repVotes) / totalVotes) * 1000) / 10;
+}
 
 export function buildGov(game, marginOf, mode = 'poll') {
   if (thirdMode(game) === 'surge') return fourPartyGov(game);

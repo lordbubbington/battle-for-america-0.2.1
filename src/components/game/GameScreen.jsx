@@ -21,7 +21,6 @@ import NationalEnvironment from '@/components/game/NationalEnvironment';
 import EnvironmentPanel from '@/components/game/EnvironmentPanel';
 import StateFocusPanel from '@/components/game/StateFocusPanel';
 import DownballotPanel from '@/components/game/DownballotPanel';
-import VoterGroupsPanel from '@/components/game/VoterGroupsPanel';
 import PartyFactionsPanel from '@/components/game/PartyFactionsPanel';
 import CampaignOffice from '@/components/game/CampaignCalendar';
 import NewsCyclePanel from '@/components/game/NewsCyclePanel';
@@ -432,7 +431,6 @@ export default function GameScreen({
 
       <div className="mt-3 grid items-start gap-3 lg:grid-cols-3">
         <PlatformCard game={game} abbr={targetAbbr} accent={accent} />
-        <VoterGroupsPanel game={game} accent={accent} />
         <PartyFactionsPanel game={game} accent={accent} />
       </div>
 

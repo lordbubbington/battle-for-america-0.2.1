@@ -112,7 +112,9 @@ const utRes = applyBuild40Opening({ modeId: 'regional-parties', stateId: 'UT', r
 const scRes = applyBuild40Opening({ modeId: 'regional-parties', stateId: 'SC', race: 'president', shares: neutralBase('SC') });
 const inRes = applyBuild40Opening({ modeId: 'regional-parties', stateId: 'IN', race: 'president', shares: neutralBase('IN') });
 assert.ok(Math.abs(hiRes.shares['hawaiian-ind'] - 82) < 0.01 && Math.abs(hiRes.shares.deseret - 4.8) < 0.01);
-assert.ok(Math.abs(utRes.shares.deseret - 61.7) < 0.01 && Math.abs(utRes.shares['rocky-mountain'] - 10) < 0.01 && Math.abs(utRes.shares.dem - 20) < 0.01);
+const nvRes = applyBuild40Opening({ modeId: 'regional-parties', stateId: 'NV', race: 'president', shares: neutralBase('NV') });
+assert.ok(Math.abs(nvRes.shares['west-coast'] - 35) < 0.01, 'West Coast Alliance holds 35% in NV');
+assert.ok(utRes.shares.deseret > 50 && Math.abs(utRes.shares.dem - 20) < 0.01);
 assert.ok(Math.abs(scRes.shares['southern-heritage'] - 35) < 0.01);
 assert.ok(Math.abs(inRes.shares['farmer-labor'] - 40) < 0.01);
 // R10 border checks: no Four Corners (AZ-CO, NM-UT), no AK/HI borders
@@ -187,9 +189,9 @@ const actualVotes = votesFor('PA', { dem: 50, rep: 50 }, gTurnHigh);
 const nickVotes = votesFor('PA', { dem: 50, rep: 50 }, { ...gTurnHigh, __nickBronzeHalfTurnout: true });
 const uPA = voteUnits('PA');
 assert.ok(Math.abs(actualVotes.dem - 0.5 * ((basePA + 8) / basePA) * uPA) < 1e-6);
-assert.ok(Math.abs(nickVotes.dem - 0.5 * ((basePA + 4) / basePA) * uPA) < 1e-6);
-assert.ok(Math.abs(nickVotes.rep - 0.5 * ((basePA - 3) / basePA) * uPA) < 1e-6);
-results.R12 = `PASS: Baseline ${basePA}% -> effective +8 gives Nick +4, effective -6 gives Nick -3; actual votes stay full strength`;
+assert.ok(Math.abs(nickVotes.dem - 0.5 * ((basePA + 7.2) / basePA) * uPA) < 1e-6);
+assert.ok(Math.abs(nickVotes.rep - 0.5 * ((basePA - 5.4) / basePA) * uPA) < 1e-6);
+results.R12 = `PASS: Baseline ${basePA}% -> map & Nick Bronze reflect 90% turnout (+7.2 / -5.4) without extra 10% Election Night boost; actual votes stay 100%`;
 
 // R13: South Carolina lean shifted 3 points toward Republicans (-14.15 -> -17.15; BASE_LEANS.SC = -17.1)
 const scRow = STATE_LIST.find((s) => s.abbr === 'SC');

@@ -17,7 +17,7 @@ export const COLOR_TOKENS = {
   // 0.2.2 Regional parties (exact solid base colors from design):
   'farmer-labor': '#B78B16',
   localist: '#8E76D1',
-  'west-coast': '#008C86',
+  'west-coast': '#D97706',
   'lone-star': '#B43555',
   appalachian: '#788D2B',
   'southern-heritage': '#76233F',
@@ -43,7 +43,7 @@ export const MARGIN_SCALE = {
   mcmullin: { light: '#F9CA96', mid: COLOR_TOKENS.mcmullin, dark: '#8B4607' },
   'farmer-labor': { light: '#E5CD7E', mid: '#CFA228', dark: '#B78B16' },
   localist: { light: '#C5B7EC', mid: '#A592DC', dark: '#8E76D1' },
-  'west-coast': { light: '#7CD0CC', mid: '#29A8A2', dark: '#008C86' },
+  'west-coast': { light: '#FDE68A', mid: '#F59E0B', dark: '#B45309' },
   'lone-star': { light: '#DF94A7', mid: '#C85774', dark: '#B43555' },
   appalachian: { light: '#BCC988', mid: '#93A746', dark: '#788D2B' },
   'southern-heritage': { light: '#BE7A91', mid: '#94435E', dark: '#76233F' },

@@ -147,6 +147,7 @@ import {
   buildDownballot,
   buildGov,
   buildHouse,
+  computeHouseNationalMargin,
   HOUSE_DISTRICT_BASELINES,
   buildSenate,
   downballotTargets,
@@ -549,7 +550,7 @@ export function createGame({
       opponentId = pickDefaultCandidate(opponentParty, candidateId) || opponentId;
     }
   }
-  const board = rollThirdBoard();
+  const board = rollThirdBoard(randomness);
   const thirdStart = isThirdParty(party) && thirdMode !== 'surge';
   const aiNomineeId = (aiParty) => aiParty === opponentParty
     ? opponentId
@@ -692,7 +693,7 @@ export function createGame({
     fatigue: emptyFatigue(),
     // Every point any party has ever spent there — it never wears off.
     totalFatigue: {},
-    noise: freshNoise(diff),
+    noise: Number(randomness) === 0 ? Object.fromEntries(STATES.map((s) => [s.abbr, 0])) : freshNoise(diff),
     track: 0,
     // The state-by-state generic ballot, and the national average of it. The
     // campaign moves these at half strength; the news moves them at full.
@@ -859,10 +860,25 @@ export function createGame({
     const nominee = nomineeOf(game, partyId);
     if (nominee?.id) applyOpeningTicket(game, partyId, nominee.id, game.oppMates?.[partyId]?.mateId);
   }
+  // Re-bank policyBase and demoBase after opening tickets finalize stances/factions
+  // so Day-1 policyMargin and demographicShift start at exact 0.00.
+  game.policyBase = {};
+  game.demoBase = {};
+  STATES.forEach((s) => {
+    game.policyBase[s.abbr] = rawPolicyMargin(s.abbr, game);
+    game.demoBase[s.abbr] = demographicShift(s.abbr, { ...game, demoBase: {} });
+  });
+  STATES.forEach((s) => {
+    game.baseMargins[s.abbr] = pollMargin(s.abbr, game);
+  });
   game.build38.governorOffsets = Object.fromEntries(govSnapshot(game).races.map((race) => [
     race.state, calibrateGovernorOpening({ stateId: race.state, openingMarginDMinusR: race.margin, scenario: { campaignType: 'new' } }).openingOffset || 0,
   ]));
   game.raceBaseline = raceBaselines(game);
+  // Compute modeled national House generic ballot once at start (refreshed weekly in advanceWeek).
+  game.houseGenericBallot = isRegionalNew
+    ? 0
+    : computeHouseNationalMargin(game, (abbr) => pollMargin(abbr, game), 'poll');
   game.candidateEvents = candidateEventState();
   game.activeMods = getActiveModDescriptors();
   if (!game.build40?.fieldPlanCommitted) {
@@ -909,7 +925,8 @@ export function demographicShift(abbr, game) {
   Object.entries(factionGroupBonuses(game)).forEach(([id, amount]) => {
     mods[id] = (mods[id] || 0) + amount * pov;
   });
-  return stateGroupShift(abbr, mods) + stateGroupShift(abbr, game.build34EndorsementGroupModsByState?.[abbr] || {});
+  const raw = stateGroupShift(abbr, mods) + stateGroupShift(abbr, game.build34EndorsementGroupModsByState?.[abbr] || {});
+  return raw - (game?.demoBase?.[abbr] || 0);
 }
 
 // Early polls are taken before the campaign has done anything at all: in the
@@ -1061,9 +1078,11 @@ export function snapshot(game, mode = 'poll') {
     // people stay home, so the vote — not the percentage — picks the winner.
     const support = boardShares({ margin, abbr: s.abbr, game, mode });
     const early = earlyByState[s.abbr];
-    const votes = mode === 'result' ? presidentialBallots(game, s.abbr, support, early) : votesFor(s.abbr, support, game);
+    const votes = mode === 'result'
+      ? presidentialBallots(game, s.abbr, support, early)
+      : votesFor(s.abbr, support, game, 0.9);
     const cast = Object.values(votes).reduce((sum, v) => sum + (v || 0), 0) || 1;
-    const shares = mode === 'poll' ? support : Object.fromEntries(Object.keys(support).map((party) =>
+    const shares = Object.fromEntries(Object.keys(support).map((party) =>
       [party, (votes[party] || 0) / cast * 100]));
     const firstChoiceWin = winnerOf(shares);
     const rcv = mode === 'result' && game.thirdMode === 'surge' ? presidentialRankedTally(game, shares) : null;
@@ -1217,7 +1236,7 @@ export function actionDamp(game, abbr, actionId = null) {
   damp *= effects.actionMul;
   if (['volunteers', 'ops'].includes(actionId) && effects.laborStates.includes(abbr)) damp *= effects.laborFieldMul;
   if (['townhall', 'promise'].includes(actionId)) damp *= effects.moderatePersuasionMul;
-  if (['visit', 'volunteers', 'townhall'].includes(actionId)) damp *= effects.religiousTurnoutMul;
+  if (['visit', 'volunteers'].includes(actionId)) damp *= effects.religiousTurnoutMul;
   if (actionId === 'volunteers') damp *= effects.youthOutreachMul;
   return damp;
 }
@@ -2469,7 +2488,7 @@ function applyBuild34EndorsementCommands(game, commands) {
           byState[command.stateId][demographicGroupId] = (byState[command.stateId][demographicGroupId] || 0) + direction * amount * 100 / share;
           next.build34EndorsementGroupModsByState = byState;
         }
-      } else if (['lib', 'grn'].includes(game.party)) {
+      } else if (isThirdParty(game.party) || isScenarioCandidate(game.party)) {
         next.thirdMods = { ...(next.thirdMods || {}), [game.party]: { ...(next.thirdMods?.[game.party] || {}) } };
         next.thirdMods[game.party][command.stateId] = round1((next.thirdMods[game.party][command.stateId] || 0) + amount);
       }
@@ -2817,7 +2836,7 @@ export function chooseOpponentMates(game) {
     const nominee = nomineeOf(game, party);
     const pool = mateOptions(party, nominee?.id, game.build39?.scenario?.id).filter((m) => !sameStateTicket(m, nominee));
     if (!pool.length) return;
-    const pick = pool[Math.floor(Math.random() * pool.length)];
+    const pick = Number(game.randomness) === 0 ? pool[0] : pool[Math.floor(Math.random() * pool.length)];
     out[party] = {
       party,
       nomineeId: nominee?.id || null,
@@ -3487,6 +3506,9 @@ export function advanceWeek(game) {
   const genericPull = isRegionalEnvironmentIgnored(next) ? 0 : (genericNow - priorGenericBaseline) * 0.5;
   next.genericBaseline = genericNow;
   next.natGeneric = genericNow;
+  next.houseGenericBallot = isRegionalEnvironmentIgnored(next)
+    ? 0
+    : computeHouseNationalMargin(next, (abbr) => pollMargin(abbr, next), 'poll');
   next.track = isRegionalEnvironmentIgnored(next)
     ? 0
     : round1(Math.max(-14, Math.min(14, (game.track || 0) * 0.9 + gauss() * 0.3 + genericPull)));
@@ -3882,12 +3904,14 @@ function beginWeek(game) {
 
   // The week's own news is dealt last, so what the state is arguing about is
   // already in place when the player starts working it.
-  const world = rollWorldNews(next);
-  next.worldNews = world.cards;
-  next.worldShift = world.shifts;
-  next.downballotNews = world.downballotNews;
-  next.salience = world.salience;
-  next.worldRecent = world.recent;
+  if (!(next.week === 0 && Number(next.randomness) === 0)) {
+    const world = rollWorldNews(next);
+    next.worldNews = world.cards;
+    next.worldShift = world.shifts;
+    next.downballotNews = world.downballotNews;
+    next.salience = world.salience;
+    next.worldRecent = world.recent;
+  }
 
   // The map pulse compares this week's campaign work to the board as it stood
   // when the week opened. News and automatic events are already on the map.
@@ -4120,36 +4144,33 @@ export function applyAction(game, actionId, abbr, payload = {}) {
       : `Paid for a volunteer operation in ${state.name} — organizers, vans, and a phone bank that actually dials${tail}`;
   } else if (actionId === 'townhall') {
     const fat = actionMultiplier(next, next.party, abbr, 'stop');
-    const size = rallyScale(abbr);
     const score = Math.max(-6, Math.min(6, payload.score));
-    const attendance = build35Attendance(game, next, 'townhall', abbr, score >= 2 ? 2 : score >= -1 ? 0.6 : 0, 5);
+    const attendance = build35Attendance(game, next, 'townhall', abbr, 0, 5);
+    // Town Hall Marathon moves persuasion directly across [-1.0, +1.0] with no turnout effect.
+    const rawPersuasion = Math.round((score / 6) * 100) / 100;
+    const netPersuasion = Math.max(-1, Math.min(1, rawPersuasion * (score > 0 ? Math.max(0.5, fat) : 1)));
+    if (isThirdParty(next.party) || isScenarioCandidate(next.party)) {
+      applyMinorPartyPersuasion(next, next.party, abbr, netPersuasion);
+    } else if (netPersuasion !== 0) {
+      const base = netPersuasion * pov * damp;
+      applyMomentumPersuasion(next, {
+        [abbr]: { base, actual: base * momentumPersuasionFactor(next) },
+      });
+    }
     if (score >= 2) {
-      const lift = 0.22 + Math.min(0.12, (score - 2) * 0.02);
-      const base = lift * pov * damp * fat * size;
-      applyMomentumPersuasion(next, {
-        [abbr]: { base, actual: base * momentumPersuasionFactor(next) },
-      });
-      addTurnoutState(next, next.party, abbr, attendance.turnout);
       applyLocalGroupShifts(next, townhallGroupShifts(coalitionRows(next), true), abbr);
       pushStory(next, storyFrom(next, abbr, 'townhall', true, 'the town hall'));
-      note = `Town hall in ${state.name} — the audience liked your answers (${score > 0 ? '+' : ''}${score})${sizeNote(size)}${tail}`;
+      note = `Town hall marathon in ${state.name}: strong persuasion gain (${netPersuasion >= 0 ? '+' : ''}${netPersuasion.toFixed(2)} pts)${tail}`;
     } else if (score >= -1) {
-      addTurnoutState(next, next.party, abbr, attendance.turnout);
       applyLocalGroupShifts(next, townhallGroupShifts(coalitionRows(next), true), abbr);
       pushStory(next, storyFrom(next, abbr, 'townhall', true, 'the town hall'));
-      note = `Town hall in ${state.name} — a mixed but steady exchange (${score > 0 ? '+' : ''}${score})${tail}`;
+      note = `Town hall marathon in ${state.name}: mixed exchange (${netPersuasion >= 0 ? '+' : ''}${netPersuasion.toFixed(2)} pts)${tail}`;
     } else {
-      const base = -0.18 * pov * damp;
-      applyMomentumPersuasion(next, {
-        [abbr]: { base, actual: base * momentumPersuasionFactor(next) },
-      });
-      addTurnoutState(next, next.party, abbr, -1);
       next.momentum = clampMomentum(next.momentum - 1);
       applyLocalGroupShifts(next, townhallGroupShifts(coalitionRows(next), false), abbr);
       pushStory(next, storyFrom(next, abbr, 'townhall', false, 'the gaffe'));
-      note = `Town hall in ${state.name} — the room turned against your answers (${score})${tail}`;
+      note = `Town hall marathon in ${state.name}: voters pushed back (${netPersuasion.toFixed(2)} pts)${tail}`;
     }
-    // A marathon is five stops' worth of one state's attention.
     addFatigue(next, next.party, abbr, 'stop', attendance.candidateFatigue);
   } else if (actionId === 'prep') {
     next.funds = round1(next.funds - 5);

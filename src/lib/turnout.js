@@ -114,20 +114,19 @@ export function voteUnits(abbr) {
 
 // What each party actually banks: its share of the state's minds, times how many
 // of its own people turn out relative to the modeled state baseline.
-export function votesFor(abbr, support, game) {
+export function votesFor(abbr, support, game, turnoutWeight = 1) {
   const units = voteUnits(abbr);
   const out = { dem: 0, rep: 0, lib: 0, grn: 0, ind: 0 };
   const parties = new Set([...Object.keys(out), ...Object.keys(support || {})]);
+  // Nick Bronze reads pure polling (90% turnout already reflected on the map, without the extra 10% Election Night boost).
+  const weight = game?.__nickBronzeHalfTurnout ? 0.9 : turnoutWeight;
   parties.forEach((party) => {
     out[party] = 0;
     const share = Math.max(0, support?.[party] || 0);
     if (!share) return;
     const baseline = party === 'ind' ? 60 : (BASE_TURNOUT[abbr] ?? 60);
     const rawTurnout = party === 'ind' ? baseline : turnoutOf(game, abbr, party);
-    // R12: Nick Bronze accounts for turnout at half its actual deviation from baseline.
-    const turnout = game?.__nickBronzeHalfTurnout
-      ? baseline + 0.5 * (rawTurnout - baseline)
-      : rawTurnout;
+    const turnout = baseline + weight * (rawTurnout - baseline);
     out[party] = (share / 100) * (turnout / baseline) * units;
   });
   return out;

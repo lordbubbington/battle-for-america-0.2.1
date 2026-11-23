@@ -9,9 +9,7 @@ import HistoryPanel from '@/components/game/HistoryPanel';
 import PathTo270 from '@/components/game/PathTo270';
 import PollPanel from '@/components/game/PollPanel';
 import MarginLegend from '@/components/game/MarginLegend';
-import SeatLegislaturePanel from '@/components/game/SeatLegislaturePanel';
-import BallotMeasurePanel from '@/components/game/BallotMeasurePanel';
-import { ScrollText, Target, Scale, ClipboardList } from 'lucide-react';
+import { ScrollText, Target } from 'lucide-react';
 import { SpotGlyph } from '@/components/ui/spot-art';
 import { movementFor, movementLabel, PULSE_THRESHOLD } from '@/lib/campaignPulse';
 
@@ -23,8 +21,6 @@ export const BOARD_TABS = [
   { id: 'senate', label: 'Senate', icon: 'senate' },
   { id: 'house', label: 'House', icon: 'house' },
   { id: 'gov', label: 'Governors', icon: 'governors' },
-  { id: 'legislatures', label: 'State legislatures', icon: Scale },
-  { id: 'measures', label: 'Ballot measures', icon: ClipboardList },
   { id: 'path', label: 'Path to 270', icon: Target },
   { id: 'log', label: 'Log', icon: ScrollText },
 ];
@@ -339,16 +335,7 @@ export default function BoardPanel({
         </>
       )}
 
-      {tab === 'legislatures' && (
-        <SeatLegislaturePanel
-          game={game}
-          selected={targetAbbr}
-          onSelect={(abbr) => onSelect(abbr === selected ? null : abbr)}
-        />
-      )}
 
-
-      {tab === 'measures' && <BallotMeasurePanel />}
 
       {tab === 'log' && (
         <div className="mt-2 max-h-[560px] overflow-y-auto pr-1 map-scroll">

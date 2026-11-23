@@ -118,8 +118,8 @@ export default function NationalEnvironment({ game, snap, showExact, row = null,
 
           <div className="mt-2 flex items-baseline justify-between gap-2 border-t border-white/10 pt-1.5">
             <span className="label-xs">House generic ballot</span>
-            <span className="num text-[11.5px] font-extrabold" style={{ color: colorOf(game.natGeneric || 0) }}>
-              {signed(game.natGeneric || 0)}
+            <span className="num text-[11.5px] font-extrabold" style={{ color: colorOf(game.houseGenericBallot ?? game.natGeneric ?? 0) }}>
+              {signed(game.houseGenericBallot ?? game.natGeneric ?? 0)}
             </span>
           </div>
         </>

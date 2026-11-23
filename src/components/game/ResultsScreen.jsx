@@ -16,8 +16,7 @@ import {
 import { PARTY_COLOR } from '@/lib/downballot';
 import { decidePresidency } from '@/lib/presidency';
 import DecisionPanel from '@/components/game/DecisionPanel';
-import { coalitionRows } from '@/lib/coalition';
-import { Landmark, Flame, Users } from 'lucide-react';
+import { Landmark, Flame } from 'lucide-react';
 
 const DEM = '#4C7BFF';
 const REP = '#E8433C';
@@ -108,11 +107,6 @@ export default function ResultsScreen({ game, snap, you, them, accent, oppAccent
 
   const ops = opsTotals(game);
   const scandalCount = (game.scandals || []).length;
-  // How the coalition ended up, group by group, against where it started.
-  const coalition = useMemo(() => {
-    const rows = coalitionRows(game).slice().sort((a, b) => b.moved - a.moved);
-    return { rises: rows.slice(0, 3), falls: rows.slice(-3).reverse() };
-  }, [game]);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:py-12">
@@ -300,35 +294,6 @@ export default function ResultsScreen({ game, snap, you, them, accent, oppAccent
           </p>
         </div>
       )}
-
-      <div className="panel mt-3 p-3">
-        <div className="flex items-center gap-1.5">
-          <Users className="h-4 w-4" style={{ color: accent }} />
-          <h2 className="font-heading text-[15px] text-white">The coalition you built</h2>
-        </div>
-        <div className="mt-2 grid gap-2 sm:grid-cols-2">
-          {[
-            { title: 'Moved toward you', list: coalition.rises, color: '#6EE7B7' },
-            { title: 'Moved away', list: coalition.falls, color: '#FCA5A5' },
-          ].map((col) => (
-            <div key={col.title}>
-              <p className="label-xs mb-1">{col.title}</p>
-              {col.list.map((g) => (
-                <div key={g.id} className="flex items-center justify-between gap-2">
-                  <span className="truncate text-[11.5px] font-semibold text-slate-300">{g.label}</span>
-                  <span className="num text-[11px] font-extrabold" style={{ color: col.color }}>
-                    {signed(g.moved)}
-                  </span>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-        <p className="mt-2 text-[10.5px] font-semibold leading-snug text-slate-500">
-          Every point here was worth that group's share of a state — and the party's own factions paid for it or paid
-          you back every week.
-        </p>
-      </div>
 
       <div className="sticky bottom-4 mt-5 flex flex-col gap-2 sm:flex-row">
         <button type="button" onClick={onReplay} className="btn-gold flex-1 px-5 py-3 text-[16px]">

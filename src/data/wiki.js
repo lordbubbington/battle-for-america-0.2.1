@@ -92,7 +92,7 @@ The engine does not model debt or bankruptcy, and campaign balances are floored 
     section: 'Mechanics',
     body: `**Campaign stop** conducts a rally in one state, adding three points of local turnout along with smaller spillover effects in neighboring states and the surrounding region. Roughly one stop in ten also produces a small persuasion gain.
 
-**Town hall marathon** carries an approximately even outcome split, producing two points of turnout and a modest persuasion gain when well received, or a one-point turnout penalty in the state following a misstep.
+**Town hall marathon** conducts a three-question Q&A with local voters, moving state persuasion directly between **-1.0 and +1.0 points** based on alignment and delivery, with no turnout effect.
 
 **Volunteer drive** normally costs **$3M** and generates direct state turnout. An active faction mobilization perk can waive the cost and increase the effect for one use before expiration.
 
@@ -193,26 +193,6 @@ Downballot contests respond to state political environments and local candidate 
 Every downballot contest also receives a hidden local candidate-quality roll revealed in October, plus an independent election-night error term. Any race within two points is rated as a **Tossup**.
 
 When enabled at setup, independent candidates can also appear on the Senate ballot in North Dakota, South Dakota, and Idaho.`,
-  },
-  {
-    slug: 'state-legislatures',
-    title: 'State legislatures and the 2028 schedule',
-    section: 'Mechanics',
-    body: `The **State legislatures** tab tracks 7,386 statutory legislative seats alongside the 2024 chamber baseline and available district results. Each seat carries equal weight regardless of district population. Opening a district entry displays available source metadata, incumbent or party records, election years, and redistricting boundary vintages.
-
-Scheduled 2028 seats are projected from their state's current generic ballot combined with the sourced district lean, while unscheduled seats carry forward their 2024 holders. Where a district lean, incumbent record, boundary match, or seat class is unavailable, the forecast leaves the seat unresolved. Because Nebraska maintains a nonpartisan legislature, the model does not assign partisan winners to its seats.
-
-The 2024 baseline, the 2028 projection, and Election Night calls are maintained separately. Projections do not certify outcomes, and unmodeled legislative races are not called on Election Night.`,
-  },
-  {
-    slug: 'ballot-measures',
-    title: 'Ballot measure tracker',
-    section: 'Mechanics',
-    body: `The **Ballot measures** tab serves as a reference index for source-checked 2028 statewide ballot measures and constitutionally scheduled questions. Each entry records official status, election date, a brief summary, and a reference to the public election authority. Listing a measure as eligible or constitutionally due does not imply final ballot certification.
-
-The California initiative recorded in this dataset has verified signatures and is classified as eligible pending formal qualification, which the Secretary of State projects for June 29, 2028 unless withdrawn (based on the listed 874,641 signature threshold). Connecticut, Hawaii, and Illinois have constitutional-convention questions scheduled under their state constitutions, with final certification pending.
-
-This reference index is separate from campaign decision events. It does not supply polling data or automatically generate campaign cards; the event engine requires a verified state-specific legal pathway and measure record before activating a ballot-measure decision.`,
   },
   {
     slug: 'third-parties',

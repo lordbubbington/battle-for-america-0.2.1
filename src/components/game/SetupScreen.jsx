@@ -9,7 +9,6 @@ import { SENATE_RACES } from '@/data/senate';
 import { THIRD_PARTIES, isThirdParty } from '@/data/thirdParties';
 import { GOVERNOR_RACES, INDIE_SENATE_RACES } from '@/data/downballot';
 import CandidatePicker from '@/components/setup/CandidatePicker';
-import CoalitionPreview from '@/components/setup/CoalitionPreview';
 import DifficultyPicker from '@/components/setup/DifficultyPicker';
 import MapTuner from '@/components/setup/MapTuner';
 import { leadLabel } from '@/components/setup/ScaleSlider';
@@ -254,9 +253,10 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave,
       houseRule,
       electoralRule,
       votingRuleId,
+      randomness,
     });
-  }, [party, candidateId, opponentId, difficultyId, baseLeans, adjust, national, mateId, thirdMode, scenarioId, indieSenate, houseRule, electoralRule, votingRuleId, modeId, theirParty]);
-  const previewRows = useMemo(() => snapshot({ ...previewGame, noise: {} }).rows, [previewGame]);
+  }, [party, candidateId, opponentId, difficultyId, baseLeans, adjust, national, mateId, thirdMode, scenarioId, indieSenate, houseRule, electoralRule, votingRuleId, modeId, theirParty, randomness]);
+  const previewRows = useMemo(() => snapshot(previewGame, 'poll').rows, [previewGame]);
 
   const setNudge = (abbr, delta) => {
     if (!stateEditsEnabled) return;
@@ -429,7 +429,6 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave,
             accent={accentFor(party)}
             prefix="cand"
           />
-          <CoalitionPreview party={party} candidateId={candidateId} />
         </Step>
 
         <Step

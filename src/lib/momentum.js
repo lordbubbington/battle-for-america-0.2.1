@@ -118,10 +118,10 @@ export function momentumShift(game) {
 export function applyMomentumVotes(game) {
   const shift = momentumShift(game);
   if (!shift.margin && !shift.lib && !shift.grn) return game;
-  game.thirdMods = {
-    lib: { ...(game.thirdMods?.lib || {}) },
-    grn: { ...(game.thirdMods?.grn || {}) },
-  };
+  game.thirdMods = Object.fromEntries(
+    Object.entries({ lib: {}, grn: {}, ...(game.thirdMods || {}) })
+      .map(([party, states]) => [party, { ...(states || {}) }])
+  );
   STATES.forEach((s) => {
     if (shift.margin) {
         const regMul = (game.build40?.modeId === 'regional-parties' || game.build39?.scenario?.id === 'regional-parties') ? 10 : 1;

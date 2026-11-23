@@ -395,7 +395,7 @@ export function scenarioPartyIds(modeId, race = 'president', { playableOnly = fa
     return ['dem', 'rep', 'lib', 'grn', 'ind', ...regional];
   }
   if (mode === 'favorite-sons-daughters' && race === 'president') return ['dem', 'rep', 'lib', 'grn', 'ind', ...Object.keys(FAVORITE_BALLOT_ACCESS)];
-  return mode === 'four-parties' ? ['dem', 'rep', 'lib', 'grn'] : ['dem', 'rep'];
+  return ['four-parties', 'two-parties'].includes(mode) ? ['dem', 'rep', 'lib', 'grn'] : ['dem', 'rep'];
 }
 
 export function scenarioBallotAccess(modeId, race, stateId, party) {

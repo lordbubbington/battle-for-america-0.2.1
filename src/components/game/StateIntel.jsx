@@ -1,9 +1,8 @@
 import React from 'react';
 import { BASE_LEANS, STATE_BY_ABBR } from '@/data/states';
-import { pollMargin, policyMargin, ratingLabel, demographicShift } from '@/lib/gameEngine';
+import { pollMargin, policyMargin, ratingLabel } from '@/lib/gameEngine';
 import StateVoters from '@/components/game/StateVoters';
 import StatePolicies from '@/components/game/StatePolicies';
-import StateDemographics from '@/components/game/StateDemographics';
 import { libertarianShare, greenShare } from '@/data/fourParty';
 
 const signed = (v) => `${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}`;
@@ -15,7 +14,6 @@ export default function StateIntel({ game, abbr, showExact }) {
   const lean = game.leans?.[abbr] ?? BASE_LEANS[abbr] ?? 0;
   const policy = policyMargin(abbr, game);
   const shift = game.stateMods?.[abbr] || 0;
-  const groupShift = demographicShift(abbr, game);
   const track = game.track || 0;
   const noise = game.noise?.[abbr] || 0;
   const poll = pollMargin(abbr, game);
@@ -25,7 +23,6 @@ export default function StateIntel({ game, abbr, showExact }) {
     { label: 'Base lean', value: lean },
     { label: 'Policy fit', value: policy },
     { label: 'Campaign & events', value: shift },
-    { label: 'Voter groups', value: groupShift },
     { label: 'National trend', value: track },
     { label: 'Sampling noise', value: noise },
   ];
@@ -59,7 +56,6 @@ export default function StateIntel({ game, abbr, showExact }) {
         Nobody knows how wrong the polls are until the votes are counted — and there is no way to find out early.
       </p>
 
-      <StateDemographics abbr={abbr} mods={game.demographicMods} />
       <StateVoters abbr={abbr} />
       <StatePolicies game={game} abbr={abbr} />
     </div>
