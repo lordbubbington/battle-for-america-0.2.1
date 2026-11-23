@@ -332,7 +332,7 @@ export const DIFFICULTIES = {
     decay: 0.6,
     missScale: 1.0,
     showExact: false,
-    scandalScale: 1,
+    scandalScale: 0.78,
     scoreMul: DIFFICULTY_START_RULES.medium.scoreMul,
     startEnvironment: { direction: 'neutral', marginPoints: 0 },
   },
@@ -1789,13 +1789,15 @@ function applyBuild40Package(game, context, choice, riskModifier = 1) {
     } else if (effect.kind === 'scandal') {
       const probability = effect.probability ?? effect.risk ?? amount ?? 1;
       const guaranteed = effect.guaranteed || probability === 1;
-      const risk = Math.min(1, probability * scandalScale(game.difficultyId) * riskModifier);
+      const priorScandals = mine ? (game.scandals?.length || 0) : 0;
+      const recentScandal = mine && (game.scandals || []).some((s) => (game.week - (s.week || 0)) <= 1);
+      const scandalFreqDamp = mine ? (1 / (1 + 0.25 * priorScandals)) * (recentScandal ? 0.5 : 1) : 1;
+      const risk = Math.min(1, probability * scandalScale(game.difficultyId) * riskModifier * scandalFreqDamp);
       if (!guaranteed && rolled.random() >= risk) continue;
       const severity = effect.severity === 'double' || effect.severity === 2 ? 2 : 1;
       const native = rollScandal(risk, rolled.random);
       scandal = { ...native, hit: native.hit * severity };
       addPartyMomentum(next, party, -scandal.hit);
-      const priorScandals = mine ? (game.scandals?.length || 0) : 0;
       const scandalDamp = 1 / (1 + 0.15 * priorScandals);
       for (const state of STATES) applyBuild40MapEffect(next, state.abbr, party, -(SCANDAL_VOTE_LOSS[scandal.level] || 0) * 1.4 * severity * scandalDamp);
       if (mine) next.scandals.push({ week: game.week, ...scandal });

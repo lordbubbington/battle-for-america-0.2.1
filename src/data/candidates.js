@@ -27,8 +27,8 @@ export const DEMOCRATS = [
     bio: 'A reanimated Franklin Roosevelt, campaigning on a modern translation of the New Deal. Where no modern equivalent existed, his platform is a careful interpretation of his governing record.',
     strengths: ['New Deal coalition draws broad support across the Northeast, Midwest, and South', 'Economic populism resonates with working-class voters'],
     weaknesses: ['His 1930s governing style can feel too centralized today', 'The coalition depends on voters accepting a modernized historical platform'],
-    nat: 4.5,
-    region: { northeast: 7.5, midwest: 7, south: 5.5, west: 2 },
+    nat: 5.0,
+    region: { northeast: 7.5, midwest: 7.0, south: 5.5, west: 2.5 },
     states: { NY: 3.5 },
     issueStances: { affordability: 0, economy: 0, health: 0, iran: 1, corruption: 0, prices: 0, immigration: 1, inequality: 0, abortion: 1, rent: 0, tariffs: 1, gerrymandering: 0, israel: 1, crime: 1, datacenters: 0, energy: 0, ai: 0, trans: 1, birthrate: 0 },
   },
@@ -48,7 +48,7 @@ export const DEMOCRATS = [
     bio: 'He won twice in a state that does not hand Democrats anything for free. Runs on discipline, subpoenas, and a very good ground game.',
     strengths: ['Punches above weight in the South', 'No obvious attack surface'],
     weaknesses: ['Low national name ID', 'Not the loudest voice in the room'],
-    nat: 2.02,
+    nat: 2.8,
     region: { south: 7.5, northeast: 0.5, midwest: 0, west: 0 },
     groups: { jewish:20, black:15},
     turnoutRegion: { south: 1 }
@@ -69,7 +69,7 @@ export const DEMOCRATS = [
     bio: 'Hes he best-funded brawler in the party. He will debate anyone, anywhere, at any hour, on any network, twice.',
     strengths: ['Floods the airwaves', 'Relentless counter-puncher'],
     weaknesses: ['California is a 30-second attack ad', 'Coastal instincts in a Midwest year'],
-    nat: 1.78,
+    nat: 2.3,
     region: { west: 4.5, northeast: 1.0, south: -4.5, midwest: -0.5 },
     groups: { jewish: -2, }
 
@@ -89,8 +89,8 @@ export const DEMOCRATS = [
     bio: 'She is a generational organizer with a volunteer army and an enemies list. She can out crowds like nobodys business — and scares the swing voters you need.',
     strengths: ['Rally crowds like a rock tour', 'Dominates youth and progressive turnout'],
     weaknesses: ['Centrists sprint for the exits', 'Fox runs the same clip for 90 days'],
-    nat: -2.5,
-    region: { northeast: 4.0, west: 2.0, south: -3.0, midwest: -2.0 },
+    nat: -1.2,
+    region: { northeast: 4.5, west: 2.5, south: -2.5, midwest: -1.0 },
     groups: { jewish: -15, muslim: 8, irrelegious: 4, evangelical: -10}
 
   },
@@ -109,8 +109,8 @@ export const DEMOCRATS = [
     bio: 'Shes the polling frontrunner and the most recognizable name in the field. Also the candidate Republicans have spent four years rehearsing attack lines about.',
     strengths: ['Highest name recognition by far', 'Money network already built'],
     weaknesses: ['Ceiling baked in by 2024', 'Every gaffe gets replayed as a rerun'],
-    nat: -2.2,
-    region: { west: 3.0, northeast: 1.0, south: -1.0, midwest: -2.0 },
+    nat: -0.6,
+    region: { west: 3.5, northeast: 1.5, south: 0, midwest: -1.0 },
   },
   {
     //Strength: Medium - 0-1 points nationally
@@ -127,7 +127,7 @@ export const DEMOCRATS = [
     bio: 'He won a Trump-plus-30 state twice by talking about roads, jobs, and being a decent human being. Unfortunately, nobody outside Kentucky knows who he is.',
     strengths: ['Plays well in Trump country', 'Disaster-response credibility'],
     weaknesses: ['Needs a national introduction fast', 'Progressives are unenthused'],
-    nat: 1,
+    nat: 1.6,
     region: { south: 15.0, midwest: 2.0, west: -10, northeast: -10 },
   },
   {
@@ -143,8 +143,8 @@ export const DEMOCRATS = [
     bio: 'He turned a small-city mayoralty into a cabinet seat through media competence. He can explain anything in 20 seconds, which is either a gift or a tell.',
     strengths: ['Crushes every interview', 'Strong in the industrial Midwest'],
     weaknesses: ['Thin support with Black voters', 'Can read as too smooth'],
-    nat: 1.0,
-    region: { midwest: 4.0, northeast: 1.0, south: -6, west: -1.0 },
+    nat: 2.4,
+    region: { midwest: 5.5, northeast: 2.0, south: -2.5, west: 0.5 },
   },
   {
     id: 'whitmer',
@@ -159,8 +159,8 @@ export const DEMOCRATS = [
     bio: 'Shes a two-term governor of the state that decides the presidency, with a roads-and-wages record and a suburban manner that travels. But everything in her resume points at the Blue Wall - and nothing else.',
     strengths: ['Owns the industrial Midwest', 'Wins back the suburban women the party lost'],
     weaknesses: ['The map is three states and a prayer', 'Never had to answer a national security question'],
-    nat: 1.0,
-    region: { midwest: 5.0, northeast: 0.5, south: -1.5, west: -1.0 },
+    nat: 2.6,
+    region: { midwest: 6.5, northeast: 1.5, south: -0.5, west: 0 },
   },
   {
     id: 'shapiro',
@@ -207,8 +207,8 @@ export const DEMOCRATS = [
     bio: 'Twenty years of Newark politics, a filibuster record, and genuine cross-party friendships in the Senate. Runs on love and infrastructure, which is either the answer or a parody of one.',
     strengths: ['Strong with Black voters nationally', 'Can raise money in any room'],
     weaknesses: ['Runs as a personality, not a message', 'Coastal liberal voting record'],
-    nat: 0.2,
-    region: { northeast: 3.5, south: 0.5, midwest: -1.0, west: -0.5 },
+    nat: 1.8,
+    region: { northeast: 4.0, south: 1.5, midwest: 0, west: 0 },
   },
   {
     id: 'warnock',
@@ -223,8 +223,8 @@ export const DEMOCRATS = [
     bio: 'Won two runoffs in a state Republicans need, from a pulpit and a Senate floor. The best orator in the field and the only Democrat with a proven Sun Belt turnout operation.',
     strengths: ['Black turnout will be sky high', 'Religious voters are at ease'],
     weaknesses: ['Unknown west of Texas', 'Irrelegious whites arent enthused'],
-    nat: 1.23,
-    region: { south: 5, northeast: 0, midwest: 0, west: -2 },
+    nat: 2.4,
+    region: { south: 5.5, northeast: 0.5, midwest: 0.5, west: -1.0 },
     groups: { black:50, jewish:5, evangelical:10, catholic:3, protestant:3, irrelegious: -15},
     states: { AL:5, MS:4.5, LA:4.5, SC: 5, TX:5, FL:5, CA:-5, OR: -5, WA: -5, NH:-5, ME:-5, CT: -5},
     turnoutRegion: { south: 5, west: -5 },
@@ -244,8 +244,8 @@ export const DEMOCRATS = [
     bio: 'Combat veteran, Rhodes scholar, first-term governor with the best speech in the party. A national profile built entirely on potential, which is a real currency in an open primary.',
     strengths: ['Best communicator of a new generation', 'Veteran credibility with swing voters'],
     weaknesses: ['One term of executive experience', 'A campaign of vibes and no receipts'],
-    nat: 0,
-    region: { northeast: 0, south: 0, midwest: 0, west: 0 },
+    nat: 1.7,
+    region: { northeast: 1.5, south: 1.5, midwest: 1.0, west: 0.5 },
   },
 ];
 
@@ -263,9 +263,9 @@ export const REPUBLICANS = [
     bio: 'A reanimated Ronald Reagan, running on a modern translation of his conservative record: tax cuts, deregulation, a muscular foreign policy, and a broad optimistic appeal.',
     strengths: ['Historic strength in the West and South, with a durable Midwest coalition', 'Optimistic message reaches beyond the Republican base'],
     weaknesses: ['His coalition strains in the Northeast and among voters wary of deregulation', 'Modern issues require interpretation beyond his own era'],
-    nat: 3.2,
-    region: { west: 6, south: 4.5, midwest: 2.5, northeast: -4 },
-    states: { CA: 4, AZ: 2, TX: 2 },
+    nat: 2.1,
+    region: { west: 5.0, south: 4.0, midwest: 1.5, northeast: -4 },
+    states: { CA: 3, AZ: 1.5, TX: 1.5 },
     issueStances: { affordability: 2, economy: 2, health: 2, iran: 2, corruption: 2, prices: 2, immigration: 1, inequality: 2, abortion: 2, rent: 2, tariffs: 0, gerrymandering: 2, israel: 2, crime: 2, datacenters: 2, energy: 2, ai: 2, trans: 2, birthrate: 2 },
   },
   {
@@ -334,8 +334,8 @@ export const REPUBLICANS = [
     bio: 'A two-term governor with the largest turnout machine in the party and a culture-war record that actually produced laws. Still has to prove it travels north of Jacksonville.',
     strengths: ['Florida machine delivers votes', 'Fights that end in signed bills'],
     weaknesses: ['Stiff on a rope line', 'Four years of opposition research, pre-loaded'],
-    nat: 0.3,
-    region: { south: 3, midwest: 0.5, west: -1, northeast: -2 },
+    nat: -0.8,
+    region: { south: 2.5, midwest: 0, west: -1.5, northeast: -2.5 },
     // The largest turnout machine in the party, and it lives in Florida.
     turnoutStates: { FL: 1 },
   },
@@ -417,8 +417,8 @@ export const REPUBLICANS = [
     bio: 'Runs the biggest Republican state in the country and has made the border the party’s defining issue. Has never had to introduce himself outside Texas.',
     strengths: ['Texas money, Texas turnout', 'Owns the border argument'],
     weaknesses: ['Unknown above the Mason-Dixon', 'One state, one message'],
-    nat: 0.18,
-    region: { south: 3.5, west: 1.0, midwest: -0.5, northeast: -2.0 },
+    nat: -0.7,
+    region: { south: 3.0, west: 0.5, midwest: -1.0, northeast: -2.0 },
   },
   {
     id: 'timscott',
@@ -433,8 +433,8 @@ export const REPUBLICANS = [
     bio: 'The Senate’s most liked Republican and the donor class’s favourite dinner guest. Runs on optimism in a primary that keeps rewarding grievance.',
     strengths: ['Senate relationships and donor trust', 'Softens the party’s image'],
     weaknesses: ['Low voltage on the trail', 'The base wants a fighter'],
-    nat: 0,
-    region: { south: 0, northeast: 0, midwest: 0, west: 0 },
+    nat: -1.4,
+    region: { south: 1.0, northeast: -1.0, midwest: -1.0, west: -0.5 },
   },
   {
     id: 'youngkin',
@@ -449,8 +449,8 @@ export const REPUBLICANS = [
     bio: 'Won a state Harris carried by double digits, then governed without ever fully claiming the movement. The donor class’s favourite fantasy.',
     strengths: ['Won a blue-leaning state', 'Corporate donors are comfortable'],
     weaknesses: ['The base is unmoved', 'Never tested outside Virginia'],
-    nat: 0.4,
-    region: { south: 1.5, northeast: 1, midwest: -1, west: 0 },
+    nat: -1.4,
+    region: { south: 0.5, northeast: 0.5, midwest: -1.5, west: -0.5 },
   },
   {
     id: 'kemp',
@@ -465,8 +465,8 @@ export const REPUBLICANS = [
     bio: 'Won Georgia three times while the rest of the party lost it. Turns out a ground game nobody else in the field can replicate — with a base that remembers 2020.',
     strengths: ['Georgia machine actually works', 'Proven in tough cycles'],
     weaknesses: ['Wrong side of the base’s grievance', 'No national profile at all'],
-    nat: 0.3,
-    region: { south: 3.0, midwest: -1.0, northeast: -1.0, west: -0.5 },
+    nat: -0.6,
+    region: { south: 2.5, midwest: -1.0, northeast: -1.5, west: -1.0 },
   },
 ];
 

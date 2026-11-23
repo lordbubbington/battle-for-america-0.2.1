@@ -529,7 +529,7 @@ function houseStateAdjustment(state, game, factionBonus = null) {
 function houseDistrictMarginWithEffects(baseline, game, effects) {
   const state = baseline.stateAbbr || baseline.state;
   const stateDraw = (game.houseStateDrawErrors?.[state] || 0) * (game.houseReportedDistrictRemaining?.[baseline.id] ?? 1);
-  const houseNeutralOffset = game?.coattailModelVersion >= 1 && !game.presidentialDistrictAllocation ? 1.5 : 0;
+  const houseNeutralOffset = game?.coattailModelVersion >= 1 && !game.presidentialDistrictAllocation ? 3.5 : 0;
   return baseline.districtLeanDMinusR + houseNeutralOffset + genericIn(state, game) + effects.total + stateDraw
     + (game.houseDistrictErrors?.[baseline.id] || 0)
     + (game.houseDistrictReportShifts?.[baseline.id] || 0);
