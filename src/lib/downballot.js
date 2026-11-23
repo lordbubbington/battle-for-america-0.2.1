@@ -483,9 +483,25 @@ export function rollRaceQuality() {
   GOVERNOR_RACES.forEach((r) => {
     q[`gov:${r.state}`] = gauss() * 4.4;
   });
+  let houseQualSum = 0;
+  let houseQualWeight = 0;
   STATE_LIST.forEach((s) => {
-    q[`house:${s.abbr}`] = gauss() * 1.45;
+    const val = gauss() * 1.45;
+    q[`house:${s.abbr}`] = val;
+    if ((HOUSE_SEATS[s.abbr] || 0) > 0) {
+      const w = voteUnits(s.abbr);
+      houseQualSum += val * w;
+      houseQualWeight += w;
+    }
   });
+  if (houseQualWeight > 0) {
+    const houseQualMean = houseQualSum / houseQualWeight;
+    STATE_LIST.forEach((s) => {
+      if ((HOUSE_SEATS[s.abbr] || 0) > 0) {
+        q[`house:${s.abbr}`] -= houseQualMean;
+      }
+    });
+  }
   return q;
 }
 
@@ -533,7 +549,7 @@ function houseStateAdjustment(state, game, factionBonus = null) {
 function houseDistrictMarginWithEffects(baseline, game, effects) {
   const state = baseline.stateAbbr || baseline.state;
   const stateDraw = (game.houseStateDrawErrors?.[state] || 0) * (game.houseReportedDistrictRemaining?.[baseline.id] ?? 1);
-  const houseNeutralOffset = game?.coattailModelVersion >= 1 && !game.presidentialDistrictAllocation ? 3.5 : 0;
+  const houseNeutralOffset = game?.coattailModelVersion >= 1 && !game.presidentialDistrictAllocation ? -0.88 : 0;
   return baseline.districtLeanDMinusR + houseNeutralOffset + genericIn(state, game) + effects.total + stateDraw
     + (game.houseDistrictErrors?.[baseline.id] || 0)
     + (game.houseDistrictReportShifts?.[baseline.id] || 0);
@@ -1020,15 +1036,28 @@ export function computeHouseNationalMargin(game, marginOf, mode = 'poll') {
   let demVotes = 0;
   let repVotes = 0;
   let totalVotes = 0;
-  for (const state of house.states || []) {
-    const stateBallots = voteUnits(state.state);
-    const districts = state.districts || [];
-    const perDistrict = districts.length > 0 ? stateBallots / districts.length : stateBallots;
+  const districts = house.districts || [];
+  if (districts.length > 0) {
+    const seatsByState = {};
+    for (const state of house.states || []) {
+      seatsByState[state.state] = state.seats || HOUSE_SEATS[state.state] || 1;
+    }
     for (const d of districts) {
+      const st = d.state || d.stateAbbr;
+      const stateBallots = voteUnits(st);
+      const perDistrict = stateBallots / (seatsByState[st] || HOUSE_SEATS[st] || 1);
       const sh = d.shares || {};
       demVotes += ((sh.dem || 0) / 100) * perDistrict;
       repVotes += ((sh.rep || 0) / 100) * perDistrict;
       totalVotes += perDistrict;
+    }
+  } else {
+    for (const state of house.states || []) {
+      const stateBallots = voteUnits(state.state);
+      const sh = state.shares || {};
+      demVotes += ((sh.dem || 0) / 100) * stateBallots;
+      repVotes += ((sh.rep || 0) / 100) * stateBallots;
+      totalVotes += stateBallots;
     }
   }
   if (!totalVotes) return 0;

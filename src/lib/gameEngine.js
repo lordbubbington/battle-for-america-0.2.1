@@ -595,6 +595,19 @@ export function createGame({
         stateMods[s.abbr] = (stateMods[s.abbr] || 0) + vp.nat * pov;
       });
     }
+    let vpSum = 0;
+    let vpWeight = 0;
+    STATES.forEach((s) => {
+      const w = voteUnits(s.abbr);
+      vpSum += (stateMods[s.abbr] || 0) * w;
+      vpWeight += w;
+    });
+    if (vpWeight > 0) {
+      const vpMean = vpSum / vpWeight;
+      STATES.forEach((s) => {
+        stateMods[s.abbr] = (stateMods[s.abbr] || 0) - vpMean;
+      });
+    }
   }
 
   const game = {
@@ -874,6 +887,46 @@ export function createGame({
   game.build38.governorOffsets = Object.fromEntries(govSnapshot(game).races.map((race) => [
     race.state, calibrateGovernorOpening({ stateId: race.state, openingMarginDMinusR: race.margin, scenario: { campaignType: 'new' } }).openingOffset || 0,
   ]));
+  // Exact week-0 national presidential calibration: absorb tiny residual skew from
+  // turnout weighting, third-party share scaling, and BASE_LEANS asymmetry so the
+  // opening national polling average matches startingGeneric + (dem.nat - rep.nat)
+  // (+ any hand-edited stateAdjustments mean) while preserving state geography.
+  if (!isRegionalNew && (party === 'dem' || party === 'rep')) {
+    if (Number(randomness || 0) > 0) {
+      // Preserve intentional random map variance while removing baseline skew.
+      game.presOpeningCalibration = -0.29;
+    } else {
+      const demCand = game.build40?.openingModel ? nomineeOf(game, 'dem') : (party === 'dem' ? CANDIDATE_BY_ID[candidateId] : CANDIDATE_BY_ID[opponentId]);
+      const repCand = game.build40?.openingModel ? nomineeOf(game, 'rep') : (party === 'dem' ? CANDIDATE_BY_ID[opponentId] : CANDIDATE_BY_ID[candidateId]);
+      let adjMean = 0;
+      if (['cupcake', 'easy'].includes(diff.id) && stateAdjustments && typeof stateAdjustments === 'object') {
+        let aSum = 0, aWeight = 0;
+        STATES.forEach((s) => {
+          const w = voteUnits(s.abbr);
+          const adj = Number(stateAdjustments[s.abbr]);
+          if (Number.isFinite(adj)) aSum += adj * w;
+          aWeight += w;
+        });
+        if (aWeight > 0) adjMean = aSum / aWeight;
+      }
+      const targetPres = startingGeneric + ((demCand?.nat || 0) - (repCand?.nat || 0)) + adjMean;
+      const measurePres = () => {
+        const snap = snapshot(game, 'poll');
+        let dV = 0, rV = 0, tV = 0;
+        for (const row of snap.rows) {
+          const c = row.cast || 0;
+          dV += c * ((row.shares?.dem || 0) / 100);
+          rV += c * ((row.shares?.rep || 0) / 100);
+          tV += c;
+        }
+        return tV > 0 ? ((dV - rV) / tV) * 100 : 0;
+      };
+      const err1 = targetPres - measurePres();
+      game.presOpeningCalibration = Math.round(err1 * 1000) / 1000;
+      const err2 = targetPres - measurePres();
+      game.presOpeningCalibration = Math.round((game.presOpeningCalibration + err2) * 1000) / 1000;
+    }
+  }
   game.raceBaseline = raceBaselines(game);
   // Compute modeled national House generic ballot once at start (refreshed weekly in advanceWeek).
   game.houseGenericBallot = isRegionalNew
@@ -903,6 +956,25 @@ function candidateConversion(party, abbr) {
   return 0;
 }
 
+const CANDIDATE_LOCAL_MEAN_CACHE = new Map();
+function candidateLocalMean(demCand, repCand) {
+  const key = `${demCand?.id || ''}|${repCand?.id || ''}`;
+  if (CANDIDATE_LOCAL_MEAN_CACHE.has(key)) return CANDIDATE_LOCAL_MEAN_CACHE.get(key);
+  let weightedSum = 0;
+  let weightTotal = 0;
+  for (const s of STATES) {
+    const w = voteUnits(s.abbr);
+    const rMod = (demCand?.region?.[s.region] || 0) - (repCand?.region?.[s.region] || 0);
+    const sMod = (demCand?.states?.[s.abbr] || 0) - (repCand?.states?.[s.abbr] || 0);
+    const conv = candidateConversion('dem', s.abbr) - candidateConversion('rep', s.abbr);
+    weightedSum += (rMod + sMod + conv) * w;
+    weightTotal += w;
+  }
+  const mean = weightTotal > 0 ? weightedSum / weightTotal : 0;
+  CANDIDATE_LOCAL_MEAN_CACHE.set(key, mean);
+  return mean;
+}
+
 function candidateMods(abbr, game) {
   const state = STATE_BY_ABBR[abbr];
   const { you, them } = candidatesOf(game);
@@ -913,7 +985,8 @@ function candidateMods(abbr, game) {
   // A candidate can also carry a single state: the map they bring with them.
   const stateMod = (demCand?.states?.[abbr] || 0) - (repCand?.states?.[abbr] || 0);
   const conversion = candidateConversion('dem', abbr) - candidateConversion('rep', abbr);
-  return regionMod + natMod + stateMod + conversion;
+  const localMean = candidateLocalMean(demCand, repCand);
+  return (regionMod + stateMod + conversion - localMean) + natMod + (game.presOpeningCalibration || 0);
 }
 
 // A group's swing is worth its share of the state: +10 among a group that is 2%
@@ -5152,6 +5225,8 @@ export function loadGame() {
       coattailResolvedWeeks: Array.isArray(parsed.coattailResolvedWeeks) ? parsed.coattailResolvedWeeks : [],
       coattailModelVersion: parsed.coattailModelVersion ?? 0,
       nickBronzeSnapshot: parsed.nickBronzeSnapshot || null,
+      presOpeningCalibration: Number.isFinite(parsed.presOpeningCalibration) ? parsed.presOpeningCalibration : 0,
+      houseGenericBallot: Number.isFinite(parsed.houseGenericBallot) ? parsed.houseGenericBallot : undefined,
       houseStart: houseStartRoll(),
       govStart: parsed.govStart
         ? {
