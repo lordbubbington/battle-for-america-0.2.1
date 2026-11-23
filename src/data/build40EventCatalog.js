@@ -22911,7 +22911,7 @@ export const BUILD40_EVENTS = [
   },
   {
     "id": "debate3-q1",
-    "title": "The closing debate — Question 1",
+    "title": "The closing debate: Question 1",
     "flavor": "At the closing debate, the moderator presents an updated cost estimate and asks whether the campaign will keep its pledge.",
     "source": {
       "document": "all-implemented-events.docx",
@@ -23101,7 +23101,7 @@ export const BUILD40_EVENTS = [
   },
   {
     "id": "debate3-q2",
-    "title": "The closing debate — Question 2",
+    "title": "The closing debate: Question 2",
     "flavor": "At the closing debate, the moderator presents competing estimates for a clean power standard. The question is who would pay transition costs.",
     "source": {
       "document": "all-implemented-events.docx",
@@ -23337,7 +23337,7 @@ export const BUILD40_EVENTS = [
   },
   {
     "id": "debate3-q3",
-    "title": "The closing debate — Question 3",
+    "title": "The closing debate: Question 3",
     "flavor": "At the closing debate, the moderator reads a public filing showing that a fictional rival paid for an ad its report attributed to an outside group.",
     "source": {
       "document": "all-implemented-events.docx",
@@ -23902,7 +23902,7 @@ export const BUILD40_EVENTS = [
   },
   {
     "id": "debate2-q1",
-    "title": "The commander-in-chief debate — Question 1",
+    "title": "The commander-in-chief debate: Question 1",
     "flavor": "At the commander-in-chief debate, a briefing lists both the added staffing in an enforcement bill and the cost to local offices.",
     "source": {
       "document": "all-implemented-events.docx",
@@ -24092,7 +24092,7 @@ export const BUILD40_EVENTS = [
   },
   {
     "id": "debate2-q2",
-    "title": "The commander-in-chief debate — Question 2",
+    "title": "The commander-in-chief debate: Question 2",
     "flavor": "At the commander-in-chief debate, the moderator asks how the campaign would respond to an overseas strike. Responsibility is still under investigation.",
     "source": {
       "document": "all-implemented-events.docx",
@@ -24296,7 +24296,7 @@ export const BUILD40_EVENTS = [
   },
   {
     "id": "debate2-q3",
-    "title": "The commander-in-chief debate — Question 3",
+    "title": "The commander-in-chief debate: Question 3",
     "flavor": "At the commander-in-chief debate, the moderator cites a public audit that identifies a discrepancy in a fictional rival’s procurement record.",
     "source": {
       "document": "all-implemented-events.docx",
@@ -28702,7 +28702,7 @@ export const BUILD40_EVENTS = [
   },
   {
     "id": "debate1-q1",
-    "title": "The kitchen-table debate — Question 1",
+    "title": "The kitchen-table debate: Question 1",
     "flavor": "At the kitchen-table debate, the moderator asks whether the campaign’s grocery plan would change the largest items in a published household budget.",
     "source": {
       "document": "all-implemented-events.docx",
@@ -28938,7 +28938,7 @@ export const BUILD40_EVENTS = [
   },
   {
     "id": "debate1-q2",
-    "title": "The kitchen-table debate — Question 2",
+    "title": "The kitchen-table debate: Question 2",
     "flavor": "At the kitchen-table debate, a public filing contradicts a fictional rival’s answer about a contribution from a grocery trade group.",
     "source": {
       "document": "all-implemented-events.docx",
@@ -29074,7 +29074,7 @@ export const BUILD40_EVENTS = [
   },
   {
     "id": "debate1-q3",
-    "title": "The kitchen-table debate — Question 3",
+    "title": "The kitchen-table debate: Question 3",
     "flavor": "At the kitchen-table debate, the moderator asks which households would benefit first. The briefing shows quick relief for some and a longer wait for others.",
     "source": {
       "document": "all-implemented-events.docx",

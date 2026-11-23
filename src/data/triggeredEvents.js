@@ -2301,7 +2301,7 @@ const SPECS = [
         "label": "Ask local organizations to distribute it"
       },
       {
-        "detail": "to avoid partisan optics and risk lower turnout among your supporters",
+        "detail": "to avoid a partisan appearance and risk lower turnout among your supporters",
         "label": "Do nothing"
       }
     ],

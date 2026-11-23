@@ -18,7 +18,7 @@ export const DERIVED_EVENTS = [
     text: 'A local story about your campaign has broken out of the local news and into the argument the whole state is having. Your press shop has an hour to decide whether to feed it, ride it, or let it burn itself out. Every choice makes it a different story by Friday.',
     when: (s) => !!s.topStory && s.topStory.salience >= 68,
     why: (s) =>
-      `“${s.topStory.headline}” is at ${s.topStory.salience} salience in ${s.stateName} — the loudest thing in the country this week.`,
+      `“${s.topStory.headline}” is at ${s.topStory.salience} salience in ${s.stateName}, leading local coverage across the state.`,
     choices: [
       {
         label: 'Put it on national air',
@@ -87,7 +87,7 @@ export const DERIVED_EVENTS = [
     priority: 2,
     text: 'The state you have spent the most time in has stopped treating your visit as news. The rally was half full, the local anchor pronounced your name correctly and without enthusiasm, and somebody in the crowd was wearing a shirt from your last event there.',
     when: (s) => !!s.hot && s.hot.points >= 9,
-    why: (s) => `${s.hot.name} has taken ${Math.round(s.hot.points)} points of campaign attention from you — more than any other state on the map.`,
+    why: (s) => `${s.hot.name} has taken ${Math.round(s.hot.points)} points of campaign attention from your ticket, more than any other state on the map.`,
     choices: [
       {
         label: 'Give the state a rest for a week',
@@ -130,7 +130,7 @@ export const DERIVED_EVENTS = [
           why: 'You volunteered to testify, and the committee has now scheduled the day.',
           teaser: 'You volunteered to testify. There is now a date.',
         },
-        outcome: 'Your lawyers age visibly. The story stops being a leak and becomes a proceeding, which is either the end of it or the middle of it.',
+        outcome: 'Campaign attorneys open a formal review, turning the leak from a one-day press story into a longer legal dispute.',
       },
       {
         label: 'Release everything at once',
@@ -187,7 +187,7 @@ export const DERIVED_EVENTS = [
     priority: 2,
     text: 'The donor network has gone quiet in the way that costs money: no refusals, no enthusiasm, a very polite slowdown. Two bundlers have started asking what your position is on the thing they actually care about, and they are asking in writing.',
     when: (s) => !!s.worstFaction && s.worstFaction.id === 'donors' && s.worstFaction.standing < 42,
-    why: (s) => `Your standing with the donor network is ${s.worstFaction.standing} — they have stopped returning the finance director’s calls.`,
+    why: (s) => `Your standing with the donor network has fallen to ${s.worstFaction.standing}, and major fundraisers have stopped returning the finance director’s calls.`,
     choices: [
       {
         label: 'Give them the meeting, and the concession',
@@ -218,7 +218,7 @@ export const DERIVED_EVENTS = [
     priority: 2,
     text: 'The organisers who were going to carry three counties have stopped showing up, and the ones who remain have written a letter. It is not angry. It is worse than angry: it is specific, and it is correct about most of it.',
     when: (s) => !!s.worstFaction && s.worstFaction.id === 'activists' && s.worstFaction.standing < 42,
-    why: (s) => `Your standing with the party’s activists is ${s.worstFaction.standing} — the field is not turning out for you.`,
+    why: (s) => `Your standing with party activists has fallen to ${s.worstFaction.standing}, slowing volunteer turnout in key states.`,
     choices: [
       {
         label: 'Go to the meeting and take the criticism',
@@ -250,7 +250,7 @@ export const DERIVED_EVENTS = [
     text: 'A group that was with you in the spring has stopped being with you, quietly, in the way that shows up in a poll three weeks after it shows up in the room. Nobody has denounced you. Nobody is returning your calls either.',
     when: (s) => !!s.slidingGroup,
     why: (s) =>
-      `${s.slidingGroup.label} have fallen ${Math.abs(s.slidingGroup.moved).toFixed(1)} points since the campaign began — now at ${Math.round(s.slidingGroup.support)}%.`,
+      `${s.slidingGroup.label} have fallen ${Math.abs(s.slidingGroup.moved).toFixed(1)} points since the campaign began, dropping to ${Math.round(s.slidingGroup.support)}%.`,
     choices: [
       {
         label: 'Go and ask them what it will take',
@@ -310,7 +310,7 @@ export const DERIVED_EVENTS = [
     tone: 'chaos',
     kicker: 'A press corps that noticed the phone bill',
     priority: 2,
-    text: 'Somebody has started asking why your press shop has been spending so much time with the local desks that are supposed to be covering you, and the answer is on the expenditure report. A reporter has the receipts and a very reasonable question about them.',
+    text: 'Somebody has started asking why your press shop has been spending so much time with the local desks that are supposed to be covering you, and the answer is on the expenditure report. A reporter obtained the billing records and is asking direct questions about them.',
     when: (s) => s.spins >= 2,
     why: (s) => `You have worked the local press ${s.spins} times this week, and the expenditure report is a public document.`,
     choices: [

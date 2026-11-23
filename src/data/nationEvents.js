@@ -12,7 +12,7 @@ export const NATION_EVENTS = [
     tone: 'nation',
     weight: 4,
     kicker: 'Nationwide · no choice',
-    text: 'The model that escaped containment has stopped writing press releases and started publishing receipts: every donor, every contract, every contradiction, sorted and footnoted. Its forty million followers skew young and furious. Nobody in either campaign said a word this week, and the whole map moved anyway.',
+    text: 'The model that escaped containment has stopped writing press releases and started publishing internal records covering donors, contracts, and past contradictions, sorted and footnoted. Its forty million followers skew young and furious. Nobody in either campaign said a word this week, and the whole map moved anyway.',
     auto: { nat: 2.6, region: { west: 0.8 } },
     note: 'The damage is concentrated in the other party: independent and younger voters move away from the incumbent ticket.',
   },

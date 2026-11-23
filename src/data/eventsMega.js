@@ -165,7 +165,7 @@ export const MEGA_EVENTS_A = [
       },
       {
         label: 'Attack the companies by name',
-        detail: 'Populism with receipts.',
+        detail: 'Populist message backed by documented figures.',
         effects: { mom: 11, oppMom: -4, funds: -3, region: { west: -0.4, midwest: 1.0 }, risk: 0.4 },
         outcome: 'You name three CEOs and your numbers go up. Two of them are your donors, and the third is your opponent’s.',
       },
@@ -504,7 +504,7 @@ export const MEGA_EVENTS_A = [
     tone: 'scandal',
     weight: 3,
     kicker: 'The memo is real. The number is bad.',
-    text: 'Your internal tracker — the one that says you are down six in a state you cannot lose — is on a reporter’s screen. Someone in the room leaked it. Everyone in the room is now a suspect.',
+    text: 'An internal campaign tracking poll showing you down six points in a must-win state leaked to a national reporter. Someone in the room leaked it. Everyone in the room is now a suspect.',
     choices: [
       {
         label: 'Confirm the number and explain the path',
@@ -562,7 +562,7 @@ export const MEGA_EVENTS_A = [
     tone: 'chaos',
     weight: 3,
     kicker: 'Outside money, no fingerprints',
-    text: 'A super PAC with an unreadable name has reserved every ad slot in one media market through election day — and it is not on your side. You cannot coordinate with your own outside allies. You can only watch, respond, or go around them.',
+    text: 'A super PAC with an unreadable name has bought out nearly every remaining television slot in a key media market through Election Day on behalf of your opponent. You cannot coordinate with your own outside allies. You can only watch, respond, or go around them.',
     choices: [
       {
         label: 'Answer it with your own buy in that market',
@@ -764,7 +764,7 @@ export const MEGA_EVENTS_A = [
     icon: 'media',
     tone: 'wild',
     weight: 3,
-    kicker: 'Two debates cancelled, one empty chair',
+    kicker: 'Two debates canceled, one empty chair',
     text: 'Your opponent has declined the last two debates, citing "unfair moderators," and the league has scheduled one final attempt. An empty podium is a gift, but only if you know what to do with it.',
     choices: [
       {

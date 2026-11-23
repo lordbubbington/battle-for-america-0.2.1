@@ -6,386 +6,371 @@ export const WIKI_ARTICLES = [
     slug: 'how-to-play',
     title: 'How a campaign works',
     section: 'Basics',
-    body: `The clock starts on the date you pick — **January 1, April 1 or August 1, 2028** — and always stops on **November 7**. A January launch is forty-four weeks of campaign; August is fourteen. Every one of them is a set of choices you cannot take back.
+    body: `Campaigns begin on the selected launch date (**January 1, April 1, or August 1, 2028**) and conclude on Election Day, **November 7**. A January start provides forty-four campaign weeks, while an August start provides fourteen. Once a weekly action is taken, it cannot be reversed.
 
-Your six campaign actions are rallies, town halls, volunteer drives, fundraising, changing a position, and debate prep. Advertising and Ground Game use campaign funds. Detailed Polling is free. These three menus are available alongside your campaign actions. The opening week has no decision card. Later weeks schedule one, two, or three choice-bearing events, and the final week schedules five. A card pauses your next action only until you choose an outcome.
+Each week provides six core campaign actions: rallies, town halls, volunteer drives, fundraising, position changes, and debate preparation. Advertising and Ground Game draw from campaign funds, while Detailed Polling is free to consult. These three menus remain accessible alongside the weekly action list. The opening week contains no decision card. Subsequent weeks schedule one, two, or three choice-bearing events, and the final week schedules five. A decision card pauses further actions until the player selects an outcome.
 
-Between your week and the next one, three other things happen: the event card in front of you resolves, the opponent takes their own seven actions, and an outside group spends money nobody approved.
+Between one campaign week and the next, the active event card resolves, the opposing campaign executes its seven weekly actions, and independent outside groups place paid media.
 
-When you run out of actions, advance the week. Money comes in, the field operation keeps persuading, and the race shifts. Do that until the calendar runs out and the votes are counted.`,
+Once the weekly action allowance is exhausted, the player advances the week. Passive income is credited, field operations apply weekly persuasion, and state margins update until Election Day arrives and ballots are counted.`,
   },
   {
     slug: 'electoral-college',
     title: 'The electoral map',
     section: 'Basics',
-    body: `**270 electoral votes** wins, and the map is fixed at 2020 census allocations.
+    body: `A presidential candidate requires **270 electoral votes** to win outright under the 2020 census apportionment.
 
-Every state is winner-take-all except **Maine and Nebraska**, which split by congressional district — one vote per district, two to the statewide winner. Those five districts appear as separate chips under the map and can be campaigned in like a state.
+Forty-eight states and the District of Columbia award their electors on a winner-take-all basis. **Maine and Nebraska** allocate electors by congressional district, awarding one elector to each district winner and two to the statewide plurality winner. Those five congressional districts appear as separate selectable units beneath the national map and accept campaign actions like states.
 
-A state with three or more candidates is won by whoever has the **most votes**, not by one of the two major parties. That is how a third-party campaign can actually take electoral votes.
+In any state contested by three or more tickets, the candidate who receives the **highest vote share** wins the state's electoral votes. A simple plurality is sufficient, allowing third-party or regional tickets to win electoral votes without clearing 50 percent.
 
-If nobody reaches 270, the House decides the presidency by state delegation, one vote per state — whoever controls the most delegations wins. In a 269–269 tie, the same rule applies.
+If no candidate reaches 270 electoral votes, including in a 269-269 tie, the House of Representatives selects the president through a contingent election. Each state delegation casts one vote, and the party controlling a majority of state delegations prevails.
 
-Switch on **decide it by the popular vote** at setup and none of this matters: the presidency goes to whoever wins the most votes nationally, and the College becomes a very elaborate opinion poll.`,
+When the **decide it by the popular vote** option is enabled at setup, electoral allocations are advisory and the presidency is awarded directly to the national popular-vote leader.`,
   },
   {
     slug: 'alternative-election-rules',
     title: 'House and Electoral College rule options',
     section: 'Mechanics',
-    body: `The House rule and Electoral College rule are separate setup choices. The popular-vote option remains independent and still decides the presidency when selected.
+    body: `The House allocation rule and the Electoral College allocation rule are configured independently at setup. The national popular-vote setting remains separate and overrides the Electoral College outcome whenever enabled.
 
-**House PR** keeps 435 seats and allocates each state’s seats by modeled House vote share. A party must reach **5% of the national House vote** to receive seats; qualifying votes are renormalized before each state allocation. Largest-remainder rounding keeps every state and the chamber at the correct seat total.
+**House PR** retains the 435-seat chamber and distributes each state's delegation according to modeled House vote share. A party must reach **5% of the national House vote** to qualify for seats, and qualifying shares are renormalized prior to each state's calculation. Largest-remainder rounding preserves exact state and chamber seat totals.
 
-**Mixed-member proportional (MMP)** uses **870 seats**: 435 constituency seats from the House projection plus 435 state list seats. National parties qualify at 5%, or by winning at least three constituency seats. Constituency wins are retained. Each state’s fixed list seats then go to qualifying parties with the largest proportional shortfalls, with deterministic rounding.
+**Mixed-member proportional (MMP)** expands the chamber to **870 seats**, combining 435 single-member constituency seats from the district projection with 435 state party-list seats. Parties qualify at 5% nationally or by winning at least three constituency seats. Constituency winners keep their seats, and each state's list seats are assigned to qualifying parties with the largest proportional shortfalls using deterministic rounding.
 
-The standard Electoral College rule is winner-take-all except for Maine and Nebraska, which split by district. **Proportional electors** divides each state’s electors among parties with at least 5% of that state’s vote. **District plan** gives two electors to the statewide winner and assigns the remaining electors using the state’s projected House district seat totals; the District of Columbia keeps its constitutional three electors. Both alternatives preserve 538 total electors.`,
-  },  {
+Under the default Electoral College rule, states are winner-take-all except Maine and Nebraska. **Proportional electors** distributes each state's electors among parties reaching at least 5% of that state's vote. **District plan** awards two electors to the statewide winner and allocates the remaining electors according to projected House district totals, while the District of Columbia retains its three constitutional electors. Both alternative systems preserve the 538-elector total.`,
+  },
+  {
     slug: 'polling',
-    title: 'Polls, ratings, and why they lie',
+    title: 'Polls, ratings, and polling error',
     section: 'Mechanics',
-    body: `Every margin on the map is built from the same ingredients: the state's base lean, how well your platform fits its voters, your campaign's accumulated work there, national trend, and sampling noise.
+    body: `Each state's polling margin is derived from its partisan baseline, policy alignment with the state's electorate, accumulated campaign persuasion, national trend, and sampling noise.
 
-Momentum is not one of those ingredients. It moves voters and nothing else: a campaign running hot drags its own turnout up, cools itself doing it, and pulls vote share off every party it is running against. A party five or more points hotter than its own people are likely to vote gets, every week, a chance equal to that gap of lifting its turnout three points, and each lift costs three points of momentum, never below fifty. A party whose people are fifteen points more likely to vote than its mood suggests sheds two points a week instead.
+Campaign momentum does not enter the polling margin directly. Instead, momentum governs turnout conversion and weekly vote drift. A campaign whose momentum exceeds its voters' baseline turnout propensity by five or more points receives a weekly probability equal to that gap of lifting turnout by three points, at a cost of three momentum points (never dropping below 50). Conversely, a campaign whose voters are fifteen points more likely to turn out than its momentum indicates loses two turnout points per week.
 
-Momentum also changes persuasion very slightly: it ranges from **−0.5% at zero** to **+0.5% at one hundred**, with 50 neutral. Only the extra voter movement caused by this modifier counts toward a shared weekly limit of **0.5% of the modeled electorate**. Once that small budget is used, ordinary persuasion still works; direct turnout actions are not affected by this modifier.
+Momentum also applies a narrow persuasion modifier ranging from **-0.5% at zero** to **+0.5% at one hundred**, with 50 acting as neutral. Additional voter movement generated by this modifier draws against a shared weekly cap of **0.5% of the modeled electorate**. Once that cap is reached, standard persuasion continues normally and direct turnout actions remain unaffected.
 
-What you see is a **poll**. What you get is the **result** — the same number plus a hidden miss that was rolled before the campaign started. It is shared nationally, tilted by region, and noisy state by state, which is how you get the real-world pattern: under-polling by two nationally, five in the Midwest, seven in Iowa, two in Ohio. It runs both ways.
+Displayed figures represent **polls**, whereas Election Night tallies reflect the **result**, which adds a hidden polling error generated at campaign start. That error combines national, regional, and state-level components, allowing correlated misses across adjacent states in either direction.
 
-Field operations shave a little off that miss. Nothing else does.
+Permanent field operations are the sole mechanism capable of reducing a state's hidden polling error.
 
-On Medium and above you get **ratings instead of numbers** — Lean, Likely, Solid. Anything inside **two points** is a **Tossup** and turns teal across every map.`,
+On Medium difficulty and higher, state displays report **categorical ratings** (Lean, Likely, Solid) rather than exact margins. Any margin within **two points** is classified as a **Tossup** and highlighted in teal across all maps.`,
   },
   {
     slug: 'turnout',
     title: 'Turnout and the vote count',
     section: 'Mechanics',
-    body: `A poll is not a vote. Each party has its own **turnout** in each state, and a state is called on **raw votes**: what a party's own people believe, multiplied by how many of them actually show up. Votes are counted in hundreds, so the arithmetic stays in whole numbers.
+    body: `Polling shares measure voter preference, while state outcomes are determined by **raw ballots cast**, calculated by multiplying each party's support by the share of its voters who turn out. Vote totals are tracked in hundreds to keep arithmetic in whole numbers.
 
-Every party starts on the same number in a given state, and the number belongs to the state: 55 to 65 percent, highest in the Northeast and lowest in the South, and no two states on the same figure. Nobody ever counts below **40 percent**, third parties included.
+Every party begins with the same baseline turnout rate within a given state, ranging between 55 and 65 percent (highest in the Northeast and lowest in the South), with distinct starting figures for each state. Modeled turnout never drops below **40 percent** for any party, including third-party tickets.
 
-Campaign work is what moves it. A rally, a volunteer drive, a mailer or a spot for yourself lifts your own number; an attack ad, a gaffe or a bad night suppresses theirs. Regional bonuses are turnout bonuses too — a good week in the South reminds the whole South to vote — while a bonus to a single state still moves minds.
+Direct campaign activity moves turnout. Rallies, volunteer drives, mailers, and positive advertisements raise the acting campaign's turnout, while attack advertisements, gaffes, and adverse news suppress an opponent's turnout. Regional bonuses operate as turnout shifts across the entire region, whereas single-state bonuses continue to affect persuasion.
 
-Turnout eats into the non-voting share, so it gets harder to move the higher it climbs: ten points at 80 percent becomes 82, not 90. You see the number rounded to the nearest percent; the game keeps four decimal places.
+Because turnout gains draw from the remaining non-voting population, marginal returns decline as turnout rises. For example, a ten-point nominal gain at 80 percent turnout yields 82 percent rather than 90 percent. The interface displays rounded percentages, while the engine retains four decimal places internally.
 
-**Rubio** turns out the South a point better. **DeSantis** turns out Florida a point better. Whoever the nominee is, the same rules apply to everyone on the ballot.
+Certain nominees carry regional or state turnout modifiers, such as **Rubio** adding one point in the South and **DeSantis** adding one point in Florida. These mechanics follow the same rules for every candidate on the ballot.
 
-Debates and the news are different: they change minds, not habits. The polls move, the turnout does not.`,
+Debates and news stories alter voter preference rather than voting habits, shifting polling margins without directly modifying turnout.`,
   },
   {
     slug: 'money',
-    title: 'Money in, money out',
+    title: 'Campaign finance and upkeep',
     section: 'Mechanics',
-    body: `At the start of each campaign week, the game draws base income once from **$8M to $12M** and saves that amount with the campaign. Field operations add a smaller income stream. The donor faction then adjusts the total, and expenses are taken out at the week boundary. Momentum brings in no money at all: it moves voters, and nothing else.
+    body: `At the start of each campaign week, base passive income is drawn once from **$8M to $12M** and stored with the campaign state. Field operations contribute a smaller supplemental income stream. Donor faction standing then adjusts gross income, and weekly expenses are deducted at the week boundary. Momentum does not affect fundraising or passive income.
 
-Expenses are a fixed overhead plus the weekly cost of every field operation you own. If you build a state machine you cannot fund, it eats your ad budget one week at a time.
+Weekly expenses consist of fixed campaign overhead plus the recurring upkeep of all active state field operations. Expanding infrastructure beyond what weekly income can cover steadily drains funds available for paid media.
 
-New campaigns start with 50% more money than the prior build: $750M on Cupcake, $300M on Easy, $225M on Medium, $187.5M on Hard, $82.5M on Brutal, and $60M on Nightmare. Third-party campaigns start with $15M; major-party opponents start with $225M.
+Starting campaign balances scale by difficulty: $750M on Cupcake, $300M on Easy, $225M on Medium, $187.5M on Hard, $82.5M on Brutal, and $60M on Nightmare. Third-party campaigns begin with $15M, and major-party opponents begin with $225M.
 
-Ad buys scale with the media market of the state and get **more expensive late**: the same buy costs about 40% more in the last week than in the first. Attack ads carry a 15% premium. The HUD shows your current balance; the weekly net-income badge has been removed so a variable draw is not mistaken for guaranteed income.
+Advertising rates scale with each state's media market and rise over the course of the calendar, costing roughly 40% more in the final week than in the opening week. Attack advertisements carry a 15% cost premium. The HUD displays the current cash balance without a fixed net-income badge, since weekly income vary with income draws and faction standing.
 
-There is no debt and no bankruptcy. Funds simply refuse to go below zero.`,
+The engine does not model debt or bankruptcy, and campaign balances are floored at zero.`,
   },
   {
     slug: 'actions',
     title: 'The six actions',
     section: 'Mechanics',
-    body: `**Campaign stop** — a rally in one state. Three points of turnout there, a nudge across the region, a whisper in the neighbours. One stop in ten also changes a few minds, at a quarter of what a rally used to be worth.
+    body: `**Campaign stop** conducts a rally in one state, adding three points of local turnout along with smaller spillover effects in neighboring states and the surrounding region. Roughly one stop in ten also produces a small persuasion gain.
 
-**Town hall marathon** — roughly a coin flip: two points of turnout and a fraction of a point of persuasion when it breaks out, or a gaffe that costs the state a point of turnout.
+**Town hall marathon** carries an approximately even outcome split, producing two points of turnout and a modest persuasion gain when well received, or a one-point turnout penalty in the state following a misstep.
 
-**Volunteer drive** — normally costs **$3M** and moves real turnout. A faction mobilization can waive the cost and strengthen one operation; use it before the perk expires. Turnout is what saves you when the polls are wrong.
+**Volunteer drive** normally costs **$3M** and generates direct state turnout. An active faction mobilization perk can waive the cost and increase the effect for one use before expiration.
 
-**Fundraise** — work the donor room in one state. Bigger states and states that already lean your way hand over more, the same room gives eight percent less each time you return, and it costs three momentum.
+**Fundraise** solicits donors in a selected state. Larger states and states favorable to the ticket yield higher totals. Repeated visits to the same state return eight percent less each time, and each fundraising action costs three points of momentum.
 
-**Change a position** — every flip costs more than the last, and the other side keeps the clips.
+**Change a position** adjusts the candidate's stance on a single issue. Each subsequent shift carries escalating momentum and polling penalties, and prior stances remain recorded for opponent attacks.
 
-**Debate prep** — three sessions max, banked for the night.`,
+**Debate prep** banks preparation sessions for the upcoming debate, up to a maximum of three stored sessions.`,
   },
   {
     slug: 'ground-game',
     title: 'Field operations',
     section: 'Mechanics',
-    body: `Open **Ground Game** below Buy Ads during a campaign. Choose target levels for any states where your ticket has ballot access. The planner shows the price, cash remaining, and added weekly upkeep. **Buy upgrades** confirms the whole plan with campaign funds and uses no weekly actions. Closing the planner discards your draft. Purchased levels remain in your save. There are three levels per state: **field office**, **regional operation**, and **full state machine**.
+    body: `The **Ground Game** planner is located beneath Buy Ads during an active campaign. Players may select target infrastructure levels for any state where their ticket holds ballot access. The planner displays total upfront cost, remaining cash, and added weekly upkeep. Selecting **Buy upgrades** commits the entire plan using campaign funds without consuming weekly actions, while closing the planner discards unconfirmed changes. Purchased levels persist in saved games across three tiers per state: **field office**, **regional operation**, and **full state machine**.
 
-What it buys:
+Field operations provide three ongoing effects:
 
-- **Turnout** — each level lifts your own turnout in the state, and every vote you bank there is counted when the state is called.
-- **Persuasion** — each level keeps nudging the state your way every week, with diminishing returns as the state gets further from even.
-- **A shorter miss** — level three knocks roughly a quarter off that state's hidden polling error.
+- **Turnout:** Each tier raises the campaign's turnout in that state, adding directly to its Election Night ballot count.
+- **Persuasion:** Each tier applies recurring weekly persuasion in the campaign's favor, subject to diminishing returns as the state moves further from even.
+- **Polling accuracy:** Reaching level three reduces the state's hidden polling error by roughly one quarter.
 
-You can inspect any state's exact level and weekly bill in the **More information** drawer under the map.`,
+Exact infrastructure levels and weekly upkeep for any state can be reviewed in the **More information** drawer beneath the map.`,
   },
   {
     slug: 'detailed-polling',
     title: 'Detailed Polling',
     section: 'Mechanics',
-    body: `Open **Detailed Polling** below Ground Game and select a state. The free report shows the current modeled 600-voter sample, polling shares, uncertainty, and available insights. It updates as the campaign changes.`,
+    body: `The **Detailed Polling** menu beneath Ground Game provides state-level survey reports at no cost. Selecting a state displays a modeled 600-voter sample, party vote shares, margin of error, and demographic insights that update as campaign conditions change.`,
   },
   {
     slug: 'ads',
     title: 'Advertising',
     section: 'Mechanics',
-    body: `Ads cost money, not time. Pick your states, an issue, a medium, and whether you are promoting yourself or attacking them. You can buy in as many states at once as the war chest allows: each one is priced on its own and rolls its own quality, so the same spot can land in Ohio and bomb in Nevada.
+    body: `Paid advertising consumes campaign funds rather than weekly actions. The player selects target states, an issue, a medium, and either a positive or attack framing. Campaigns may purchase placements in as many states as available funds permit. Each state placement is priced independently and rolls its own execution quality, meaning the same campaign message can perform well in one state and underperform in another.
 
-A buy moves **only the states it runs in**. It never touches momentum, the national mood, or the state next door.
+An advertisement affects **only the states in which it airs**. It does not alter campaign momentum, the national environment, or adjacent states.
 
-Strength depends on two things: **how much that state agrees with your stance** on the issue, and **how much the issue matters there**. A perfectly aligned buy in a state that cares is worth several rallies; a mismatched one in a state that does not is a receipt.
+Baseline effectiveness depends on two variables: **alignment between the candidate's stance and the state's electorate** on the chosen issue, and **local salience of that issue**. High alignment on a salient issue delivers substantial turnout returns, whereas poor alignment on a low-salience issue produces minimal return.
 
-Every buy then rolls quality. About one in five simply bombs — you lose money and the state moves against you. Roughly one in seven lands clean and hits above its weight.
+Each placement then undergoes a quality roll. Roughly one in five placements underperforms and moves the state against the sponsor, while roughly one in seven outperforms its baseline projection.
 
-A spot decides **who shows up**, not what they think: a positive spot lifts your own turnout, an attack suppresses theirs, and the two are worth roughly the same on election night.
+Paid media primarily governs **turnout** rather than persuasion. Positive advertisements raise the sponsor's turnout, and attack advertisements suppress the opponent's turnout at comparable overall election-night impact.
 
-Two things can go wrong on top, and they are rolled separately, so one buy can manage both. A **local backfire** makes the spot itself the story in that state: one to two points of mind gone, and your own turnout there down with it. **Attack ads backfire more often than positive ones.** Far more rarely the story escapes the state altogether — four points where it ran, one across the whole map.`,
+Two adverse risks are rolled independently, allowing both to occur on a single buy. A **local backfire** shifts one to two points of state margin and reduces the sponsor's local turnout, and **attack advertisements backfire more frequently than positive spots**. In rare cases, a story spreads nationally, costing four points in the target state and one point across the national map.`,
   },
   {
     slug: 'platform',
     title: 'Issues, stances, and voter blocs',
     section: 'Mechanics',
-    body: `Every candidate carries a position on each of the issues in the game — a stance, not a slogan. Every state has a mix of **voter blocs**, and each bloc has its own preference on each issue.
+    body: `Every candidate holds a defined stance on each tracked policy issue. Each state contains a distinct distribution of **voter blocs**, and each bloc carries its own issue preferences.
 
-Put them together and you get a state's **policy fit**: how many of its voters your platform actually speaks to. That number is a direct term in the state's polling margin, so a platform that fits the Midwest is worth several points in the Midwest without a single rally.
+Combining candidate stances with state bloc distributions yields a state's **policy fit**, which enters directly into the state's polling margin. A platform aligned with regional priorities can be worth several points across a region prior to any campaign travel.
 
-The **More information** drawer on any state shows the bloc composition and, for the eight highest-salience issues, the state's median answer next to how well your own stance fits it.
+The **More information** drawer for any state displays its bloc breakdown and, for the eight highest-salience issues, compares the state's median preference against the candidate's current position.
 
-Changing a position is allowed and always costs: momentum first, then a spread across every state, both escalating with each flip.`,
+Candidates may alter their position on an issue during the campaign, but each shift imposes a momentum cost followed by a nationwide polling penalty that escalates with each subsequent change.`,
   },
   {
     slug: 'debates',
     title: 'The three debates',
     section: 'Mechanics',
-    body: `Three nights, one question at a time, three questions each. Answers change minds — momentum, regions, individual states — and risky answers can follow you for a week as a scandal.
+    body: `Campaigns include three scheduled debates, each consisting of three sequential questions. Debate answers affect persuasion (including momentum, regional margins, and individual state margins), and high-risk responses can trigger a follow-up scandal during the following week.
 
-**Debate prep** is the only thing that changes the math before you walk in: each banked session adds a little to every answer on the night, blunts the chance of a gaffe, and caps at three.
+**Debate prep** is the only action that improves baseline performance beforehand. Each banked session raises answer scores, lowers gaffe probability, and stacks up to a cap of three sessions.
 
-At the end of the night the three answers are scored. Win it decisively and your opponent's momentum takes the hit; lose it and the map barely moves, in the wrong direction.`,
+At the close of each debate, all three responses are scored together. A decisive win reduces the opposing campaign's momentum, while a poor showing shifts momentum and polling margins unfavorably.`,
   },
   {
     slug: 'events',
     title: 'Events, scandals, and risk',
     section: 'Mechanics',
-    body: `The week opens with a campaign card, sometimes with a choice and sometimes with no choice at all. A story can appear when it connects to the national headline, recent local coverage where your campaign has worked, a recent action or policy choice, or a real campaign pressure such as money or coalition support. The card explains why it fits this week.
+    body: `Campaign weeks open with a decision or news card tied to current game state. Stories are selected based on the national headline, recent local coverage in states where the campaign has operated, prior actions or policy shifts, or structural pressures such as finances and coalition standing. Each card indicates the condition that triggered it.
 
-Choices are graded and some are rolls: two possible branches, one drawn at random, and only its effects land. **Risk** on a card is a real chance of a scandal, and the severity is hidden. A sixty percent risk sometimes costs three points of momentum and sometimes eleven.
+Event choices include deterministic options and probabilistic rolls with two possible branches, where one branch is drawn at random and only its effects apply. Any **risk** indicator reflects a live probability of triggering a scandal whose severity is not disclosed in advance. A sixty percent risk can produce either a minor momentum loss or a major setback.
 
-Some follow-up cards require a saved incident receipt first. The receipt records what happened, where, and when; the interruption explains why it appeared. For example, the completed town hall stores all three prompts, the selected response approaches, and the audience score in campaign history before a Q&A-sharing choice can appear. A story that remains prominent after two recorded news updates can also lead to a response choice after you spin it. The leaked-memo follow-up quotes the line stored in the original event. Catalog entries with no matching in-game evidence stay dormant.
+Certain follow-up events require a recorded incident receipt before they can enter the queue. The receipt logs the event type, location, and week, and the follow-up card cites that record. For example, a completed town hall records all three questions, selected response styles, and the audience score before a follow-up media choice becomes eligible. A story that remains active across two news cycles can also unlock a response choice after spin is applied, and leaked-memo follow-ups quote the text stored in the original event. Catalog entries without matching in-game evidence remain inactive.
 
-Paid ads primarily change turnout, not opinion polls. Their follow-up uses the buy’s state-level turnout report, and it does not grant a second polling bonus.
+Because paid advertisements primarily affect turnout rather than polling, ad follow-up cards reference the state turnout report and do not award an additional polling bonus.
 
-The rival draws from the same context-aware rules and its choice appears in the campaign history with a reason. Scheduled debates, town halls, conventions, Easter eggs, and national bulletin cards stay in their own systems. If no unused story fits the week, the campaign gets a planning briefing about stops, fundraising, or message discipline instead.
+The opposing campaign draws from the same context-aware event rules, and its choices appear in the campaign log with explanations. Scheduled debates, town halls, conventions, Easter eggs, and national bulletins operate in separate queues. When no unused event fits the current week, the campaign receives a standard planning briefing covering travel, fundraising, or message discipline.
 
-A scandal also costs you **voters**, nationally and at once: a minor one **0.1%** of the vote, a serious one **0.5%**, and a career-level one **2%** — the same everywhere, no matter which state the story broke in.
+Scandals also impose an immediate nationwide vote penalty regardless of where the story originated: **0.1%** of the vote for a minor scandal, **0.5%** for a serious scandal, and **2%** for a major scandal.
 
-Difficulty scales both the chance and the severity. The press corps is not neutral.`,
+Higher difficulty settings increase both scandal frequency and severity.`,
   },
   {
     slug: 'downballot',
     title: 'Senate, House, and governors',
     section: 'Mechanics',
-    body: `The Senate starts at **40 Democrats and 26 Republicans** — the result of the 2026 midterms — and the 34 Class 3 seats up in 2028 decide the rest. 51 seats is control.
+    body: `The Senate begins at **40 Democrats and 26 Republicans** following the 2026 midterms, leaving the 34 Class 3 seats contested in 2028 to determine chamber control. A majority requires 51 seats.
 
-Downballot races respond to state conditions and local candidates, but not in the same way:
+Downballot contests respond to state political environments and local candidate quality at different rates:
 
-- **Senate** — about 55% of the presidential margin, plus the quality of the recruit.
-- **House** — each district starts with its own partisan lean. The state's generic ballot and House-specific local effects move that baseline; presidential candidate and running-mate effects do not. The district list shows whether its baseline uses reported 2026 totals or a clearly marked 2024 historical fallback. 218 of 435 seats wins it.
-- **Governors** — eleven states, and a smaller top-of-ticket effect than either chamber.
+- **Senate:** Tracks roughly 55% of the state's presidential margin, adjusted for local candidate quality.
+- **House:** Each of the 435 districts starts from its own partisan baseline, which moves with the state's generic ballot and House-specific local effects rather than presidential nominee or running-mate modifiers. District listings indicate whether each baseline uses reported 2026 returns or a labeled 2024 fallback. Chamber control requires 218 seats.
+- **Governors:** Eleven states hold gubernatorial elections, with a smaller top-of-ticket coattail effect than federal legislative races.
 
-Each race also has a local candidate-quality roll nobody sees until October, and its own election-night error. Anything inside two points shows as a **Tossup**.
+Every downballot contest also receives a hidden local candidate-quality roll revealed in October, plus an independent election-night error term. Any race within two points is rated as a **Tossup**.
 
-In North Dakota, South Dakota and Idaho an independent can be on the Senate ballot if you switch that option on at setup.`,
+When enabled at setup, independent candidates can also appear on the Senate ballot in North Dakota, South Dakota, and Idaho.`,
   },
   {
     slug: 'state-legislatures',
     title: 'State legislatures and the 2028 schedule',
     section: 'Mechanics',
-    body: `The **State legislatures** tab lists 7,386 statutory seats, the 2024 chamber baseline and available district results. A seat counts as one seat regardless of its population. Open district details to see available sources, candidate or party information, election years and boundary vintages.
+    body: `The **State legislatures** tab tracks 7,386 statutory legislative seats alongside the 2024 chamber baseline and available district results. Each seat carries equal weight regardless of district population. Opening a district entry displays available source metadata, incumbent or party records, election years, and redistricting boundary vintages.
 
-A scheduled seat is projected from its state's current generic ballot plus its sourced district lean. Seats outside the election carry forward their known 2024 holders. When a district lean, holder, boundary match, or seat class is missing, the forecast leaves it unresolved. Nebraska is nonpartisan; the forecast does not assign its seats a party winner from the statewide generic ballot.
+Scheduled 2028 seats are projected from their state's current generic ballot combined with the sourced district lean, while unscheduled seats carry forward their 2024 holders. Where a district lean, incumbent record, boundary match, or seat class is unavailable, the forecast leaves the seat unresolved. Because Nebraska maintains a nonpartisan legislature, the model does not assign partisan winners to its seats.
 
-The 2024 baseline, 2028 forecast and actual calls are separate. A forecast does not certify an election result. The playtest does not call unmodeled legislative races on Election Night.`,
+The 2024 baseline, the 2028 projection, and Election Night calls are maintained separately. Projections do not certify outcomes, and unmodeled legislative races are not called on Election Night.`,
   },
   {
     slug: 'ballot-measures',
     title: 'Ballot measure tracker',
     section: 'Mechanics',
-    body: `The **Ballot measures** tab is a reference tracker for source-checked 2028 statewide measures and constitutionally due questions. It records official status, election date, a short description, and a link to the responsible public source. A measure shown as eligible or constitutionally due is not necessarily certified for the final ballot.
+    body: `The **Ballot measures** tab serves as a reference index for source-checked 2028 statewide ballot measures and constitutionally scheduled questions. Each entry records official status, election date, a brief summary, and a reference to the public election authority. Listing a measure as eligible or constitutionally due does not imply final ballot certification.
 
-The California initiative in this snapshot has verified signatures and is eligible but not yet qualified. The Secretary of State says it is expected to qualify on June 29, 2028 unless withdrawn; the listed 874,641 figure is the signature threshold. Connecticut, Hawaii, and Illinois have constitutional-convention questions due under their respective schedules, with final ballot certification pending.
+The California initiative recorded in this dataset has verified signatures and is classified as eligible pending formal qualification, which the Secretary of State projects for June 29, 2028 unless withdrawn (based on the listed 874,641 signature threshold). Connecticut, Hawaii, and Illinois have constitutional-convention questions scheduled under their state constitutions, with final certification pending.
 
-This reference list is separate from campaign decision events. It provides no public polling and does not itself create campaign choices. The campaign event system requires a verified state-specific legal route and measure record before it can generate a ballot-measure event; unsupported measures remain inactive.`,
+This reference index is separate from campaign decision events. It does not supply polling data or automatically generate campaign cards; the event engine requires a verified state-specific legal pathway and measure record before activating a ballot-measure decision.`,
   },
   {
     slug: 'third-parties',
     title: 'Third parties and independents',
     section: 'Mechanics',
-    body: `Third-party strength is set at setup: **fringe**, **serious**, or a full **insurgent** run. The board tilts randomly on top of that — one party does better in the Mountain West than the other, and which one is decided when the campaign begins.
+    body: `Third-party baseline strength is chosen at setup from three tiers: **fringe**, **serious**, or **insurgent**. At campaign launch, the engine applies a randomized regional tilt favoring one minor party over the other in areas such as the Mountain West.
 
-Third-party votes are not added to a major party's total, they come out of it. A candidate who clears the field in a small state can win its electoral votes outright.
+Third-party vote shares are drawn from the total electorate rather than added on top of major-party totals. Any minor-party candidate who finishes first in a state wins that state's electoral votes outright.
 
-On the Senate side, the independent options are North Dakota, South Dakota and Idaho, and Evan McMullin can be on the Utah ballot. Independent candidates use purple in maps and charts; McMullin keeps his own orange in his Utah race. All independent seats still count as "not a major party" in the chamber math.`,
+In Senate races, optional independent candidates can contest North Dakota, South Dakota, and Idaho, and Evan McMullin can appear on the Utah ballot. Standard independent candidates are shaded purple in maps and charts, while McMullin uses orange in Utah. All independent Senate seats are counted outside major-party caucuses in chamber control totals.`,
   },
   {
     slug: 'difficulty',
-    title: 'The five difficulties',
+    title: 'Difficulty levels',
     section: 'Basics',
-    body: `**Cupcake** starts you with $750M and offers the gentlest opponent and polling settings.
+    body: `**Cupcake** begins with $750M in campaign funds and applies the most forgiving opponent behavior and polling accuracy settings.
 
-**Easy** starts you with $300M, gives you exact margins, a clumsy opponent and polls that mostly tell the truth.
+**Easy** begins with $300M, displays exact state polling margins, uses a less efficient opponent, and applies narrower polling errors.
 
-**Medium** is the intended race: $225M, ratings instead of numbers, a real opponent.
+**Medium** represents the standard campaign balance, starting with $225M, categorical state ratings instead of exact numbers, and full opponent adaptation.
 
-**Hard** starts with $187.5M, sharper opponent strategy, tighter margins, and a tougher news cycle.
+**Hard** begins with $187.5M, sharper opponent targeting, tighter state margins, and a more demanding news cycle.
 
-**Brutal** starts with $82.5M, a hostile news cycle, and intense pressure in the states that decide the election.
+**Brutal** begins with $82.5M, an adverse news environment, and sustained opponent pressure in competitive states.
 
-**Nightmare** starts with $60M, an opponent who rarely errs, polls that miss wide, a press corps with receipts, and relentless pressure in every battleground. Difficulty also multiplies your final score.`,
+**Nightmare** begins with $60M, highly disciplined opponent scheduling, wider polling errors, elevated scandal risk, and continuous pressure across battleground states. Difficulty selection also applies a multiplier to the final campaign score.`,
   },
   {
     slug: 'national-desk',
     title: 'The national desk',
     section: 'Mechanics',
-    body: `Every week opens with the country's news, before your own card: **one of a hundred stories**, filed whether or not anybody asked. A recession print, a war scare, a hurricane, a tape of you from 2009, your running mate on an open mic.
+    body: `Each week opens with a national news item drawn from **one hundred cataloged stories** before the campaign's own event card is dealt. Topics range from macroeconomic releases and foreign-policy developments to weather emergencies and candidate-level controversies.
 
-The desk moves the **national environment** — the mood every state is polling against — and the **generic ballot** in all fifty states. The battlegrounds feel a story harder than the rest, and a national story that lands on one state (a hurricane, a plant closure) drags its whole ballot with it.
+National desk stories shift the **national environment** (the shared baseline against which states poll) and update the **generic ballot** across all fifty states. Competitive battleground states register larger shifts than safe states, and geographically localized events such as severe storms or plant closures affect the entire ballot in the impacted state.
 
-Some stories **run for weeks**. A contraction pays out against the governing party every week it lasts; an AI boom pays out for them. Those are called **running stories**, they show on the national environment panel with how many weeks are left, and nothing you do ends one — only the news does.
+Certain stories operate as **running stories** that persist across multiple weeks. An economic contraction penalizes the governing party each week it remains active, while a sustained growth cycle benefits it. Active running stories and their remaining durations appear in the national environment panel and conclude only through subsequent news developments rather than direct player actions.
 
-Twenty optional stories can cover fictional Republican-campaign mistakes. They appear only after the rival’s recorded plan creates a receipt with supporting evidence; the News Desk shows that evidence with the headline. Each receipt publishes once, and later stories have smaller national effects. These stories are in-game scenarios, not claims about real people.
+Twenty optional stories cover fictional Republican campaign missteps. These trigger only when the rival campaign's recorded plan produces a matching evidence receipt, which the News Desk displays alongside the headline. Each receipt fires at most once, with diminishing national impact on later occurrences, and all entries represent in-game scenarios rather than claims about real individuals.
 
-The national headline is one of several ways to make a campaign card timely. When it does not connect, recent field work, local reporting, policy moves, finances, and coalition health can supply the context. If no story fits, the campaign uses its planning briefing.`,
+National headlines also supply context for weekly campaign cards. When the national story does not match an eligible card, recent field activity, local coverage, policy changes, finances, or coalition standing determine the week's briefing.`,
   },
   {
     slug: 'election-night-forecast',
     title: 'Election Night and the live forecast',
     section: 'Mechanics',
-    body: `Election Night reports state, district, and down-ballot results as ballots arrive. The **Nick Bronze live forecast** combines counted vote shares with the campaign model for ballots still outstanding. As more votes are reported, the uncertainty attached to that race shrinks; the forecast updates before the desk is ready to call it.
+    body: `Election Night reports presidential, congressional, and gubernatorial tallies as precincts report. The **Nick Bronze live forecast** blends counted ballots with modeled expectations for outstanding votes. As reporting percentages increase, race uncertainty narrows and projected probabilities update ahead of formal race calls.
 
-The House and Senate panels also show simulated control chances and middle-of-the-range seat estimates. These are projections, not race calls. Calls follow separate rules that account for the lead and how much of the vote has been counted.`
+The House and Senate panels also display simulated chamber-control probabilities and median seat projections. These figures are probabilistic estimates rather than formal calls, which follow separate thresholds based on both vote lead and remaining uncounted ballots.`,
   },
   {
     slug: 'vance-succession',
     title: 'Vance’s alternate-history succession story',
     section: 'Mechanics',
-    body: `If JD Vance is an active Republican presidential candidate while Donald Trump is the sitting president, the game can deal a five-part **fictional alternate-history** succession arc. Its first card explicitly describes an imagined transfer of power; it is not a claim or prediction about real events.
+    body: `When JD Vance is an active Republican presidential candidate while Donald Trump is set as the sitting president, the campaign may deal a five-part **fictional alternate-history** succession sequence. Its opening card states explicitly that the scenario depicts an imagined transfer of power rather than real events or predictions.
 
-The cards use the normal weekly event schedule, with at most one part in a week. Vance’s modeled moderate support rises across the story while the MAGA faction and Republican turnout take a cost. Your responses change the balance, and the game saves the sitting president, delivered parts, and cumulative effects.`,
+The sequence uses the normal weekly event queue, dealing at most one part per week. Across the arc, Vance's modeled moderate support increases while MAGA faction standing and Republican turnout decline. Player choices adjust that balance, and the save file records the sitting president, completed parts, and cumulative modifiers.`,
   },
   {
     slug: 'state-environments',
     title: 'State environments and the generic ballot',
     section: 'Mechanics',
-    body: `The presidential map is not the only map. Every state carries its own **generic ballot** — what a House or Senate race there is actually polling — and the **State environments** panel tracks all fifty-one of them, tightest race first.
+    body: `Alongside the presidential map, every jurisdiction maintains its own **generic ballot** reflecting underlying House and Senate polling. The **State environments** panel ranks all fifty-one jurisdictions from closest to widest margin.
 
-Three things move a state's environment:
+Three factors move a state's environment:
 
-- **Local news**, hardest. A plant closing or a hospital opening moves the whole ballot in that state, not just the top of it.
-- **National stories**, which land in every state at once, unevenly.
-- **Your rallies** — but only at **half** the strength they hit the state's presidential margin, and **a quarter** where the House or Senate race is already inside five points, because those voters are drowning in ads and mail already.
+- **Local news:** Produces the largest shift, moving the entire state ballot rather than only the presidential race.
+- **National stories:** Apply across all states simultaneously, weighted by local political composition.
+- **Campaign rallies:** Affect the state environment at **half** the strength applied to the presidential margin, and at **one quarter** strength where the House or Senate race is already within five points.
 
-Environments settle back toward the state's own lean every week, and the **national environment is pulled around by the average of them**: when fifty state environments move, the country moves with them.
-
-The Senate, House and governor models all read the state's environment, not just its presidential margin.`,
-  },
-  {
-    slug: 'campaign-staff',
-    title: 'The campaign staff',
-    section: 'Campaign',
-    body: `Before week one, choose three advisors alongside the permanent Chief of Staff. Choose from thirteen traditional advisors and three specialists sampled for your campaign. Your selections are final.
-
-The **Staff** tab shows what your active advisors recommend and the evidence they used. Field staff look at local turnout, the pollster reads the map, policy checks promises and message fit, and the Chief of Staff helps you compare competing priorities. Operations can flag an affordability or upkeep problem. When changing a stance, the Policy Director flags a conflict with an open promise.
-
-Before you act, choose one agenda for the week. **Open action** takes you to the existing control with its recommended target; it does not spend anything. The exact matching action can use the agenda once, within its listed scope. Ads and press work can still backfire. The weekly debrief reports whether you used the agenda, carried out the priority without its bonus, or did something else.
-
-Each selected specialist occupies one position. Staff have no weekly upkeep. Specialist effects require the situation shown on the card. The selection menu labels effects that have no supported campaign action. A resumed campaign keeps its active roster.`,
+Each week, state environments revert partially toward each state's baseline lean, and the **national environment adjusts toward their combined average**. Senate, House, and gubernatorial projections all read directly from these state environments.`,
   },
   {
     slug: 'campaign-calendar',
     title: 'Debates, early voting, and deadlines',
     section: 'Campaign',
-    body: `The **Campaign office → Calendar** tab tracks the major milestones remaining in your run. Debate weeks compete with preparation and field work. Early presidential ballots are modeled at the close of the two weeks before the final week. Their party totals are saved at each closing checkpoint. Later persuasion and turnout affect the remaining electorate. The calendar shows ballots already cast and labels electoral rules or states where district ballot data is unavailable.
+    body: `The **Campaign office -> Calendar** tab tracks upcoming campaign milestones. Debate weeks compete with preparation and field activity for weekly actions. Early presidential ballots are tallied at the close of the two weeks preceding the final week, locking in party totals for voters who cast ballots at those checkpoints. Subsequent persuasion and turnout shifts apply only to the remaining electorate. The calendar displays early ballots already cast and marks states or rules where district-level ballot data is unavailable.
 
-Each milestone lists states to consider, a suggested tactic, and a **Focus** button. Focusing a state selects it on the map so the next action or ad buy can go there.
+Each milestone lists priority states, a recommended action, and a **Focus** control that selects the state on the main map for immediate follow-up.
 
-The election is set in 2028, so these dates are a simplified game schedule for campaign decisions. They are not an official state-by-state legal calendar. Check current election officials for real registration and voting dates.`,
+Because the campaign is set in 2028, milestone dates follow a simplified game calendar for planning purposes rather than an official state-by-state statutory schedule.`,
   },
   {
     slug: 'opponent-adaptation',
     title: 'How the opponent adapts',
     section: 'Campaign',
-    body: `The rival’s weekly plan changes with the polling map, local news, and your campaign’s recent focus. Close states remain attractive targets. States where you have invested heavily can draw a counter-campaign, while close states you have neglected can become openings for the opponent. Field-oriented rivals may spend on permanent operations or volunteer drives; media candidates are more likely to answer your public message.
+    body: `The opposing campaign updates its weekly schedule in response to the polling map, local news, and the player's recent activity. Competitive states remain primary targets. Heavy investment by the player can draw counter-campaigning, while neglected battleground states invite opponent expansion. Field-oriented rivals prioritize permanent offices and volunteer drives, whereas media-oriented candidates more often respond to public messaging.
 
-The rival budgets across the remaining weeks: it keeps a reserve for later advertising, releases more of that reserve when the national race is close, and lets candidate style affect spending risk. When it records a stop or paid ad in a state your campaign has not recently worked, the rival log names the state and the move; that documented entry can lead to a response card. It also targets competitive Senate, House, governor, and scheduled state-legislature races.
+The opponent budgets across remaining weeks by holding a reserve for late advertising, releasing more reserve funds when the national race tightens, and adjusting spending risk according to candidate style. When the rival logs a stop or paid advertisement in a state the player has not recently visited, the rival log records the action and may trigger a response card. The opponent also allocates effort to competitive Senate, House, gubernatorial, and scheduled state-legislative races.
 
-The rival can also face a conflict between its own party factions. Its choice changes its saved faction standing; that can affect the value of future turnout work and donor income. Its seven-action weekly plan can include local surrogates, town halls, issue ads, fundraising, debate preparation, downballot support, and recovery days, alongside rallies and field operations. Paid media details are attached to the planned ad action so the action log stays within seven.
+The opposing campaign can also encounter internal faction disputes. Its chosen response alters its saved faction standing, affecting future turnout efficiency and donor income. Its seven-action weekly plan may include local surrogates, town halls, issue ads, fundraising, debate preparation, downballot support, and recovery days alongside rallies and field operations, with paid media attached to ad actions so the log remains within seven entries.
 
-Repeated ads, promises, and message work build an issue signal. The opponent can challenge that message; candidates with different campaign styles respond in different ways. If you make a promise and later change your position on the same issue, that promise becomes a recorded attack line. A state-specific promise can be used in that state; a national debate pledge without a state is used in a close competitive state.
+Repeated advertisements, promises, and messaging establish an issue profile that the opponent can challenge. If a campaign makes a promise and later shifts its stance on that issue, the contradiction becomes a recorded attack line (applied locally for state-specific pledges or in a competitive state for national debate pledges).
 
-Your recent focus fades over time, so the opponent’s response changes as polling and campaign attention shift. Check the rival log to see where they are campaigning and what they are answering. Libertarian and Green campaigns also set their own weekly goals: build toward the modeled national 5% vote-share threshold, protect it when support is close, or consolidate in states where their ticket is already strongest. The rival log shows which goal is guiding their state targeting.`,
+Because recent campaign focus decays over time, opponent targeting shifts as polling evolves. The rival log summarizes where the opponent is active and which issues it is contesting. Libertarian and Green campaigns follow separate weekly objectives: building toward the modeled 5% national threshold, defending it when close, or consolidating support in their strongest states.`,
   },
   {
     slug: 'incidents-and-news-desk',
     title: 'Campaign incidents and the News Desk',
     section: 'Campaign',
-    body: `The News Desk is a passive briefing. Reading or dismissing a story does not apply its effects again.
+    body: `The News Desk functions as a read-only briefing. Opening or dismissing a story does not re-apply its mechanical effects.
 
-Contextual decisions require a committed campaign result with matching evidence. An ad result, a debate answer or a broken promise can produce a decision when its exact conditions are met. A rival can take advantage of a neglected close state starting in campaign week ten. If the movement can be resolved, that interruption takes five points from the player's margin before the response is shown. Unverified ballot and access scenarios stay off.
+Contextual decision cards require a committed campaign outcome with matching recorded evidence, such as an ad result, a debate response, or a broken promise. Beginning in campaign week ten, an opponent can exploit a neglected competitive state; if resolved, that interruption deducts five points from the player's margin before presenting response options. Unverified ballot and access scenarios remain disabled.
 
-Ordinary weeks target one, two, or three cards with 10%, 30%, and 60% probabilities. Week one has no decisions and the final week has five slots. Later cards arrive at their action checkpoints. An incident earned this week can appear at the next eligible checkpoint. An empty checkpoint is recorded in the campaign log. Ending the week gives up the remaining actions and presents any due decisions before the week closes.`,
+Standard weeks schedule one, two, or three decision cards with 10%, 30%, and 60% probabilities, respectively. Week one has no decision cards and the final week contains five slots. Earned incidents appear at subsequent action checkpoints, and empty checkpoints are noted in the campaign log. Ending a week early forfeits unused actions and resolves any remaining due decisions before the week closes.`,
   },
   {
     slug: 'super-pac-weekly-pressure',
     title: 'Super PAC pressure',
     section: 'Campaign',
-    body: `Independent groups buy issue ads in states that match their issue, party and regional priorities. Open the weekly campaign log to see placement totals, issue and state breakdowns, and grouped detail by PAC, state, issue and ad type.
+    body: `Independent expenditure groups purchase issue advertisements in states aligned with their issue, party, and regional priorities. The weekly campaign log reports total spending along with breakdowns by PAC, state, issue, and ad format.
 
-Outside ads operate at one-fifth of campaign ad strength. They create general campaign fatigue in the states where they air. A weekly summary is filed once; loading a save does not air those ads again.`,
+Outside advertisements operate at one-fifth the strength of official campaign buys and contribute to general campaign fatigue in the states where they air. Weekly summaries are recorded once per week, and reloading a saved game does not re-apply outside placements.`,
   },
   {
     slug: 'party-factions',
     title: 'Party factions, crises, and milestones',
     section: 'Campaign',
-    body: `Your party’s factions have separate **0–100 standing**. Their names, priorities, and routine benefits depend on your party: organizers affect field work and turnout, labor improves operations in its priority states, moderates improve persuasion, officials help with campaign coordination, and donors affect income. High standing increases the relevant benefit; faction changes also reflect campaign actions and choices. Organizer, labor, moderate, official, donor, faith, youth, climate, and ballot-access strengths use separate effect curves instead of one shared faction bonus. The faction panel shows specialist reach, including faith-supported turnout, youth volunteer reach, climate promises, and third-party ballot-access work.
+    body: `Each party's internal factions maintain individual **0 to 100 standing** scores. Faction names, priorities, and routine bonuses vary by party: organizers support field work and turnout, labor strengthens operations in priority states, moderates aid persuasion, party officials assist with campaign coordination, and donors influence campaign income. Higher standing strengthens the corresponding bonus, and faction standing updates in response to actions and event choices. Organizer, labor, moderate, official, donor, faith, youth, climate, and ballot-access groups each follow separate effect curves rather than a single shared bonus. The faction panel also displays specialist reach, including faith-based turnout, youth volunteer reach, climate pledges, and third-party ballot-access work.
 
-A faction can trigger its **0-support crisis** once per campaign when its standing crosses to zero. The campaign applies the faction-specific loss immediately, then queues a response card. That loss can include weaker voter support or turnout, reduced field or downballot strength, lost funds, or lower income. The ongoing crisis penalty remains until that faction’s standing is rebuilt to at least 20. A response can begin repairing the relationship, but it cannot undo damage already applied.
+A faction triggers its **0-support crisis** once per campaign if its standing reaches zero. The associated penalty applies immediately before queuing a response card, potentially reducing voter support, turnout, field or downballot strength, cash reserves, or weekly income. Ongoing crisis penalties persist until faction standing recovers to at least 20. Response choices can begin restoring standing, though they do not reverse penalties already applied.
 
-A faction can also trigger its **100-support milestone** once per campaign when standing reaches 100. The next response card offers faction-specific ways to deploy its boost, such as a volunteer operation, targeted turnout, downballot coordination, media support, or a short capped income increase. The card uses the existing decision queue and does not replace national news or exceed the week’s event schedule.
+A faction triggers its **100-support milestone** once per campaign upon reaching maximum standing. The follow-up card offers faction-specific deployment options, such as a volunteer operation, targeted turnout, downballot coordination, media backing, or a short-term capped income boost. These cards use the normal decision queue without replacing national news or exceeding the weekly event limit.
 
-The campaign also presents one-time conflict cards that pit two valid party factions against each other. For example, the Democratic labor-versus-suburbs card asks you to choose between a stronger workplace pledge and flexible language for competitive districts; the Republican faith-versus-business card weighs a social-policy commitment against the economic message. Donor-versus-activist cards can trade a platform change for a major fundraising event. These choices change faction standing, voter support, and campaign resources.
+Campaigns may also draw one-time internal conflict cards pitting two party factions against each other, such as labor versus suburban moderates for Democrats or social conservatives versus business groups for Republicans, as well as donor-versus-activist trade-offs. Each choice adjusts faction standing, voter support, and campaign resources.
 
-Milestone keys and active crises are saved with the campaign. Reaching the same boundary again does not repeat that milestone; a faction’s 0 and 100 milestones are tracked separately.`,
+Milestone flags and active crisis states are stored in campaign saves. Crossing a boundary again does not re-trigger a completed milestone, and 0-support and 100-support milestones are tracked independently.`,
   },
   {
     slug: 'candidate-ratings',
     title: 'Candidate skill ratings',
     section: 'Reference',
-    body: `Each candidate card lists four ratings from **1 to 20**: debate, speech, rally, and corruption. These summarize candidate strengths for comparing the field. The rating scale is balanced across all candidates: each category averages **10**, with only a handful of 1s and 20s across the whole field.
+    body: `Every candidate profile lists four ratings on a **1 to 20** scale: debate, speech, rally, and corruption. These figures provide a quick comparison across the candidate field. The scale is calibrated so that each category averages **10** across all candidates, with only a few ratings at the 1 or 20 extremes.
 
-The ratings complement the candidate’s regional, national, and issue modifiers. They are not a polling forecast by themselves, and a strong rating does not erase a poor policy fit, a bad event, or a weak state strategy.`,
+Skill ratings supplement each candidate's regional, national, and issue modifiers. They do not function as a standalone polling forecast, and high ratings do not offset poor policy alignment, adverse events, or ineffective state targeting.`,
   },
   {
     slug: 'synthetic-voters',
     title: 'The voter model',
     section: 'Reference',
-    body: `State issue fit, coalition estimates, and ballot totals use a versioned synthetic electorate sample. Each modeled voter has an individual issue-position profile and can belong to several overlapping groups such as an age range, education level, ideology, religion, or racial group. A voter who belongs to three groups is still one voter; group estimates are not added together.
+    body: `State policy alignment, coalition estimates, and ballot totals are computed from a versioned synthetic electorate sample. Each modeled voter holds an individual issue-position profile and may belong to multiple overlapping demographic or ideological groups (such as age brackets, education tiers, ideology, religion, or race). Overlapping group memberships are not double-counted; each modeled voter represents a single voter.
 
-The profiles feed group support and the coalition response to policy changes. National generic-ballot news is redistributed by state using an even blend of partisan fit and agreement with the issue. Ballot totals use modeled state vote counts, while polling margins also reflect candidate quality, state leans, campaign work, news, and sampling noise. The campaign map shows first-choice voter preferences. Turnout affects the count of Election Day ballots and the early votes recorded at each earlier checkpoint.` ,
+Voter profiles determine demographic support and coalition responses to position changes. National generic-ballot news is distributed across states using an equal blend of partisan fit and issue alignment. Final ballot totals reflect modeled state vote counts, while polling margins incorporate candidate modifiers, state baselines, campaign work, news, and sampling error. The campaign map displays first-choice voter preferences, and turnout determines Election Day ballot counts alongside early votes locked in at prior checkpoints.`,
   },
   {
     slug: 'developer-actions',
     title: 'Developer actions',
     section: 'Reference',
-    body: `The local developer panel is for testing. Press **Ctrl/Cmd + Shift + D** and select **DEV** in the game header. It can inject an event, adjust campaign funds, persuade swing states or the whole map, raise turnout, restore actions, and clear fatigue.
+    body: `The local developer panel is intended for testing and scenario inspection. Pressing **Ctrl/Cmd + Shift + D** and selecting **DEV** in the header opens controls to inject events, adjust campaign funds, modify state or national persuasion, adjust turnout, restore weekly actions, and clear fatigue.
 
-These controls change the campaign state immediately. Use them to inspect events and mechanics or to move quickly through scenarios; developer actions can make a run unsuitable for comparing normal campaign scores.`,
+Because these actions alter campaign state directly, using developer controls makes a run unsuitable for standard score comparisons.`,
   },
   {
     slug: 'easter-eggs',
-    title: 'The deck with no business being here',
+    title: 'Rare unscheduled event cards',
     section: 'Mechanics',
-    body: `There are cards in the deck that should not exist. They are extremely rare, they are not balanced, and they were not reviewed by anyone.
+    body: `The event deck contains a small set of extremely rare, unscheduled novelty cards that sit outside standard balance parameters.
 
-You will know one when it happens. Nobody else will believe you.
-
-The **developer panel** — the DEV button in the header, admin only, or ctrl/cmd + shift + D on any device — can force a card into the open week, hand you cash, and shows the deck's full inventory.`,
+These cards trigger at very low probability during ordinary play, and the **developer panel** (accessible via the DEV header button or Ctrl/Cmd + Shift + D) can inspect the full deck inventory or force a specific card into the current week for testing.`,
   },
 ];
 

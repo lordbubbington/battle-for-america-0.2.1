@@ -5248,9 +5248,11 @@ export function loadGame() {
     for (const field of ['staffActionReceipts', 'staffBriefingRecommendations', 'staffUpkeepReceiptIds', 'staffContractEffectReceiptIds', 'build35EventChoiceReceiptIds']) {
       loaded[field] = Array.isArray(loaded[field]) ? loaded[field] : [];
     }
-    const activeAdvisors = new Set(loaded.staffing.traditionalActiveIds);
-    loaded.staffing.agendaByWeek = Object.fromEntries(Object.entries(loaded.staffing.agendaByWeek).filter(([, agenda]) =>
-      agenda.actionId !== 'endorsement' || agenda.status === 'consumed'));
+    const activeAdvisors = new Set(loaded.staffing?.traditionalActiveIds || []);
+    if (loaded.staffing?.agendaByWeek) {
+      loaded.staffing.agendaByWeek = Object.fromEntries(Object.entries(loaded.staffing.agendaByWeek).filter(([, agenda]) =>
+        agenda.actionId !== 'endorsement' || agenda.status === 'consumed'));
+    }
     loaded.candidateEvents = candidateEventState(parsed.candidateEvents);
     migrateBuild40Decisions(loaded, parsed);
     loaded.staffBriefingRecommendations = loaded.staffBriefingRecommendations.filter((entry) => activeAdvisors.has(entry?.staffId) && entry.actionId !== 'endorsement');

@@ -38,7 +38,7 @@ export const EASTER_EGGS = [
             w: 1,
             effects: { libSwap: true },
             outcome:
-              'While your campaign sits in a secure briefing room waiting for a decision that never comes, the Libertarian nominee — who owns eleven air-to-air missile silos, a converted Cessna and a strong opinion about federal airspace — flies up and shoots the mothership down over the Panhandle, on camera, in a windbreaker. The country spends the week deciding he should be president. The polls swap your two tickets overnight and nobody asks you about the T-shirts again.',
+              'While your campaign sits in a secure briefing room waiting for a decision that never comes, the Libertarian nominee, who owns eleven air-to-air missile silos, a converted Cessna, and a strong opinion about federal airspace, flies up and shoots the mothership down over the Panhandle, on camera, in a windbreaker. The country spends the week deciding he should be president. The polls swap your two tickets overnight and nobody asks you about the T-shirts again.',
           },
         ],
       },
@@ -91,7 +91,7 @@ export const EASTER_EGGS = [
         detail: 'Tested, reliable, and about forty years past its sell-by date.',
         effects: { mom: -2, funds: 5, risk: 0.3 },
         outcome:
-          'Three sentences about atmospheric optics and then a pivot to insulin prices. It works for a day. Then a local anchor holds a weather balloon up to a photograph of the seam, live, for ninety seconds, in complete silence.',
+          'Three sentences about atmospheric refraction followed by a quick pivot to insulin prices. It works for a day. Then a local anchor holds a weather balloon up to a photograph of the seam, live, for ninety seconds, in complete silence.',
       },
       {
         label: 'Announce a federal commission on the nature of reality',
@@ -164,7 +164,7 @@ export const EASTER_EGGS = [
             w: 1,
             effects: { mom: 12, region: { northeast: 1.2 } },
             outcome:
-              'You rewrite the tariff speech in one night and it is the best thing you have said all year — plain, generous, unafraid. The Northeast, which had written you off in July, comes back one county at a time. Nobody can explain where the language came from and you never tell them.',
+              'You rewrite the tariff speech in one night and it is one of the strongest speeches of your campaign, delivered plainly and without notes. The Northeast, which had written you off in July, comes back one county at a time. Nobody can explain where the language came from and you never tell them.',
           },
           {
             w: 1,

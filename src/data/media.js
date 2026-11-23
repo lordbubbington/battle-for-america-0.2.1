@@ -49,7 +49,7 @@ export function mediaEnvironment(abbr) {
   const note =
     flavor?.note ||
     (outlets <= 2
-      ? 'Thin press pack: a story breaks fast, spreads to the neighbours, and burns out in a fortnight.'
+      ? 'Thin press corps: local stories break quickly, spill into neighboring states, and fade within two weeks.'
       : 'Enough outlets to keep a story alive for weeks, and enough noise that it is hard to start one.');
   return { abbr, name: state.name, label, note, outlets, attention, spread, costMul };
 }

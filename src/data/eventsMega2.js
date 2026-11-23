@@ -240,7 +240,7 @@ export const MEGA_EVENTS_B = [
     tone: 'wild',
     weight: 3,
     kicker: 'One signature, 300,000 members',
-    text: 'The state police association will endorse both candidates — but only if you sign a pledge on staffing, training, and qualified immunity. One of those is a promise you cannot keep and one of them is a fight you have been avoiding.',
+    text: 'The state police association offered an endorsement contingent on signing a pledge on staffing, training, and qualified immunity. One of those is a promise you cannot keep and one of them is a fight you have been avoiding.',
     choices: [
       {
         label: 'Sign the whole pledge',
@@ -472,7 +472,7 @@ export const MEGA_EVENTS_B = [
     tone: 'hope',
     weight: 2,
     kicker: 'One rocket, 30 million viewers',
-    text: 'A commercial launch to the Moon — the first crewed attempt from American soil in years — is going up in prime time, and the company has invited you to watch from mission control. There is no political content in this event whatsoever, which is exactly why everyone will read politics into it.',
+    text: 'A commercial crewed launch to the Moon, the first from American soil in years, is scheduled for prime time, and the company has invited you to watch from mission control. There is no political content in this event whatsoever, which is exactly why everyone will read politics into it.',
     choices: [
       {
         label: 'Go and say almost nothing',
@@ -591,7 +591,7 @@ export const MEGA_EVENTS_B = [
     text: 'The last president of your party has offered to do a rally in the state where it would help most and, simultaneously, hurt most. Their base loves them. The 8% of the electorate you actually need does not.',
     choices: [
       {
-        label: 'Yes — take the rally',
+        label: 'Accept the invitation and hold the rally',
         detail: 'Base first, persuadable later.',
         effects: { mom: 7, turnout: { PA: 2, MI: 2 }, region: { midwest: -0.4 } },
         outcome: 'Twenty thousand people and a flawless field operation for a week. The suburban clips are already being cut by the other side.',

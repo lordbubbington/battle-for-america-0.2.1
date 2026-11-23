@@ -188,7 +188,7 @@ const BASE_EVENTS = [
         outcome: 'The apology lands. The story dies in three days instead of three weeks. Your base grumbles about weakness.',
       },
       {
-        label: 'Double down — you meant it then, you mean it now',
+        label: 'Stand by the original statement',
         detail: 'Convert the scandal into a rally chant.',
         effects: { mom: 11, oppMom: 4, region: { south: -0.9, west: 0.5 }, risk: 0.45 },
         outcome: 'The base goes feral in the best way. Suburban women go feral in the other way. The map gets narrower and much louder.',
@@ -208,7 +208,7 @@ const BASE_EVENTS = [
     tone: 'scandal',
     weight: 4,
     kicker: 'Someone on your payroll',
-    text: 'A strategy memo has leaked in full — including the line "our candidate cannot be trusted with an unscripted lunch." Your campaign manager wants to hunt the leaker. Your pollster wants to fix the actual problem.',
+    text: 'An internal strategy memo leaked in full today, including a line stating that "our candidate cannot be trusted with an unscripted lunch." Your campaign manager wants to investigate the leak. Your pollster wants to fix the actual problem.',
     choices: [
       {
         label: 'Do a week of completely unscripted events',
@@ -237,7 +237,7 @@ const BASE_EVENTS = [
     tone: 'hope',
     weight: 6,
     kicker: 'Rally, 9,000 people, 40,000 streaming',
-    text: 'The biggest celebrity in the country — a genuinely beloved one, not a divisive one — wants to headline for you. They have one condition: they choose the venue, the speech, and the running mate joke.',
+    text: 'One of the most popular entertainment figures in the country offered to headline a rally for your campaign. They have one condition: they choose the venue, the speech, and the running mate joke.',
     choices: [
       {
         label: 'Yes. Give them the whole rally.',
@@ -252,7 +252,7 @@ const BASE_EVENTS = [
         outcome: 'It is tasteful, well-produced, and instantly forgettable. You also hold the news cycle for exactly zero minutes.',
       },
       {
-        label: 'Politely decline — stay serious',
+        label: 'Politely decline and keep the focus on policy',
         detail: 'No celebrities. Just policy.',
         effects: { mom: -5, region: { midwest: 0.9, south: 0.4 } },
         outcome: 'Rural county chairs thank you for it. Every producer in America now thinks you are stiff.',
@@ -530,7 +530,7 @@ const BASE_EVENTS = [
     text: 'You called a town by the wrong name, then doubled down, then made a joke about it, then made the joke again at a second event. It is now a meme, a T-shirt, and a question from every reporter.',
     choices: [
       {
-        label: 'Lean in — go back and do an event there',
+        label: 'Return to the state for a follow-up event',
         detail: 'Apologize by showing up.',
         effects: { mom: 7, funds: -4, region: { midwest: 1.1 } },
         outcome: 'The town adopts you. You are gifted a key, a jersey, and an extremely large pie.',
@@ -556,7 +556,7 @@ const BASE_EVENTS = [
     tone: 'crisis',
     weight: 2,
     kicker: 'Seen at Walter Reed, 6:12am',
-    text: 'You are fine — the doctors say you are fine — but you were photographed going into a hospital at dawn and the internet has already held your funeral twice.',
+    text: 'Physicians confirmed you are in good health, but photographs of a dawn hospital visit circulated online and the internet has already held your funeral twice.',
     choices: [
       {
         label: 'Release your full medical records',
@@ -745,7 +745,7 @@ const BASE_EVENTS = [
         outcome: 'It is devastating, accurate, and gives your opponent an obvious reply about your own donors.',
       },
       {
-        label: 'Stay quiet — the economy is not your lane',
+        label: 'Decline comment and pivot away from the economic report',
         detail: 'Let it burn itself out.',
         effects: { mom: -7, funds: 6 },
         outcome: 'Crypto donors thank you. A very online, very motivated generation decides you do not care about them.',

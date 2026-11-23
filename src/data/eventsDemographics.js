@@ -19,7 +19,7 @@ export const DEMOGRAPHIC_EVENTS = [
         detail: 'The base finally hears the word it has been waiting for.',
         effects: { mom: 6, groups: { muslim: 14, irreligious: 7, jewish: -10, evangelical: -9 } },
         outcome:
-          'Muslim and secular voters come back into the fold in Michigan and Minnesota, and the clip plays on a loop in every suburban church in Ohio. Two donor calls are cancelled before you reach the car.',
+          'Muslim and secular voters come back into the fold in Michigan and Minnesota, and the clip plays on a loop in every suburban church in Ohio. Two donor calls are canceled before you reach the car.',
       },
       {
         label: 'Stand with Israel, without a caveat',
@@ -37,10 +37,10 @@ export const DEMOGRAPHIC_EVENTS = [
     tone: 'hope',
     weight: 2,
     kicker: 'Prime time, all networks',
-    text: 'Nobody expected you to buy forty minutes of network air and then actually use them. You stand in front of one camera and one chart, and you make an argument about who this country is for. By the time the networks cut back in, every demographic firm in Washington is rerunning its cross-tabs, because the numbers moved for every single group at once — some toward you, some away.',
+    text: 'Nobody expected you to buy forty minutes of network air and then actually use them. You stand in front of one camera and one chart, and you make an argument about who this country is for. By the time the networks cut back in, every demographic firm in Washington is rerunning its cross-tabs, because the numbers moved for every single group at once, shifting some toward your ticket and others away.',
     choices: [
       {
-        label: 'The coalition speech — name every group, promise every group',
+        label: 'Deliver a broad coalition address covering every major constituency',
         detail: 'Broad, generous, and expensive to live up to.',
         effects: {
           mom: 5,
@@ -66,7 +66,7 @@ export const DEMOGRAPHIC_EVENTS = [
           'The tent gets wider and the tent gets louder. Evangelical radio spends the next morning calling it a list of demands, which is exactly what your field operation wanted them to say.',
       },
       {
-        label: 'The fight speech — pick your people and dare the rest',
+        label: 'Deliver a sharp base-mobilization speech targeting core supporters',
         detail: 'Narrow, hot, and it turns out your people are the loud ones.',
         effects: {
           mom: 7,
@@ -89,7 +89,7 @@ export const DEMOGRAPHIC_EVENTS = [
           },
         },
         outcome:
-          'You trade the outer edge of the coalition for the centre of your own base, and your own base rewards you with money and noise. Three groups you had at 55% start looking up the other party’s phone number.',
+          'You trade the outer edge of the coalition for the center of your own base, and your own base rewards you with money and noise. Three groups you had at 55% start looking up the other party’s phone number.',
       },
     ],
   },

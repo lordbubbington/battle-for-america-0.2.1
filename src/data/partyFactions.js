@@ -56,7 +56,7 @@ export const PARTY_FACTIONS = Object.freeze({
     faction('suburbs', 'New Democrat Moderates', 'wing', 'moderate-persuasion', 'College-educated swing voters who will leave at the first whiff of a circus.', {
       groupIds: ['moderate'], pull: -0.5, icon: 'civic-building', color: '#9DB8FF',
     }),
-    faction('officials', 'Democratic Party Leadership', 'officials', 'downballot-coordination', 'Governors, mayors and the caucus. They lend you their machines — for now.', {
+    faction('officials', 'Democratic Party Leadership', 'officials', 'downballot-coordination', 'Governors, mayors, and congressional leaders who coordinate state party machinery and downballot operations.', {
       groupIds: ['moderate'], pull: -0.2, icon: 'civic-building', color: '#F7C145',
     }),
     faction('donors', 'Democratic Donor Network', 'donors', 'income', 'Bundlers and the big checks. They fund the week, and they keep score.', {

@@ -40,7 +40,7 @@ export const EXTRA_EVENTS = [
     tone: 'scandal',
     weight: 3,
     kicker: 'One phone call, thirty-two million',
-    text: 'The largest donor in your party will wire $32M by Friday — if you soften your tax position and drop the phrase "corporate price gouging" from the stump. He is not subtle about the terms.',
+    text: 'The largest donor in your party offered to wire $32M by Friday if you soften your tax position and drop the phrase "corporate price gouging" from the stump. He is not subtle about the terms.',
     choices: [
       {
         label: 'Take the money and soften the language',
@@ -188,7 +188,7 @@ export const EXTRA_EVENTS = [
     text: 'A moderator asks, plainly, what you would do about a trust fund that runs dry in 2033. Everyone in Washington has an answer they will not say out loud. You have thirty seconds.',
     choices: [
       {
-        label: 'Name one fix out loud — and name who pays',
+        label: 'Propose one specific fix and explain how to pay for it',
         detail: 'Honest. Expensive. Televised.',
         effects: { mom: 6, risk: 0.4, region: { northeast: 0.6, south: -0.8 } },
         outcome: 'You are the only honest person on that stage. Every senior in Florida now has a mailer with your face and a number on it.',
@@ -249,7 +249,7 @@ export const EXTRA_EVENTS = [
         label: 'Confirm it and stand by every word',
         detail: 'Refuse to flinch.',
         effects: { mom: 6, risk: 0.72, region: { northeast: -0.7 } },
-        outcome: 'The story is dead by Thursday — unless a second transcript exists, in which case it never dies at all.',
+        outcome: 'Coverage fades by Thursday, though aides warn the story will return immediately if a second transcript surfaces.',
       },
       {
         label: 'Deny it and blame the leak',
@@ -301,7 +301,7 @@ export const EXTRA_EVENTS = [
     tone: 'hope',
     weight: 3,
     kicker: 'With conditions attached',
-    text: 'Eleven retired flag officers will endorse you on Monday — if you let them co-write the defense section of your platform. Your progressive foreign-policy surrogates are already texting each other about it.',
+    text: 'Eleven retired flag officers offered to endorse your ticket Monday if you allow them to co-write the defense section of your platform. Your progressive foreign-policy surrogates are already texting each other about it.',
     choices: [
       {
         label: 'Accept the endorsement and the conditions',
@@ -330,13 +330,13 @@ export const EXTRA_EVENTS = [
     tone: 'hope',
     weight: 4,
     kicker: 'You did not know the camera was there',
-    text: 'A phone video of you helping a stranded driver for twenty minutes — no press, no photographers — has ninety million views in two days. The internet has decided you are a decent person. The clock is now running.',
+    text: 'A phone video of you helping a stranded driver for twenty minutes with no press present drew ninety million views in two days. The internet has decided you are a decent person. The clock is now running.',
     choices: [
       {
         label: 'Cut it into an ad and buy every market',
         detail: 'Cash the moment in.',
         effects: { mom: 9, funds: -7, risk: 0.25 },
-        outcome: 'The ad is everywhere within a week — and so is the argument that you monetized a nice moment. The two stories fight over the same coverage.',
+        outcome: 'The spot airs widely within a week, alongside criticism from rival campaigns that you turned a private moment into paid media.',
       },
       {
         label: 'Say nothing and let it breathe',
