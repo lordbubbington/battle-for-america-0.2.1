@@ -95,7 +95,7 @@ function notify() {
 }
 
 function resolveModPortrait(modId, portraitPath) {
-  if (typeof portraitPath !== 'string' || !portraitPath.trim()) return '/art/candidates/expressions/moore-smile.png';
+  if (typeof portraitPath !== 'string' || !portraitPath.trim()) return '/art/candidates/moore.png';
   const trimmed = portraitPath.trim();
   if (/^(https?:|data:|blob:|bfa-mod:|\/)/i.test(trimmed)) return trimmed;
   if (trimmed.startsWith('assets/')) return `bfa-mod://${modId}/${trimmed}`;
@@ -664,7 +664,7 @@ export function buildExampleModBundle() {
           party: 'dem',
           weight: 4,
           color: '#3D5AF1',
-          portrait: '/art/candidates/expressions/moore-smile.png',
+          portrait: '/art/candidates/moore.png',
           bio: 'An example modded Democratic candidate demonstrating custom national and regional modifiers.',
           strengths: ['Strong Mountain West appeal', 'High-energy grassroots rallies'],
           weaknesses: ['Untested in national debates', 'Lower East Coast name ID'],

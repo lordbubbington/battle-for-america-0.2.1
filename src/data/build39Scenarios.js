@@ -168,22 +168,14 @@ const nominee = (id, name, short, state, home, title, bio, extra = {}) => Object
 });
 
 export const SCENARIO_CANDIDATES = Object.freeze({
-  progressive: nominee('progressive', 'Carmen Vega', 'Vega', 'California', 'CA', 'The Reform Organizer', 'A fictional organizer leading a nationwide progressive campaign.'),
-  maga: nominee('maga', 'Grant Mercer', 'Mercer', 'Florida', 'FL', 'The Populist Broadcaster', 'A fictional broadcaster mobilizing the MAGA party across the country.'),
   'farmer-labor': nominee('farmer-labor', 'Amy Klobuchar', 'Klobuchar', 'Minnesota', 'MN', 'Farmer–Labor Standard-Bearer', 'Minnesota senator leading the Midwest Farmer–Labor coalition.', { baseCandidateId: 'klobuchar' }),
-  localist: nominee('localist', 'Eleanor March', 'March', 'Vermont', 'VT', 'The Town Meeting Candidate', 'A fictional municipal reformer leading the Boston Tea Party across New England.', { aiOnly: true, fictional: true }),
+  localist: nominee('localist', 'Angus King', 'King', 'Maine', 'ME', 'Boston Tea Party Nominee', 'Independent Maine senator leading the New England Boston Tea Party coalition.', { aiOnly: true, portrait: '/art/candidates/localist.png' }),
   'west-coast': nominee('west-coast', 'Gavin Newsom', 'Newsom', 'California', 'CA', 'West Coast Alliance Nominee', 'California governor heading the West Coast Alliance ticket across the Pacific states.', { baseCandidateId: 'newsom' }),
   'lone-star': nominee('lone-star', 'Greg Abbott', 'Abbott', 'Texas', 'TX', 'Lone Star Alliance Nominee', 'Texas governor anchoring the Lone Star Alliance across Texas and its neighbors.', { baseCandidateId: 'abbott' }),
   appalachian: nominee('appalachian', 'Andy Beshear', 'Beshear', 'Kentucky', 'KY', 'Appalachian Commons Nominee', 'Kentucky governor rallying the Appalachian Commons across the mountain and border states.', { baseCandidateId: 'beshear' }),
   'southern-heritage': nominee('southern-heritage', 'Ron DeSantis', 'DeSantis', 'Florida', 'FL', 'Southern Heritage Nominee', 'Florida governor leading the far-right Southern Heritage Party across the Deep South.', { baseCandidateId: 'desantis' }),
-  'alaskan-ind': nominee('alaskan-ind', 'Mara Kitt', 'Kitt', 'Alaska', 'AK', 'Alaskan Independence Nominee', 'A fictional Alaska organizer advocating Alaskan independence.', { aiOnly: true, fictional: true }),
-  'hawaiian-ind': nominee('hawaiian-ind', 'Leilani Kealoha', 'Kealoha', 'Hawaii', 'HI', 'Hawaiian Independence Nominee', 'A fictional Hawaii organizer advocating Hawaiian independence.', { aiOnly: true, fictional: true }),
-  deseret: nominee('deseret', 'Evan McMullin', 'McMullin', 'Utah', 'UT', 'Deseret Party Nominee', 'Utah independent and former presidential contender leading the Deseret Party across the Mountain West.', { portrait: '/art/candidates/expressions/mcmullin-smile.png' }),
-  'rocky-mountain': nominee('rocky-mountain', 'Jordan Mercer', 'Mercer', 'Colorado', 'CO', 'Rocky Mountain Nominee', 'A fictional Colorado coalition builder leading the Rocky Mountain Party.', { aiOnly: true, fictional: true }),
-  // Legacy 0.2.1 save compatibility only:
-  conservation: nominee('conservation', 'Rowan Pike', 'Pike', 'Montana', 'MT', 'The Public Lands Advocate', 'A fictional candidate building a Mountain West campaign around conservation and local stewardship.', { legacy: true }),
-  'favorite-mn': nominee('favorite-mn', 'Nora Lindholm', 'Lindholm', 'Minnesota', 'MN', 'Minnesota’s Favorite', 'A fictional independent with a coalition built through Minnesota civic institutions.'),
-  'favorite-ut': nominee('favorite-ut', 'Micah Hale', 'Hale', 'Utah', 'UT', 'Utah’s Favorite', 'A fictional independent who starts with a powerful Utah network.'),
-  'favorite-me': nominee('favorite-me', 'Elise Bouchard', 'Bouchard', 'Maine', 'ME', 'Maine’s Favorite', 'A fictional independent with support in Maine and across its New Hampshire border.'),
-  'favorite-la': nominee('favorite-la', 'Jules Broussard', 'Broussard', 'Louisiana', 'LA', 'Louisiana’s Favorite', 'A fictional independent focused on Louisiana and its immediate neighbors.'),
+  'alaskan-ind': nominee('alaskan-ind', 'Lisa Murkowski', 'Murkowski', 'Alaska', 'AK', 'Alaskan Independence Nominee', 'Alaska senator leading the Alaskan Independence Party ticket.', { aiOnly: true, portrait: '/art/candidates/alaskan-ind.png' }),
+  'hawaiian-ind': nominee('hawaiian-ind', 'Brian Schatz', 'Schatz', 'Hawaii', 'HI', 'Hawaiian Independence Nominee', 'Hawaii senator leading the Hawaiian Independence Party ticket.', { aiOnly: true, portrait: '/art/candidates/hawaiian-ind.png' }),
+  deseret: nominee('deseret', 'Evan McMullin', 'McMullin', 'Utah', 'UT', 'Deseret Party Nominee', 'Utah independent and former presidential contender leading the Deseret Party across the Mountain West.', { portrait: '/art/candidates/deseret.png' }),
+  'rocky-mountain': nominee('rocky-mountain', 'Jared Polis', 'Polis', 'Colorado', 'CO', 'Rocky Mountain Nominee', 'Colorado governor and former congressman leading the Rocky Mountain Party.', { aiOnly: true, portrait: '/art/candidates/rocky-mountain.png' }),
 });

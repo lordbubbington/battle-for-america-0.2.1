@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { publicAssetUrl } from '@/lib/publicAssetUrl';
 
 const ASSET_IDS = new Set([
@@ -19,7 +19,7 @@ export function SpotGlyph({ symbol, className = 'h-5 w-5', title = undefined }) 
       aria-label={title}
       aria-hidden={title ? undefined : true}
       className={`${className} shrink-0 object-contain`}
-      style={{ imageRendering: 'pixelated' }}
+      
     />
   );
 }
@@ -47,7 +47,7 @@ export default function SpotArt({ symbol, className = 'h-5 w-5', title = undefin
         draggable="false"
         aria-hidden="true"
         className={isPortrait ? 'relative h-[78%] w-[78%] rounded-full object-contain' : 'relative h-[68%] w-[68%] object-contain'}
-        style={{ imageRendering: 'pixelated' }}
+        
       />
     </span>
   );
