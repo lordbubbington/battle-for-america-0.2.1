@@ -1,0 +1,372 @@
+{
+  "generatedAt": "2026-11-23",
+  "totalAchievements": 36,
+  "achievements": [
+    {
+      "apiName": "ACH_WIN_CUPCAKE",
+      "internalId": "win_cupcake",
+      "displayName": "Walk in the Park",
+      "description": "Win a general election campaign on Cupcake difficulty.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_cupcake.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_WIN_EASY",
+      "internalId": "win_easy",
+      "displayName": "Smooth Sailing",
+      "description": "Win a general election campaign on Easy difficulty.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_easy.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_WIN_MEDIUM",
+      "internalId": "win_medium",
+      "displayName": "General Election Winner",
+      "description": "Win a general election campaign on Normal difficulty.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_medium.png",
+      "unlockCandidateIds": [
+        "jfk",
+        "teddy_roosevelt"
+      ]
+    },
+    {
+      "apiName": "ACH_WIN_HARD",
+      "internalId": "win_hard",
+      "displayName": "Hard-Fought Mandate",
+      "description": "Win a general election campaign on Hard difficulty.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_hard.png",
+      "unlockCandidateIds": [
+        "lbj",
+        "ford"
+      ]
+    },
+    {
+      "apiName": "ACH_WIN_BRUTAL",
+      "internalId": "win_brutal",
+      "displayName": "Against Steep Odds",
+      "description": "Win a general election campaign on Brutal difficulty.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_brutal.png",
+      "unlockCandidateIds": [
+        "fdr",
+        "reagan"
+      ]
+    },
+    {
+      "apiName": "ACH_WIN_NIGHTMARE",
+      "internalId": "win_nightmare",
+      "displayName": "Electoral Houdini",
+      "description": "Win a general election campaign on Nightmare difficulty.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_nightmare.png",
+      "unlockCandidateIds": [
+        "george_washington",
+        "lincoln"
+      ]
+    },
+    {
+      "apiName": "ACH_WIN_REALISTIC",
+      "internalId": "win_realistic",
+      "displayName": "Against the Current",
+      "description": "Win a general election campaign on Realistic difficulty.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_realistic.png",
+      "unlockCandidateIds": [
+        "clinton"
+      ]
+    },
+    {
+      "apiName": "ACH_WIN_DEM",
+      "internalId": "win_dem",
+      "displayName": "Blue White House",
+      "description": "Win the presidency as the Democratic Party nominee.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_dem.png",
+      "unlockCandidateIds": [
+        "obama"
+      ]
+    },
+    {
+      "apiName": "ACH_WIN_REP",
+      "internalId": "win_rep",
+      "displayName": "Red White House",
+      "description": "Win the presidency as the Republican Party nominee.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_rep.png",
+      "unlockCandidateIds": [
+        "trump"
+      ]
+    },
+    {
+      "apiName": "ACH_WIN_DEM_5",
+      "internalId": "win_dem_5",
+      "displayName": "Democratic Bench",
+      "description": "Win the presidency with five different Democratic nominees.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_dem_5.png",
+      "unlockCandidateIds": [
+        "carter"
+      ]
+    },
+    {
+      "apiName": "ACH_WIN_REP_5",
+      "internalId": "win_rep_5",
+      "displayName": "Republican Bench",
+      "description": "Win the presidency with five different Republican nominees.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_rep_5.png",
+      "unlockCandidateIds": [
+        "ghwb"
+      ]
+    },
+    {
+      "apiName": "ACH_WIN_DEM_10",
+      "internalId": "win_dem_10",
+      "displayName": "Big Tent Coalition",
+      "description": "Win the presidency with ten different Democratic nominees.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_dem_10.png",
+      "unlockCandidateIds": [
+        "hamilton"
+      ]
+    },
+    {
+      "apiName": "ACH_WIN_REP_10",
+      "internalId": "win_rep_10",
+      "displayName": "Grand Old Roster",
+      "description": "Win the presidency with ten different Republican nominees.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_rep_10.png",
+      "unlockCandidateIds": [
+        "clay"
+      ]
+    },
+    {
+      "apiName": "ACH_WIN_BOTH_MAJOR",
+      "internalId": "win_both_major",
+      "displayName": "Bipartisan Appeal",
+      "description": "Win the presidency as both a Democratic nominee and a Republican nominee.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_both_major.png",
+      "unlockCandidateIds": [
+        "eisenhower"
+      ]
+    },
+    {
+      "apiName": "ACH_WIN_LIB",
+      "internalId": "win_lib",
+      "displayName": "Liberty Rising",
+      "description": "Win the presidency as the Libertarian Party nominee.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_lib.png",
+      "unlockCandidateIds": [
+        "jefferson"
+      ]
+    },
+    {
+      "apiName": "ACH_WIN_GRN",
+      "internalId": "win_grn",
+      "displayName": "Green Breakthrough",
+      "description": "Win the presidency as the Green Party nominee.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_grn.png",
+      "unlockCandidateIds": [
+        "eugene_debs"
+      ]
+    },
+    {
+      "apiName": "ACH_WIN_ALL_CANDIDATES",
+      "internalId": "win_all_candidates",
+      "displayName": "Complete Almanac",
+      "description": "Win the presidency with every playable candidate, including all unlocked nominees.",
+      "hidden": 0,
+      "icon": "/art/achievements/win_all_candidates.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_WIN_WITH_CHEATS",
+      "internalId": "win_with_cheats",
+      "displayName": "Plumbers Unit",
+      "description": "Win the presidency while using the developer cheats panel.",
+      "hidden": 1,
+      "icon": "/art/achievements/win_with_cheats.png",
+      "unlockCandidateIds": [
+        "nixon"
+      ]
+    },
+    {
+      "apiName": "ACH_MORNING_EDITION",
+      "internalId": "morning_edition",
+      "displayName": "Morning Edition",
+      "description": "Win the presidency after trailing by five or more points in national polling during the final four weeks.",
+      "hidden": 0,
+      "icon": "/art/achievements/morning_edition.png",
+      "unlockCandidateIds": [
+        "truman"
+      ]
+    },
+    {
+      "apiName": "ACH_HOUSE_RULES",
+      "internalId": "house_rules",
+      "displayName": "House Rules",
+      "description": "Win the presidency through a contingent House election after no candidate reaches 270 electoral votes.",
+      "hidden": 1,
+      "icon": "/art/achievements/house_rules.png",
+      "unlockCandidateIds": [
+        "jq_adams"
+      ]
+    },
+    {
+      "apiName": "ACH_SILENT_CAL",
+      "internalId": "silent_cal",
+      "displayName": "Silent Cal",
+      "description": "Win a campaign while leaving at least 40 percent of your weekly action budget unused, or finishing with at least $100M unspent.",
+      "hidden": 0,
+      "icon": "/art/achievements/silent_cal.png",
+      "unlockCandidateIds": [
+        "coolidge"
+      ]
+    },
+    {
+      "apiName": "ACH_FIGHTING_BOB",
+      "internalId": "fighting_bob",
+      "displayName": "Fighting Bob",
+      "description": "Win a campaign under Proportional or Mixed-Member Proportional House rules, or carry Wisconsin, Michigan, and Pennsylvania as a minor-party nominee.",
+      "hidden": 0,
+      "icon": "/art/achievements/fighting_bob.png",
+      "unlockCandidateIds": [
+        "la_follette"
+      ]
+    },
+    {
+      "apiName": "ACH_REGIONAL_270",
+      "internalId": "regional_270",
+      "displayName": "Sectional Majority",
+      "description": "Win at least 270 electoral votes as any party in Regional Party mode.",
+      "hidden": 0,
+      "icon": "/art/achievements/regional_270.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_FOUR_PARTY_270",
+      "internalId": "four_party_270",
+      "displayName": "Four-Way Majority",
+      "description": "Win at least 270 electoral votes as any party in Four-Party mode.",
+      "hidden": 0,
+      "icon": "/art/achievements/four_party_270.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_LANDSLIDE_400",
+      "internalId": "landslide_400",
+      "displayName": "Landslide",
+      "description": "Win at least 400 electoral votes in a single general election.",
+      "hidden": 0,
+      "icon": "/art/achievements/landslide_400.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_UNANIMOUS_MAP",
+      "internalId": "unanimous_map",
+      "displayName": "Unanimous Map",
+      "description": "Carry all fifty states and the District of Columbia for 538 electoral votes.",
+      "hidden": 1,
+      "icon": "/art/achievements/unanimous_map.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_EXACTLY_270",
+      "internalId": "exactly_270",
+      "displayName": "Exactly 270",
+      "description": "Win the presidency with the exact minimum of 270 electoral votes.",
+      "hidden": 0,
+      "icon": "/art/achievements/exactly_270.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_ELECTORAL_MATH",
+      "internalId": "electoral_math",
+      "displayName": "Electoral Math",
+      "description": "Win an Electoral College majority while finishing behind in the national popular vote.",
+      "hidden": 0,
+      "icon": "/art/achievements/electoral_math.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_POPULAR_MANDATE_EMPTY_HANDS",
+      "internalId": "popular_mandate_empty_hands",
+      "displayName": "Popular Mandate, Empty Hands",
+      "description": "Win the national popular vote by at least three points while losing the Electoral College.",
+      "hidden": 1,
+      "icon": "/art/achievements/popular_mandate_empty_hands.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_GOVERNING_TRIFECTA",
+      "internalId": "governing_trifecta",
+      "displayName": "Governing Trifecta",
+      "description": "Win the presidency alongside majorities in both the House and the Senate.",
+      "hidden": 0,
+      "icon": "/art/achievements/governing_trifecta.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_DOWNBALLOT_WAVE",
+      "internalId": "downballot_wave",
+      "displayName": "Downballot Wave",
+      "description": "Flip at least twenty-five House seats and four Senate seats in a single election.",
+      "hidden": 0,
+      "icon": "/art/achievements/downballot_wave.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_LONE_STAR_FLIP",
+      "internalId": "lone_star_flip",
+      "displayName": "Lone Star Flip",
+      "description": "Carry Texas on Election Night as the Democratic Party nominee.",
+      "hidden": 0,
+      "icon": "/art/achievements/lone_star_flip.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_FULL_CYCLE",
+      "internalId": "full_cycle",
+      "displayName": "Full Cycle",
+      "description": "Win a forty-four-week campaign beginning on January 1.",
+      "hidden": 0,
+      "icon": "/art/achievements/full_cycle.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_RUST_BELT_SWEEP",
+      "internalId": "rust_belt_sweep",
+      "displayName": "Rust Belt Sweep",
+      "description": "Carry Pennsylvania, Michigan, and Wisconsin in a winning general election.",
+      "hidden": 0,
+      "icon": "/art/achievements/rust_belt_sweep.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_EVERY_TOSSUP",
+      "internalId": "every_tossup",
+      "displayName": "Every Tossup",
+      "description": "Win every state decided by less than two points on Election Night, with at least three such states.",
+      "hidden": 0,
+      "icon": "/art/achievements/every_tossup.png",
+      "unlockCandidateIds": []
+    },
+    {
+      "apiName": "ACH_THE_SPOILER",
+      "internalId": "the_spoiler",
+      "displayName": "The Spoiler",
+      "description": "As a minor-party nominee, prevent either major party from reaching 270 electoral votes.",
+      "hidden": 1,
+      "icon": "/art/achievements/the_spoiler.png",
+      "unlockCandidateIds": []
+    }
+  ]
+}

@@ -2,6 +2,8 @@ import { BUILD40_SIX_TICKET_CANDIDATES } from './build40Elections.js';
 import { REGIONAL_EXISTING_NOMINEES, SCENARIO_PARTIES } from './build39Scenarios.js';
 import { BUILD39_CANDIDATES } from './build39Candidates.js';
 import { BUILD45_HISTORICAL_CANDIDATES } from './build45HistoricalCandidates.js';
+import { UNLOCKABLE_CANDIDATES } from './unlockableCandidates.js';
+import { isCandidateUnlocked } from '@/lib/achievements';
 import { SCENARIO_CANDIDATES } from './build39Scenarios.js';
 import { scenarioCandidateOptions } from '../lib/build39Scenarios.js';
 import { THIRD_CANDIDATES } from '@/data/thirdParties';
@@ -470,9 +472,88 @@ export const REPUBLICANS = [
   },
 ];
 
-export const ALL_CANDIDATES = [...DEMOCRATS, ...REPUBLICANS, ...THIRD_CANDIDATES, ...BUILD39_CANDIDATES, ...BUILD45_HISTORICAL_CANDIDATES, ...Object.values(SCENARIO_CANDIDATES)].map((candidate) => ({ ...candidate, ratings: CANDIDATE_RATINGS[candidate.id] || ('ratings' in candidate ? candidate.ratings : null) || { debate: 10, speech: 10, rally: 10, corruption: 10 } }));
+// Internal win-rate / strength tiers (1-5 for existing modern roster, 4-10 for unlockables).
+// Strictly internal metadata: never displayed in any UI component.
+const EXISTING_INTERNAL_TIERS = Object.freeze({
+  fdr: 9,
+  reagan: 9,
+  // Existing modern Democrats (1-5)
+  buttigieg: 5,
+  whitmer: 5,
+  ossoff: 5,
+  warnock: 5,
+  shapiro: 4,
+  newsom: 4,
+  moore: 4,
+  booker: 4,
+  beshear: 3,
+  klobuchar: 3,
+  harris: 2,
+  aoc: 2,
+  // Existing modern Republicans (1-5)
+  haley: 5,
+  kemp: 5,
+  burlison: 4,
+  abbott: 4,
+  desantis: 4,
+  rubio: 4,
+  timscott: 3,
+  youngkin: 3,
+  cruz: 2,
+  vance: 2,
+  carlson: 1,
+  trumpjr: 1,
+  // Existing minor-party roster (1-5)
+  massie: 5,
+  'rand-paul': 5,
+  'bernie-sanders': 5,
+  oliver: 4,
+  dsmith: 3,
+  termaat: 2,
+  ware: 2,
+  mcardle: 1,
+  sawant: 1,
+  baraka: 1,
+  stein: 1,
+});
 
-for (const candidate of [...DEMOCRATS, ...REPUBLICANS, ...THIRD_CANDIDATES]) candidate.ratings = ALL_CANDIDATES.find(({ id }) => id === candidate.id).ratings;
+const EXISTING_UNLOCK_REQUIREMENTS = Object.freeze({
+  fdr: 'win_brutal',
+  reagan: 'win_brutal',
+});
+
+const UNLOCKABLE_DEM = UNLOCKABLE_CANDIDATES.filter((c) => c.party === 'dem');
+const UNLOCKABLE_REP = UNLOCKABLE_CANDIDATES.filter((c) => c.party === 'rep');
+const EISENHOWER_BASE = UNLOCKABLE_CANDIDATES.find((c) => c.id === 'eisenhower');
+const EISENHOWER_REP = EISENHOWER_BASE
+  ? { ...EISENHOWER_BASE, party: 'rep', nat: EISENHOWER_BASE.repNat ?? EISENHOWER_BASE.nat }
+  : null;
+
+const enrichCandidate = (candidate) => ({
+  ...candidate,
+  ratings: CANDIDATE_RATINGS[candidate.id] || ('ratings' in candidate ? candidate.ratings : null) || { debate: 10, speech: 10, rally: 10, corruption: 10 },
+  internalTier: candidate.internalTier ?? EXISTING_INTERNAL_TIERS[candidate.id] ?? 3,
+  unlockAchievementId: candidate.unlockAchievementId ?? EXISTING_UNLOCK_REQUIREMENTS[candidate.id] ?? null,
+});
+
+export const ALL_CANDIDATES = [
+  ...DEMOCRATS,
+  ...REPUBLICANS,
+  ...UNLOCKABLE_CANDIDATES,
+  ...THIRD_CANDIDATES,
+  ...BUILD39_CANDIDATES,
+  ...BUILD45_HISTORICAL_CANDIDATES,
+  ...Object.values(SCENARIO_CANDIDATES),
+].map(enrichCandidate);
+
+for (const candidate of [...DEMOCRATS, ...REPUBLICANS, ...THIRD_CANDIDATES]) {
+  const full = ALL_CANDIDATES.find(({ id }) => id === candidate.id);
+  if (full) {
+    candidate.ratings = full.ratings;
+    candidate.internalTier = full.internalTier;
+    candidate.unlockAchievementId = full.unlockAchievementId;
+  }
+}
 
 export const CANDIDATE_BY_ID = ALL_CANDIDATES.reduce((acc, c) => {
   acc[c.id] = c;
@@ -480,14 +561,23 @@ export const CANDIDATE_BY_ID = ALL_CANDIDATES.reduce((acc, c) => {
 }, {});
 
 export const FIELD_BY_PARTY = {
-  dem: DEMOCRATS,
-  rep: REPUBLICANS,
+  dem: [...DEMOCRATS, ...UNLOCKABLE_DEM].map((c) => CANDIDATE_BY_ID[c.id] || enrichCandidate(c)),
+  rep: [
+    ...REPUBLICANS.map((c) => CANDIDATE_BY_ID[c.id] || enrichCandidate(c)),
+    ...UNLOCKABLE_REP.map((c) => CANDIDATE_BY_ID[c.id] || enrichCandidate(c)),
+    ...(EISENHOWER_REP ? [enrichCandidate(EISENHOWER_REP)] : []),
+  ],
   lib: ALL_CANDIDATES.filter((c) => c.party === 'lib'),
   grn: ALL_CANDIDATES.filter((c) => c.party === 'grn'),
 };
 
-export function byParty(party, scenarioId = 'standard') {
-  const field = FIELD_BY_PARTY[party] || scenarioCandidateOptions(scenarioId).filter((candidate) => candidate.party === party);
+export function byParty(party, scenarioId = 'standard', opts = {}) {
+  const includeLocked = Boolean(opts?.includeLocked);
+  const profile = opts?.profile;
+  const filterUnlocked = (list) => (includeLocked ? list : list.filter((c) => isCandidateUnlocked(c.id, profile)));
+  const field = filterUnlocked(
+    FIELD_BY_PARTY[party] || scenarioCandidateOptions(scenarioId).filter((candidate) => candidate.party === party)
+  );
   if (scenarioId === 'regional-parties') {
     const claimed = new Set(Object.values(REGIONAL_EXISTING_NOMINEES));
     if (party === 'dem' || party === 'rep') {
@@ -510,8 +600,10 @@ export function byParty(party, scenarioId = 'standard') {
   if (scenarioId !== 'six-party') return field;
   const assigned = BUILD40_SIX_TICKET_CANDIDATES[party] || [];
   const exclusive = new Set(Object.values(BUILD40_SIX_TICKET_CANDIDATES).flat());
-  return [...field.filter(({ id }) => !exclusive.has(id)),
-    ...assigned.map((id) => ({ ...CANDIDATE_BY_ID[id], party }))];
+  return filterUnlocked([
+    ...field.filter(({ id }) => !exclusive.has(id)),
+    ...assigned.map((id) => ({ ...CANDIDATE_BY_ID[id], party })),
+  ]);
 }
 
 const ABBR_BY_STATE_NAME = STATE_LIST.reduce((acc, s) => {

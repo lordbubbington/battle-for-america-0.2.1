@@ -73,6 +73,26 @@ export const CANDIDATE_FACTION_PROFILES = {
       multiplier: 1.15,
     }),
   }),
+  // Unlockable historical and bonus candidate faction profiles
+  obama: profile('dem', { activists: 60, labor: 58, suburbs: 64, officials: 62, donors: 64 }, 0, { perceivedCorruptionScore: 18 }),
+  clinton: profile('dem', { activists: 48, labor: 56, suburbs: 62, officials: 64, donors: 66 }, 0, { perceivedCorruptionScore: 48 }),
+  jfk: profile('dem', { activists: 56, labor: 62, suburbs: 62, officials: 60, donors: 62 }, 0, { perceivedCorruptionScore: 26 }),
+  carter: profile('dem', { activists: 54, labor: 52, suburbs: 56, officials: 48, donors: 46 }, 0, { perceivedCorruptionScore: 8 }),
+  lbj: profile('dem', { activists: 56, labor: 64, suburbs: 50, officials: 68, donors: 60 }, 0, { perceivedCorruptionScore: 44 }),
+  truman: profile('dem', { activists: 54, labor: 66, suburbs: 54, officials: 58, donors: 50 }, 0, { perceivedCorruptionScore: 16 }),
+  hamilton: profile('dem', { activists: 48, labor: 52, suburbs: 64, officials: 66, donors: 72 }, 0, { perceivedCorruptionScore: 30 }),
+  trump: profile('rep', { base: 78, religious: 62, business: 56, officials: 52, donors: 62 }, 0, { perceivedCorruptionScore: 68 }),
+  ford: profile('rep', { base: 46, religious: 50, business: 58, officials: 62, donors: 54 }, 0, { perceivedCorruptionScore: 18 }),
+  ghwb: profile('rep', { base: 48, religious: 52, business: 66, officials: 66, donors: 64 }, 0, { perceivedCorruptionScore: 24 }),
+  jq_adams: profile('rep', { base: 46, religious: 54, business: 58, officials: 62, donors: 56 }, 0, { perceivedCorruptionScore: 12 }),
+  teddy_roosevelt: profile('rep', { base: 64, religious: 56, business: 48, officials: 58, donors: 52 }, 0, { perceivedCorruptionScore: 20 }),
+  nixon: profile('rep', { base: 58, religious: 54, business: 62, officials: 60, donors: 62 }, 0, { perceivedCorruptionScore: 82 }),
+  clay: profile('rep', { base: 54, religious: 54, business: 64, officials: 68, donors: 62 }, 0, { perceivedCorruptionScore: 28 }),
+  lincoln: profile('rep', { base: 70, religious: 68, business: 64, officials: 70, donors: 64 }, 0, { perceivedCorruptionScore: 8 }),
+  eisenhower: profile('dem', { activists: 50, labor: 56, suburbs: 68, officials: 66, donors: 64 }, 0, { perceivedCorruptionScore: 12 }),
+  coolidge: profile('lib', { activists: 58, students: 46, officials: 60, donors: 64 }, 0, { perceivedCorruptionScore: 10 }),
+  jefferson: profile('lib', { activists: 70, students: 62, officials: 62, donors: 58 }, 0, { perceivedCorruptionScore: 22 }),
+  la_follette: profile('grn', { activists: 72, climate: 58, officials: 50, donors: 48 }, 0, { perceivedCorruptionScore: 14 }),
 };
 
 const HISTORICAL_LAST_BY_PARTY = Object.freeze({ dem: 'fdr', rep: 'reagan' });

@@ -4,6 +4,9 @@ import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 're
 import SetupScreen from '@/components/game/SetupScreen';
 import GameScreen from '@/components/game/GameScreen';
 import ResultsScreen from '@/components/game/ResultsScreen';
+import { decidePresidency } from '@/lib/presidency';
+import AchievementToast from '@/components/game/AchievementToast';
+import { buildCampaignOutcome, hydrateAchievementProfileFromDesktop, recordCampaignOutcome } from '@/lib/achievements';
 import ElectionNight from '@/components/game/ElectionNight';
 import {
   createGame,
@@ -23,6 +26,9 @@ import {
   debateDefinition,
   changeStance,
   snapshot,
+  resultSnapshot,
+  houseSnapshot,
+  senateSnapshot,
   loadGame,
   saveGame,
   clearSave,
@@ -36,7 +42,7 @@ import {
   decayCampaignStrategy,
   recordCampaignStrategy,
 } from '@/lib/campaignOperations';
-import { CANDIDATE_BY_ID } from '@/data/candidates';
+import { ALL_CANDIDATES, CANDIDATE_BY_ID } from '@/data/candidates';
 import { STATE_BY_ABBR } from '@/data/states';
 import { ISSUE_BY_ID } from '@/data/platform';
 import { movementFor } from '@/lib/campaignPulse';
@@ -105,6 +111,8 @@ export default function Home() {
   }, [game]);
   const [showSetup, setShowSetup] = useState(true);
   const [showResults, setShowResults] = useState(false);
+  const [achievementToasts, setAchievementToasts] = useState([]);
+  const evaluatedCampaignRef = useRef(null);
   const [config, setConfig] = useState(null);
   const [saveFailed, setSaveFailed] = useState(false);
   const [modRevision, setModRevision] = useState(0);
@@ -118,6 +126,33 @@ export default function Home() {
     loadAndApplyMods();
     return unsub;
   }, []);
+
+  useEffect(() => {
+    hydrateAchievementProfileFromDesktop().catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!game?.finished || !showResults || game.simulateElection) return;
+    const key = game.build34CampaignId || `${game.candidateId}:${game.week}:${game.difficultyId}`;
+    if (evaluatedCampaignRef.current === key) return;
+    evaluatedCampaignRef.current = key;
+    try {
+      const result = resultSnapshot(game);
+      const house = houseSnapshot(game, true);
+      const senate = senateSnapshot(game, true);
+      const decision = decidePresidency(game, result, house);
+      const allPlayableCandidateIds = ALL_CANDIDATES
+        .filter((c) => ['dem', 'rep', 'lib', 'grn'].includes(c.party))
+        .map((c) => c.id);
+      const outcome = buildCampaignOutcome(game, { result, house, senate, decision, allPlayableCandidateIds });
+      const { newlyUnlocked } = recordCampaignOutcome(game, outcome);
+      if (newlyUnlocked.length > 0) {
+        setAchievementToasts(newlyUnlocked);
+      }
+    } catch {
+      // Never block ResultsScreen if achievement evaluation throws.
+    }
+  }, [game, showResults]);
 
   useEffect(() => {
     const saved = loadGame();
@@ -200,16 +235,28 @@ export default function Home() {
   }, []);
   const isDev = devUnlocked;
 
+  const latchCheats = (next) => {
+    if (!next) return next;
+    return {
+      ...next,
+      cheatsUsed: true,
+      achievementStats: {
+        ...(next.achievementStats || {}),
+        cheatsUsed: true,
+      },
+    };
+  };
+
   const handleTriggerEvent = (eventId) => {
-    setGame((g) => forceEvent(g, eventId));
+    setGame((g) => latchCheats(forceEvent(g, eventId)));
   };
 
   const handleGiveCash = (amount) => {
-    setGame((g) => giveCash(g, amount));
+    setGame((g) => latchCheats(giveCash(g, amount)));
   };
 
   const handleDeveloperAction = (actionId, amount) => {
-    setGame((g) => developerAction(g, actionId, amount));
+    setGame((g) => latchCheats(developerAction(g, actionId, amount)));
   };
 
   const snap = useMemo(() => (game ? snapshot(game) : null), [game]);
@@ -350,6 +397,7 @@ export default function Home() {
 
   if (game.finished) {
     return (
+      <>
       <ResultsScreen
         game={game}
         snap={snap}
@@ -373,6 +421,8 @@ export default function Home() {
         }
         onNewGame={handleDiscard}
       />
+      <AchievementToast items={achievementToasts} onDismiss={() => setAchievementToasts([])} />
+      </>
     );
   }
 
@@ -395,7 +445,7 @@ export default function Home() {
       onSpin={handleSpin}
       onAdvance={handleAdvance}
       onQuit={handleQuit}
-      isDev={isDev}
+      isDev={isDev || Boolean(game?.cheatsUsed)}
       onTriggerEvent={handleTriggerEvent}
       onGiveCash={handleGiveCash}
       onDeveloperAction={handleDeveloperAction}

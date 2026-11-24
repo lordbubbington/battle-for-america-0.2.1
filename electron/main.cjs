@@ -8,6 +8,13 @@ const {
   generateWorkshopUploadVdf,
   resolveModAssetPath,
 } = require('./steamWorkshop.cjs');
+const {
+  loadDesktopProfile,
+  saveDesktopProfile,
+  unlockSteamAchievement,
+  syncSteamAchievements,
+  getSteamAchievementStatus,
+} = require('./steamAchievements.cjs');
 
 protocol.registerSchemesAsPrivileged([
   {
@@ -364,6 +371,16 @@ function registerModIpc() {
   });
 }
 
+function registerAchievementIpc() {
+  const userDataDir = app.getPath('userData');
+  const getSteamAppId = () => loadWorkshopConfig(userDataDir)?.steamAppId || '';
+  ipcMain.handle('bfa-achievements:load', () => loadDesktopProfile(userDataDir));
+  ipcMain.handle('bfa-achievements:save', (_evt, profile) => saveDesktopProfile(userDataDir, profile));
+  ipcMain.handle('bfa-achievements:unlock-steam', (_evt, apiName) => unlockSteamAchievement(apiName, getSteamAppId()));
+  ipcMain.handle('bfa-achievements:sync-steam', (_evt, apiNames) => syncSteamAchievements(apiNames, getSteamAppId()));
+  ipcMain.handle('bfa-achievements:steam-status', () => getSteamAchievementStatus(getSteamAppId()));
+}
+
 function createWindow() {
   const window = new BrowserWindow({
     width: 1280,
@@ -396,6 +413,7 @@ function createWindow() {
 app.whenReady().then(() => {
   registerModProtocol();
   registerModIpc();
+  registerAchievementIpc();
   createWindow();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();

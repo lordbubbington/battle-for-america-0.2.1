@@ -498,6 +498,7 @@ export function createGame({
   ballotMeasureRules = BALLOT_MEASURE_RULES,
   campaignId = null,
   openingFieldPlan = {},
+  cheatsEnabled = false,
 }) {
   ensureBuild34RuntimeCatalogs();
   const openingModel = Boolean(modeId);
@@ -799,6 +800,13 @@ export function createGame({
     scandals: [],
     finished: false,
     actionsLeft: ACTIONS_PER_WEEK,
+    cheatsUsed: Boolean(cheatsEnabled),
+    achievementStats: {
+      cheatsUsed: Boolean(cheatsEnabled),
+      maxDeficitInFinal4Weeks: 0,
+      actionsUsed: 0,
+      actionsAvailable: 0,
+    },
     // The living local news cycle, what working the press costs this week, and
     // the cards the campaign has already set in motion.
     stories: [],
@@ -3513,12 +3521,53 @@ export function advanceWeek(game) {
   const diff = DIFFICULTIES[game.difficultyId];
   // The drag settles first, before a single average is recalculated.
   const drag = baselineDrag(game);
+  const priorAch = game.achievementStats || {
+    cheatsUsed: Boolean(game.cheatsUsed),
+    maxDeficitInFinal4Weeks: 0,
+    actionsUsed: 0,
+    actionsAvailable: 0,
+  };
+  const usedThisWeek = Math.max(0, ACTIONS_PER_WEEK - actionsLeftIn(game));
+  let maxDeficitInFinal4Weeks = Number(priorAch.maxDeficitInFinal4Weeks || 0);
+  const weeksRemaining = totalWeeksOf(game) - Number(game.week || 0);
+  if (weeksRemaining <= 4) {
+    const snap = snapshot(game, 'poll');
+    const partyTotals = {};
+    let totalCast = 0;
+    for (const row of snap.rows || []) {
+      const c = row.cast || 0;
+      totalCast += c;
+      for (const [pId, sh] of Object.entries(row.shares || {})) {
+        partyTotals[pId] = (partyTotals[pId] || 0) + c * ((sh || 0) / 100);
+      }
+    }
+    if (totalCast > 0) {
+      const playerPct = ((partyTotals[game.party] || 0) / totalCast) * 100;
+      let topRivalPct = 0;
+      for (const [pId, votes] of Object.entries(partyTotals)) {
+        if (pId === game.party) continue;
+        const pct = (votes / totalCast) * 100;
+        if (pct > topRivalPct) topRivalPct = pct;
+      }
+      const deficit = Math.max(0, topRivalPct - playerPct);
+      if (deficit > maxDeficitInFinal4Weeks) {
+        maxDeficitInFinal4Weeks = Math.round(deficit * 100) / 100;
+      }
+    }
+  }
   const next = {
     ...game,
     ...drag,
     stateMods: { ...game.stateMods },
     turnout: { ...game.turnout },
     ops: { ...game.ops },
+    cheatsUsed: Boolean(game.cheatsUsed || priorAch.cheatsUsed),
+    achievementStats: {
+      cheatsUsed: Boolean(game.cheatsUsed || priorAch.cheatsUsed),
+      maxDeficitInFinal4Weeks,
+      actionsUsed: Number(priorAch.actionsUsed || 0) + usedThisWeek,
+      actionsAvailable: Number(priorAch.actionsAvailable || 0) + ACTIONS_PER_WEEK,
+    },
   };
 
   // A field office earns persuasion only after a complete campaign week. The
@@ -5227,6 +5276,13 @@ export function loadGame() {
       nickBronzeSnapshot: parsed.nickBronzeSnapshot || null,
       presOpeningCalibration: Number.isFinite(parsed.presOpeningCalibration) ? parsed.presOpeningCalibration : 0,
       houseGenericBallot: Number.isFinite(parsed.houseGenericBallot) ? parsed.houseGenericBallot : undefined,
+      cheatsUsed: Boolean(parsed.cheatsUsed || parsed.achievementStats?.cheatsUsed),
+      achievementStats: {
+        cheatsUsed: Boolean(parsed.cheatsUsed || parsed.achievementStats?.cheatsUsed),
+        maxDeficitInFinal4Weeks: Number(parsed.achievementStats?.maxDeficitInFinal4Weeks || 0),
+        actionsUsed: Number(parsed.achievementStats?.actionsUsed || 0),
+        actionsAvailable: Number(parsed.achievementStats?.actionsAvailable || 0),
+      },
       houseStart: houseStartRoll(),
       govStart: parsed.govStart
         ? {

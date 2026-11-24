@@ -1,3 +1,5 @@
+import { CANDIDATE_BY_ID } from '@/data/candidates';
+import { THIRTEEN_COLONIES } from '@/data/unlockableCandidates';
 import { voteUnits } from '@/lib/turnout';
 import { SCENARIO_PARTIES } from '@/data/build39Scenarios';
 import { stateGroupShift } from '@/data/demographics';
@@ -195,9 +197,19 @@ export function shareModel({ margin, abbr, game, mode = 'poll', indBase = 0, ope
     const effect = candidateOpeningBonus(id, abbr);
     return effect.nat + effect.state + effect.regionPoints;
   };
-  let libShare = Math.max(0, base.lib + (effort.lib?.[abbr] || 0) + bonus('lib'));
+  const activeLibId = game?.party === 'lib' ? game.candidateId : game?.opponentParty === 'lib' ? game.opponentId : null;
+  const activeLibCand = activeLibId ? CANDIDATE_BY_ID[activeLibId] : null;
+  // Founding Father special Libertarian rules (Washington: 100% WA & DC, +30 all, +5 13 colonies;
+  // Jefferson: +25 all, +10 13 colonies).
+  if (race === 'president' && activeLibCand?.guaranteedSweepStates?.includes(abbr)) {
+    return { dem: 0, rep: 0, lib: 100, grn: 0, ind: 0 };
+  }
+  const founderLibBonus = race === 'president' && activeLibCand?.thirdPartyAllStatesBonus
+    ? activeLibCand.thirdPartyAllStatesBonus + (THIRTEEN_COLONIES.includes(abbr) ? (activeLibCand.thirdPartyColoniesBonus || 0) : 0)
+    : 0;
+  let libShare = Math.max(0, base.lib + (effort.lib?.[abbr] || 0) + bonus('lib') + founderLibBonus);
   let grnShare = Math.max(0, base.grn + (effort.grn?.[abbr] || 0) + bonus('grn'));
-  const thirdCap = thirdMode(game) === 'surge' ? 55 : 25;
+  const thirdCap = founderLibBonus > 0 ? 85 : (thirdMode(game) === 'surge' ? 55 : 25);
   const thirdTotal = libShare + grnShare;
   if (thirdTotal > thirdCap) {
     libShare *= thirdCap / thirdTotal;

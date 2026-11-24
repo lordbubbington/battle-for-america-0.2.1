@@ -14,12 +14,15 @@ import MapTuner from '@/components/setup/MapTuner';
 import { leadLabel } from '@/components/setup/ScaleSlider';
 import RunningMatePicker from '@/components/setup/RunningMatePicker';
 import { mateOptions } from '@/data/runningMates';
-import { ArrowRight, CircleHelp, Puzzle, Dices, RotateCcw } from 'lucide-react';
+import { ArrowRight, CircleHelp, Puzzle, Dices, RotateCcw, Trophy } from 'lucide-react';
 import QuickOutcomeReport from '@/components/game/QuickOutcomeReport';
 import QuickSweepControl from '@/components/setup/QuickSweepControl';
 import { VOTING_RULES } from '@/data/build38VotingRules';
 import { QUICK_SIMULATION_DRAWS, simulateQuickOutcomes } from '@/lib/outcomeSimulation';
 import TutorialDialog from '@/components/game/TutorialDialog';
+import AchievementsModal from '@/components/game/AchievementsModal';
+import { ACHIEVEMENTS } from '@/data/achievements';
+import { loadAchievementProfile } from '@/lib/achievements';
 import ModManagerModal from '@/components/game/ModManagerModal';
 import Build40ModePicker from '@/components/setup/Build40ModePicker';
 import { normalizeBuild40Mode, scenarioPartyIds } from '@/lib/build40Elections';
@@ -88,6 +91,7 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave,
   const [houseRule, setHouseRule] = useState('standard');
   const [electoralRule, setElectoralRule] = useState('standard');
   const [simulateElection, setSimulateElection] = useState(false);
+  const [cheatsEnabled, setCheatsEnabled] = useState(false);
   const [votingRuleId, setVotingRuleId] = useState('current');
   const [quickEnvironmentSweep, setQuickEnvironmentSweep] = useState(false);
   const [quickReportOpen, setQuickReportOpen] = useState(false);
@@ -95,6 +99,9 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave,
   const [quickProgress, setQuickProgress] = useState(0);
   const [quickBusy, setQuickBusy] = useState(false);
   const [tutorialOpen, setTutorialOpen] = useState(false);
+  const [achievementsOpen, setAchievementsOpen] = useState(false);
+  const achievementProfile = useMemo(() => loadAchievementProfile(), [achievementsOpen]);
+  const unlockedAchievementCount = Object.keys(achievementProfile?.unlockedIds || {}).length;
   const [modsOpen, setModsOpen] = useState(false);
   const [quickError, setQuickError] = useState('');
   const startChoice = START_OPTIONS.find((o) => o.id === startId) || START_OPTIONS[2];
@@ -332,6 +339,9 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave,
           <button type="button" onClick={() => setModsOpen(true)} className="btn-outline inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-extrabold">
             <Puzzle className="h-3.5 w-3.5" /> {activeModCount > 0 ? `Mods (${activeModCount})` : 'Mods'}
           </button>
+          <button type="button" onClick={() => setAchievementsOpen(true)} className="btn-outline inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-extrabold">
+            <Trophy className="h-3.5 w-3.5 text-primary" /> Achievements ({unlockedAchievementCount}/{ACHIEVEMENTS.length})
+          </button>
         </div>
       </header>
 
@@ -507,6 +517,7 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave,
                 indieSenate ? 'independent Senate candidates' : null,
                 randomness ? `${randomness}% map shuffle` : null,
                 simulateElection ? 'AI simulation' : null,
+                cheatsEnabled ? 'cheats enabled' : null,
               ].filter(Boolean).join(' · ') || 'standard election settings'}
             </span>
           </summary>
@@ -634,13 +645,20 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave,
               delegation — one vote per state. Whoever controls the most delegations wins the White House.
             </p>
           )}
-          <div className="mt-2">
+          <div className="mt-2 space-y-2">
             <Toggle
               on={simulateElection}
               onChange={setSimulateElection}
               label="Simulate election · all campaigns run by AI"
               blurb="Both major tickets and the other campaigns make their own moves. Weeks advance automatically to election night."
               color="#F7C145"
+            />
+            <Toggle
+              on={cheatsEnabled}
+              onChange={setCheatsEnabled}
+              label="Cheats mode · enable developer panel"
+              blurb="Turns on the in-game developer panel for this campaign. Disables most achievements."
+              color="#E8433C"
             />
           </div>
         </Step>
@@ -676,6 +694,7 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave,
                 electoralRule,
                 votingRuleId,
                 simulateElection,
+                cheatsEnabled,
                 randomness,
               })
             }
@@ -702,6 +721,7 @@ export default function SetupScreen({ onStart, hasSave, onResume, onDiscardSave,
         </p>
       </div>
       <TutorialDialog open={tutorialOpen} onClose={() => setTutorialOpen(false)} />
+      <AchievementsModal open={achievementsOpen} onClose={() => setAchievementsOpen(false)} profile={achievementProfile} />
       <ModManagerModal open={modsOpen} onClose={() => setModsOpen(false)} />
 
       <QuickOutcomeReport
