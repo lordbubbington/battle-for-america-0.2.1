@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TONE_STYLES } from '@/data/events';
 import { GROUP_BY_ID } from '@/data/demographics';
 import { scandalWord } from '@/lib/gameEngine';
 import { Coins, Flame, Skull, Sparkles, Users, TrendingDown, AlertTriangle, GitBranch } from 'lucide-react';
 import SpotArt from '@/components/ui/spot-art';
+import { eventPictureFor } from '@/data/eventPictures';
 
 const REGION_LABELS = { northeast: 'Northeast', south: 'South', midwest: 'Midwest', west: 'West' };
 const EFFECT_TONES = {
@@ -126,6 +127,35 @@ function EffectChips({ effects }) {
   );
 }
 
+function EventArtwork({ event, hero }) {
+  const [failed, setFailed] = useState(false);
+  const src = eventPictureFor(event);
+
+  useEffect(() => {
+    setFailed(false);
+  }, [src]);
+
+  return (
+    <div
+      className={`mt-0.5 flex shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/15 bg-black/30 p-1 ${
+        hero ? 'h-16 w-16 text-3xl' : 'h-12 w-12 text-2xl'
+      }`}
+    >
+      {src && !failed ? (
+        <img
+          src={src}
+          alt={event?.title || 'Event artwork'}
+          onError={() => setFailed(true)}
+          className="h-full w-full object-contain"
+          style={{ imageRendering: 'pixelated' }}
+        />
+      ) : (
+        <SpotArt symbol={event?.icon} className="h-full w-full" />
+      )}
+    </div>
+  );
+}
+
 export default function EventCard({ game, event, onChoose, outcome = null, disabled = false, hero = false, why = null, progress = null }) {
   const headingRef = useRef(null);
   useEffect(() => {
@@ -146,13 +176,7 @@ export default function EventCard({ game, event, onChoose, outcome = null, disab
       data-testid="event-stage"
     >
       <div className="flex items-start gap-3">
-        <div
-          className={`mt-0.5 flex shrink-0 items-center justify-center rounded-xl border border-white/15 bg-black/25 ${
-            hero ? 'h-14 w-14 text-3xl' : 'h-11 w-11 text-2xl'
-          }`}
-        >
-          <SpotArt symbol={event.icon} className="h-full w-full" />
-        </div>
+        <EventArtwork event={event} hero={hero} />
         <div className="min-w-0">
           <p
             className="inline-block rounded-full px-2 py-[1px] text-[9px] font-extrabold uppercase tracking-[0.16em] text-white"
