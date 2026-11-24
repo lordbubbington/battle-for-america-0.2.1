@@ -90,6 +90,7 @@ export const CANDIDATE_FACTION_PROFILES = {
   clay: profile('rep', { base: 54, religious: 54, business: 64, officials: 68, donors: 62 }, 0, { perceivedCorruptionScore: 28 }),
   lincoln: profile('rep', { base: 70, religious: 68, business: 64, officials: 70, donors: 64 }, 0, { perceivedCorruptionScore: 8 }),
   eisenhower: profile('dem', { activists: 50, labor: 56, suburbs: 68, officials: 66, donors: 64 }, 0, { perceivedCorruptionScore: 12 }),
+  'eisenhower:rep': profile('rep', { base: 58, religious: 56, business: 68, officials: 66, donors: 64 }, 0, { perceivedCorruptionScore: 12 }),
   coolidge: profile('lib', { activists: 58, students: 46, officials: 60, donors: 64 }, 0, { perceivedCorruptionScore: 10 }),
   jefferson: profile('lib', { activists: 70, students: 62, officials: 62, donors: 58 }, 0, { perceivedCorruptionScore: 22 }),
   la_follette: profile('grn', { activists: 72, climate: 58, officials: 50, donors: 48 }, 0, { perceivedCorruptionScore: 14 }),
@@ -110,7 +111,7 @@ export function orderCandidatesForSelection(candidates, party) {
 }
 
 export function candidateStartProfile(candidateId, party) {
-  const result = CANDIDATE_FACTION_PROFILES[candidateId];
+  const result = CANDIDATE_FACTION_PROFILES[`${candidateId}:${party}`] || CANDIDATE_FACTION_PROFILES[candidateId];
   if (!candidateId) return null;
   if (!result) throw new Error(`Missing Build 34 faction profile for candidate: ${candidateId}`);
   if (result.party !== party) {

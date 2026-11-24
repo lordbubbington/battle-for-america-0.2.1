@@ -162,7 +162,7 @@ export const SCENARIO_PARTIES = Object.freeze({
 
 const nominee = (id, name, short, state, home, title, bio, extra = {}) => Object.freeze({
   id, name, short, state, home, title, bio, party: id, weight: 1, color: SCENARIO_PARTIES[id].color,
-  portrait: null, strengths: ['Dedicated home-state organizers'], weaknesses: ['Limited crossover support'],
+  portrait: extra.baseCandidateId ? `/art/candidates/${extra.baseCandidateId}.png` : (extra.portrait ?? null), strengths: ['Dedicated home-state organizers'], weaknesses: ['Limited crossover support'],
   nat: 0, region: {}, ratings: { debate: 10, speech: 10, rally: 10, corruption: 10, ...(extra.ratings || {}) },
   ...extra,
 });
